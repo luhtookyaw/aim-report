@@ -81,7 +81,7 @@ The integration of MI and CBT has been explored in conventional mental health tr
     \caption{Comparison between MI and CBT.}
     \label{tab:mi-cbt-comparison}
     \small
-    \begin{tabularx}{\textwidth}{p{0.15\textwidth}X X X}
+    \begin{tabularx}{\textwidth}{L{0.15\textwidth}Y Y Y}
         \toprule
         \textbf{Aspect} & \textbf{MI} & \textbf{CBT} & \textbf{Relevance to AIM-RGL} \\
         \midrule
@@ -89,18 +89,21 @@ The integration of MI and CBT has been explored in conventional mental health tr
         & Builds motivation, autonomy, and readiness. 
         & Supports thought and behavior change. 
         & Helps choose between motivational support and structured intervention. \\
+        \midrule
 
         Stance 
         & Collaborative and autonomy-supportive. 
         & Structured and skill-focused. 
         & Response style should match resistance and readiness. \\
+        \midrule
 
-        Best suited for 
+        Context 
         & Ambivalence, resistance, or uncertainty. 
         & Readiness for reflection, belief testing, or action. 
         & Supports stage-sensitive response selection. \\
+        \midrule
 
-        Risk if mistimed 
+        Risk 
         & May slow structured progress if overused. 
         & May feel directive if introduced too early. 
         & Motivates future-aware MI-CBT timing. \\
@@ -116,52 +119,23 @@ LLM-based counseling systems have recently been explored as tools for generating
 
 \subsection{LLM-Based CBT, MI, and Hybrid Counseling Agents}
 
-Existing LLM-based counseling systems have explored different ways of supporting therapy-informed dialogue, including CBT-style response generation, MI-based behavior-change support, counseling dialogue datasets, client simulation, and hybrid MI-CBT interaction. CBT-oriented works usually focus on structured therapeutic skills such as identifying thoughts, cognitive reframing, guided discovery, or generating multi-turn CBT-style counseling conversations. For example, CACTUS constructs multi-turn counseling dialogues grounded in CBT and client personas, while HealMe focuses on cognitive reframing through psychotherapy-informed dialogue \cite{lee2024cactus,xiao2024healme}. Psych8k and ChatCounselor further show the value of domain-specific counseling conversations for training mental health support models, as they use real counseling conversations to improve counseling-related response quality \cite{liu2023chatcounselor}.
+Existing LLM-based counseling systems support therapeutic dialogue in several ways, including CBT response generation, MI behavior-change support, counseling datasets, client simulation, and hybrid MI-CBT interaction. CBT-oriented works usually focus on structured therapeutic skills such as identifying thoughts, cognitive reframing, guided discovery, or generating multi-turn CBT-style counseling conversations. For example, CACTUS constructs multi-turn counseling dialogues grounded in CBT and client personas, while HealMe focuses on cognitive reframing through psychotherapy-informed dialogue \cite{lee2024cactus,xiao2024healme}. Psych8k and ChatCounselor further show the value of domain-specific counseling conversations for training mental health support models, as they use counseling conversations to improve counseling-related response quality \cite{liu2023chatcounselor}.
 
 MI-based and behavior-change systems focus more on motivation, autonomy, readiness, and the client's movement toward change. CAMI is an MI-grounded counselor agent that uses state inference, topic exploration, action selection, and response generation to support behavior-change counseling \cite{yang2025cami}. CCSMI extends this direction by focusing on consistent client simulation for MI-based counseling, where the simulated client's mental state, motivation, beliefs, plans, and receptivity are tracked across the conversation \cite{yang2025consistent}. These works are relevant to this thesis because they show how LLM-based counseling systems can represent client state and readiness during multi-turn interaction.
 
 Other studies focus on constructing or reconstructing counseling dialogues for training and evaluation. SMILE converts single-turn mental health support data into multi-turn conversations, while CPsyCoun reconstructs Chinese psychological counseling dialogues from counseling reports and proposes an evaluation framework for multi-turn counseling \cite{qiu2024smile,zhang2024cpsycoun}. PATIENT-\(\Psi\) is also relevant because it uses CBT-based cognitive models to simulate patients for training mental health professionals, making it closely related to cognitive conceptualization and simulated client design \cite{wang2024patientpsi}. MAGNeT further extends synthetic counseling data generation by using coordinated specialist agents to generate multi-turn mental health counseling sessions \cite{mandal2025magnet}.
 
-More recent work has also explored adaptive and hybrid counseling agents. Persona Drift studies stage-aware adaptation in CBT chatbots, while ChatThero explores multi-session LLM-supported therapeutic support for behavior change \cite{yun2025personadrift,wang2025chatthero}. FLASH is especially close to this thesis because it combines MI and CBT and uses Flashbulb Memory to guide strategy selection for managing client resistance \cite{anonymous2026flash}. However, these systems mainly rely on current-state signals, stage adaptation, synthetic dialogue construction, or memory from previous interactions. Less attention has been given to explicitly comparing possible near-future client reactions before selecting a therapeutic response, which motivates the future-aware response selection direction of this thesis.
+More recent work has also explored adaptive and hybrid counseling agents that are closer to the direction of this thesis. Persona Drift studies stage-aware adaptation in CBT chatbots by adjusting the dialogue flow when persona or stage drift is detected \cite{yun2025personadrift}. However, persona drift may act as an indirect signal because it reflects changes in the chatbot's generated persona rather than directly comparing possible future client reactions. ChatThero explores multi-session LLM-supported therapeutic support for behavior change by using memory-persistent and stressor-aware interaction across sessions \cite{wang2025chatthero}. Although this supports continuity and context-sensitive strategy use, it is less focused on explicitly anticipating the immediate downstream effects of a therapeutic move before the response is selected.
 
-Table~\ref{tab:mi-cbt-llm-systems} summarizes the LLM-based systems most closely related to MI-CBT coordination and adaptive therapeutic strategy selection.
-
-\begin{table}[htbp]
-    \caption{LLM-based systems related to MI-CBT coordination and adaptive therapeutic response selection.}
-    \label{tab:mi-cbt-llm-systems}
-    \small
-    \begin{tabularx}{\textwidth}{p{0.18\textwidth}p{0.22\textwidth}X X}
-        \toprule
-        \textbf{System} & \textbf{Therapeutic Focus} & \textbf{Main Mechanism} & \textbf{Limitation / Gap} \\
-        \midrule
-
-        ChatThero \cite{wang2025chatthero}
-        & Behavior change with MI and CBT strategies
-        & Uses a multi-session, stressor-aware, memory-persistent language agent for addiction recovery support.
-        & Uses adaptive therapeutic strategies, but is less focused on explicitly comparing short-horizon future client reactions before response selection. \\
-
-        Persona Drift \cite{yun2025personadrift}
-        & Stage-aware CBT adaptation
-        & Adjusts CBT chatbot flow when persona or stage drift is detected.
-        & Relevant to stage-aware adaptation, but it is not a full MI-CBT coordination framework and does not directly compare future client trajectories. \\
-
-        FLASH \cite{anonymous2026flash}
-        & Hybrid MI-CBT for resistance management
-        & Uses readiness estimation and Flashbulb Memory to dynamically guide switching between MI and CBT strategies.
-        & Adapts mainly from observed client history and accumulated memory, rather than explicitly comparing multiple simulated near-future client reactions before response selection. \\
-
-        AIM-RGL
-        & Hybrid MI-CBT with reward-guided lookahead
-        & Compares candidate MI-CBT responses and simulated near-future client reactions before selecting a response.
-        & Proposed framework evaluated in simulated counseling dialogue. \\
-
-        \bottomrule
-    \end{tabularx}
-\end{table}
+FLASH is especially close to this thesis because it combines MI and CBT and uses Flashbulb Memory to guide strategy selection for managing client resistance \cite{anonymous2026flash}. Its memory-based approach allows the system to adapt from important previous client reactions and accumulated interaction history. However, this also means that adaptation depends strongly on observed history, and the system may have less support for comparing multiple possible near-future client reactions at the moment of response selection. Therefore, existing LLM-based counseling systems provide important foundations in CBT response generation, MI-based behavior change, client simulation, synthetic dialogue construction, and adaptive strategy selection, but they still leave room for future-aware response selection that evaluates possible next client states before choosing a therapeutic response. This gap motivates the reward-guided lookahead direction of AIM-RGL.
 
 \subsection{Client Simulation and Cognitive Conceptualization}
 
-Client simulation is useful for evaluating LLM-based counseling systems before involving real users, especially in sensitive mental health-related settings. In this thesis, simulated clients provide controlled interaction scenarios involving resistance, ambivalence, and different levels of readiness. Cognitive conceptualization can support this simulation by representing the client's situation, beliefs, emotions, automatic thoughts, coping patterns, and behavioral responses. This allows the simulated client to respond more consistently across turns instead of producing isolated or random replies.
+Client simulation is useful for evaluating LLM-based counseling systems before involving real users, especially in sensitive mental health-related settings. In this thesis, simulated clients provide controlled interaction scenarios involving resistance, ambivalence, and different levels of readiness. Prior work has used LLMs to construct or simulate counseling interactions for training and evaluation, including PATIENT-\(\Psi\), which uses CBT-based cognitive models to simulate patients for mental health professional training, and CCSMI, which focuses on consistent client simulation for MI-based counseling by tracking client mental states, motivation, beliefs, plans, and receptivity \cite{wang2024patientpsi,yang2025consistent}. These studies show that client simulation can support controlled testing of counseling agents when direct evaluation with real clients is difficult or inappropriate.
+
+Some recent counseling systems also use stage-of-change concepts from the Transtheoretical Model to represent client readiness during interaction. CAMI uses client state inference based on the Transtheoretical Model to support MI counseling, while CCSMI uses stages such as precontemplation, contemplation, and preparation to define and control simulated client states \cite{yang2025cami,yang2025consistent,prochaska1997transtheoretical,raihan2023stages}. Persona Drift is also relevant because it studies stage-aware adaptation in CBT chatbots and adjusts the dialogue flow when persona or stage drift is detected \cite{yun2025personadrift}. This is relevant to this thesis because resistance and readiness are not fixed labels; they may change across turns depending on how the counselor responds.
+
+Cognitive conceptualization can support client simulation by representing the client's situation, beliefs, emotions, automatic thoughts, coping patterns, and behavioral responses. In CBT, cognitive conceptualization is commonly used to understand how a person's thoughts, beliefs, emotions, and behaviors are connected within a specific problem context \cite{beck2020cognitive}. For simulated therapeutic dialogue, this structure helps the client model respond more consistently across turns instead of producing isolated or random replies. Related work on synthetic and reconstructed counseling dialogue, such as CACTUS, SMILE, CPsyCoun, and MAGNeT, also shows the value of structured multi-turn dialogue construction for developing and evaluating mental health support systems \cite{lee2024cactus,qiu2024smile,zhang2024cpsycoun,mandal2025magnet}. Therefore, cognitive conceptualization and client simulation provide an important foundation for evaluating AIM-RGL in controlled simulated MI-CBT conversations.
 
 Figure~\ref{fig:client-simulation-loop} illustrates the general simulation loop used to evaluate therapeutic dialogue. The therapist-like system generates a response based on the conversation history, the simulated client produces a reaction based on the client profile and current state, and the resulting dialogue is evaluated using therapeutic metrics.
 
@@ -201,49 +175,16 @@ Figure~\ref{fig:client-simulation-loop} illustrates the general simulation loop 
 
 \subsection{Evaluation Metrics for Therapeutic Dialogue}
 
-Therapeutic dialogue evaluation should consider counseling-specific qualities rather than only general language quality. In this thesis, evaluation focuses on whether responses support CBT competence, MI consistency, therapeutic alliance, and movement toward change. CTRS is used to assess CBT-related therapist competence, MITI is used to assess MI fidelity, WAI is used to assess therapeutic alliance, and change talk and sustain talk are used to examine whether the simulated client's language moves toward or away from change \cite{young1980cognitive,moyers2016miti,horvath1989wai,miller2013motivational,miller2009toward}. These metrics are relevant because AIM-RGL aims to improve not only response fluency, but also therapeutic timing, collaboration, and simulated client readiness.
+Therapeutic dialogue evaluation should consider counseling-specific qualities rather than only general language quality. In this thesis, evaluation focuses on five main dimensions: CBT competence, MI consistency, therapeutic alliance, change talk, and sustain talk. These dimensions are important because AIM-RGL is not only expected to generate fluent responses, but also to support appropriate therapeutic timing, collaboration, readiness, and movement toward change. The Cognitive Therapy Rating Scale (CTRS) provides a basis for evaluating CBT-related therapist competence, including structure, guided discovery, and cognitive intervention quality \cite{young1980cognitive,beckinstitute2021ctrs}. The Motivational Interviewing Treatment Integrity code (MITI) is used to assess MI fidelity, including empathy, autonomy support, and MI-consistent communication \cite{moyers2016miti,moyers2015miti421}. The Working Alliance Inventory (WAI) provides a basis for evaluating therapeutic alliance through trust, collaboration, agreement on goals, and agreement on therapeutic tasks \cite{horvath1989wai,hatcher2006wai}.
 
-\begin{table}[htbp]
-    \caption{Evaluation metrics for therapeutic dialogue.}
-    \label{tab:therapeutic-evaluation-metrics}
-    \small
-    \begin{tabularx}{\textwidth}{p{0.18\textwidth}X X}
-        \toprule
-        \textbf{Metric} & \textbf{Source / Basis} & \textbf{Relevance to This Thesis} \\
-        \midrule
-
-        CTRS 
-        & Cognitive Therapy Rating Scale for evaluating CBT therapist competence \cite{young1980cognitive,beckinstitute2021ctrs}. 
-        & Evaluates CBT-style response quality, including structure, guided discovery, and cognitive intervention. \\
-
-        MITI 
-        & Motivational Interviewing Treatment Integrity code for assessing MI fidelity \cite{moyers2016miti,moyers2015miti421}. 
-        & Evaluates whether responses follow MI principles such as empathy, autonomy support, and MI-consistent behavior. \\
-
-        WAI / Alliance 
-        & Working Alliance Inventory for measuring therapeutic alliance \cite{horvath1989wai,hatcher2006wai}. 
-        & Evaluates trust, collaboration, goal agreement, and task or approach agreement. \\
-
-        Change Talk 
-        & MI construct describing client language favoring change \cite{miller2013motivational,miller2009toward}. 
-        & Indicates movement toward readiness, motivation, or action. \\
-
-        Sustain Talk 
-        & MI construct describing client language favoring the current state \cite{miller2013motivational,miller2009toward}. 
-        & Indicates resistance, ambivalence, or lower readiness for change. \\
-
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
-Because therapeutic alliance is central to this thesis, the alliance dimension is further represented through three components: goal agreement, approach or task agreement, and affective bond. These dimensions reflect whether the client and counselor share an understanding of therapy goals, agree on how therapeutic work should proceed, and maintain trust and emotional connection \cite{bordin1979alliance,horvath1989wai,hatcher2006wai}. Table~\ref{tab:wai-alliance-items} summarizes the alliance-related questionnaire items used to evaluate these dimensions.
+Because therapeutic alliance is central to this thesis, it is represented through three components: goal agreement, approach or task agreement, and affective bond. Goal agreement refers to whether the client and counselor share an understanding of what therapy is trying to accomplish. Approach or task agreement refers to whether both sides appear aligned on the steps or activities used during the therapeutic process. Affective bond refers to the emotional connection between the client and counselor, including trust, confidence, appreciation, and mutual respect \cite{bordin1979alliance,horvath1989wai,hatcher2006wai}. Table~\ref{tab:wai-alliance-items} summarizes the alliance-related questionnaire items used to evaluate these dimensions.
 
 \begin{table}[htbp]
     \caption{Therapeutic alliance dimensions and questionnaire items.}
     \label{tab:wai-alliance-items}
     \small
     \renewcommand{\arraystretch}{1.12}
-    \begin{tabularx}{\textwidth}{p{0.24\textwidth}X p{0.08\textwidth}}
+    \begin{tabularx}{\textwidth}{L{0.24\textwidth}Y L{0.08\textwidth}}
         \toprule
         \textbf{Dimension} & \textbf{Question} & \textbf{No.} \\
         \midrule
@@ -251,14 +192,17 @@ Because therapeutic alliance is central to this thesis, the alliance dimension i
         \multirow{4}{0.24\textwidth}{Goal}
         & There is mutual understanding about what participants are trying to accomplish in therapy. 
         & Q1 \\
+        \cmidrule(l){2-3}
 
         
         & The client and counselor are working on mutually agreed upon goals. 
         & Q2 \\
+        \cmidrule(l){2-3}
 
         
         & The client and counselor have the same ideas about the client's real problems. 
         & Q3 \\
+        \cmidrule(l){2-3}
 
         
         & The client and counselor have established a good understanding of the changes that would be good for the client. 
@@ -269,14 +213,17 @@ Because therapeutic alliance is central to this thesis, the alliance dimension i
         \multirow{4}{0.24\textwidth}{Approach}
         & There is agreement about the steps taken to help improve the client's situation. 
         & Q5 \\
+        \cmidrule(l){2-3}
 
         
         & There is agreement about the usefulness of the current activity in therapy. 
         & Q6 \\
+        \cmidrule(l){2-3}
 
         
         & There is agreement on what is important for the client to work on. 
         & Q7 \\
+        \cmidrule(l){2-3}
 
         
         & The client believes that the way they are working with the problem is correct. 
@@ -287,14 +234,17 @@ Because therapeutic alliance is central to this thesis, the alliance dimension i
         \multirow{4}{0.24\textwidth}{Affective Bond}
         & There is a mutual liking between the client and counselor. 
         & Q9 \\
+        \cmidrule(l){2-3}
 
         
         & The client feels confident in the counselor's ability to help the client. 
         & Q10 \\
+        \cmidrule(l){2-3}
 
         
         & The client feels that the counselor appreciates him/her as a person. 
         & Q11 \\
+        \cmidrule(l){2-3}
 
         
         & There is mutual trust between the client and counselor. 
@@ -304,7 +254,9 @@ Because therapeutic alliance is central to this thesis, the alliance dimension i
     \end{tabularx}
 \end{table}
 
-In addition to rating-based metrics, change talk and sustain talk can be represented as proportional indicators of the simulated client's movement toward or away from change. The proportions are defined as follows:
+In addition to rating-based measures, this thesis also considers client language indicators from Motivational Interviewing. Change talk refers to client language that favors change, while sustain talk refers to client language that favors maintaining the current state \cite{miller2013motivational,miller2009toward}. These indicators are useful because they reflect whether the simulated client is moving toward readiness, motivation, and action, or remaining in resistance, ambivalence, or lower readiness. Therefore, change talk and sustain talk provide a simple way to observe the direction of the simulated client's response after a therapeutic intervention.
+
+The proportions of change talk and sustain talk can be represented as follows:
 
 \begin{equation}
 \text{Change Talk Ratio} =
@@ -320,17 +272,21 @@ In addition to rating-based metrics, change talk and sustain talk can be represe
 \label{eq:sustain-talk-ratio}
 \end{equation}
 
-Together, these evaluation dimensions allow the study to assess whether AIM-RGL improves therapeutic response quality in terms of CBT skill, MI consistency, therapeutic alliance, readiness, and simulated client movement across the dialogue.
+These ratios do not measure real clinical outcomes, but they are useful indicators for simulated therapeutic dialogue. A higher proportion of change talk may suggest greater readiness or movement toward change, while a higher proportion of sustain talk may suggest continued resistance, ambivalence, or attachment to the current state. Together, CTRS, MITI, WAI, change talk, and sustain talk allow this thesis to evaluate whether AIM-RGL improves therapeutic response quality in terms of CBT skill, MI consistency, alliance, readiness, and simulated client movement across the dialogue.
 
-\section{Future-Aware Response Selection and Research Gap}
+\section{Reward-Guided Lookahead Search for MI-CBT Dialogue}
 
-Future-aware response selection refers to choosing an action by considering not only its immediate suitability, but also its possible downstream effects. This idea is common in artificial intelligence, especially in sequential decision-making problems where a current decision changes the quality of later states \cite{sutton2018reinforcement}. In game playing, mathematical reasoning, instruction following, and text generation, systems often generate multiple candidate paths, evaluate them, and select the option expected to lead to a better outcome. These methods are relevant to this thesis because therapeutic dialogue is also sequential: a response that appears appropriate in the current turn may still lead to resistance, disengagement, or weaker alliance in the next turn.
+Reward-guided lookahead search refers to choosing an action by considering not only its immediate suitability, but also its possible downstream effects. This idea is common in artificial intelligence, especially in sequential decision-making problems where a current decision changes the quality of later states \cite{sutton2018reinforcement}. In game playing, mathematical reasoning, instruction following, and text generation, systems often generate multiple candidate paths, evaluate them, and choose the option expected to lead to a better outcome. These methods are relevant to this thesis because therapeutic dialogue is also sequential: a therapeutic move that appears appropriate in the current turn may still lead to resistance, disengagement, or weaker alliance in the next turn.
 
 \subsection{Search-Based Reasoning and Lookahead Methods}
 
-Search-based methods have been successful in domains where decisions require planning over future possibilities. In game playing, AlphaGo combined deep neural networks with tree search to evaluate possible future moves before selecting an action, showing that learned evaluation and search can support strong sequential decision-making \cite{silver2016mastering}. In language-model reasoning, Self-Consistency improves chain-of-thought reasoning by sampling multiple reasoning paths and selecting the most consistent answer rather than relying on a single greedy path \cite{wang2022selfconsistency}. Tree of Thoughts further extends this idea by allowing language models to explore, evaluate, and backtrack across multiple intermediate reasoning paths \cite{yao2023tree}. These works show that exploring alternatives before committing to a final output can improve performance in tasks that require planning or reasoning.
+Search-based methods have been successful in domains where decisions require planning over future possibilities. In game playing, AlphaGo combined deep neural networks with tree search to evaluate possible future moves before choosing an action, showing that learned evaluation and search can support strong sequential decision-making \cite{silver2016mastering}. In language-model reasoning, Self-Consistency improves chain-of-thought reasoning by sampling multiple reasoning paths and selecting the most consistent answer rather than relying on a single greedy path \cite{wang2022selfconsistency}. Tree of Thoughts further extends this idea by allowing language models to explore, evaluate, and backtrack across multiple intermediate reasoning paths \cite{yao2023tree}. These works show that exploring alternatives before committing to a final output can improve performance in tasks that require planning or reasoning.
 
-More recent work combines search with reward signals during LLM inference or self-training. Training Verifiers for math word problems generates multiple candidate solutions and selects the one judged most likely to be correct by a verifier model \cite{cobbe2021training}. ReST-MCTS* uses process-reward-guided Monte Carlo Tree Search to collect higher-quality reasoning traces and improve policy and reward models through self-training \cite{zhang2024restmcts}. Instead of relying only on final-answer correctness, these approaches evaluate intermediate steps or candidate paths. This suggests that future-aware selection is useful when the system must compare several possible paths before committing to one output.
+More recent work combines search with reward signals during LLM inference or self-training. Training Verifiers for math word problems generates multiple candidate solutions and chooses the one judged most likely to be correct by a verifier model \cite{cobbe2021training}. ReST-MCTS* uses process-reward-guided Monte Carlo Tree Search to collect higher-quality reasoning traces and improve policy and reward models through self-training \cite{zhang2024restmcts}. Instead of relying only on final-answer correctness, these approaches evaluate intermediate steps or candidate paths. This suggests that lookahead-based planning is useful when the system must compare several possible paths before committing to one output.
+
+In emotional support dialogue, lookahead planning has also been studied more directly. MultiESC improves multi-turn emotional support dialogue generation through lookahead strategy planning, where future user feedback is estimated after different support strategies so that the system can choose strategies expected to produce better long-term effects \cite{cheng2022multiesc}. This is relevant because emotional support dialogue, like therapeutic dialogue, requires the system to consider how a current therapeutic move may affect the user's later state.
+
+Figure~\ref{fig:generic-lookahead-search} illustrates the general idea of reward-guided lookahead search, inspired by search-based reasoning, process reward-guided tree search, and lookahead planning methods \cite{yao2023tree,zhang2024restmcts,cheng2022multiesc}.
 
 \begin{figure}[htbp]
     \centering
@@ -372,7 +328,7 @@ More recent work combines search with reward signals during LLM inference or sel
     \node[smallbox, below=of f2] (r2) {Reward score};
     \node[smallbox, below=of f3] (r3) {Reward score};
 
-    \node[box, below=1.2cm of r2] (select) {Select highest-value path};
+    \node[box, below=1.2cm of r2] (select) {Choose highest-value path};
 
     \draw[arrow] (state) -- (c1);
     \draw[arrow] (state) -- (c2);
@@ -391,24 +347,26 @@ More recent work combines search with reward signals during LLM inference or sel
     \draw[arrow] (r3) -- (select);
 
     \end{tikzpicture}
-    \caption{Generic reward-guided lookahead search for response selection.}
+    \caption{Generic reward-guided lookahead search for choosing among candidate action paths.}
     \label{fig:generic-lookahead-search}
 \end{figure}
 
-\subsection{Reward Models and Reward-Guided Selection}
+\subsection{Reward Models and Reward-Guided Candidate Evaluation}
 
-Reward models provide a way to convert human preferences, task success, or quality judgments into a score that can guide selection or training. In reinforcement learning from human preferences, Christiano et al. trained reward models from human comparisons of trajectory segments and used them to guide agents in Atari and simulated robotics tasks \cite{christiano2017deep}. In LLM alignment, InstructGPT trained a reward model from human rankings of model outputs and used reinforcement learning from human feedback to improve instruction-following behavior \cite{ouyang2022training}. Direct Preference Optimization later showed that preference learning can also be optimized more directly without a separate reinforcement learning stage \cite{rafailov2023direct}. These works show that human or task-based preference signals can guide model behavior beyond simple next-token prediction.
+Reward models provide a way to convert human preferences, task success, or quality judgments into a score that can guide candidate evaluation or model training. In reinforcement learning from human preferences, Christiano et al. trained reward models from human comparisons of trajectory segments and used them to guide agents in Atari and simulated robotics tasks \cite{christiano2017deep}. In LLM alignment, InstructGPT trained a reward model from human rankings of model outputs and used reinforcement learning from human feedback to improve instruction-following behavior \cite{ouyang2022training}. Direct Preference Optimization later showed that preference learning can also be optimized more directly without a separate reinforcement learning stage \cite{rafailov2023direct}. These works show that preference-based feedback can guide model behavior beyond simple next-token prediction.
 
-Reward-guided selection has also been used directly for choosing among generated outputs. LLM-Blender uses PairRanker to compare candidate responses and GenFuser to combine high-ranked outputs, showing that ranking and selection can improve generation quality across multiple LLMs \cite{jiang2023llmblender}. In mathematical reasoning, process supervision trains reward models to evaluate intermediate reasoning steps rather than only final answers, and has been shown to outperform outcome-only supervision on challenging reasoning tasks \cite{lightman2023lets}. These methods support the idea that response quality can be improved by evaluating candidate outputs or intermediate paths before producing a final answer.
+Reward-guided candidate evaluation has also been used directly for choosing among generated outputs. Training Verifiers generates multiple candidate solutions for mathematical reasoning and chooses the solution judged most likely to be correct by a verifier model \cite{cobbe2021training}. LLM-Blender uses PairRanker to compare candidate responses and GenFuser to combine high-ranked outputs, showing that ranking and candidate evaluation can improve generation quality across multiple LLMs \cite{jiang2023llmblender}. Process supervision further extends reward modeling by evaluating intermediate reasoning steps rather than only final answers, and has been shown to improve performance on challenging reasoning tasks \cite{lightman2023lets}. These methods support the idea that output quality can be improved by evaluating candidate outputs or intermediate paths before producing a final answer.
 
-Following reward-model and ranking-based response selection approaches, candidate outputs can be scored and the highest-valued response can be selected \cite{ouyang2022training,cobbe2021training,jiang2023llmblender}:
+Dialogue-generation research has also explored feedback and reward signals for improving longer-horizon interaction quality. LSTDial uses both turn-level and dialogue-level measurement feedback during training, showing that dialogue agents can benefit from optimizing short-term output quality and longer-term conversation quality \cite{ye2024lstdial}. In emotional support dialogue, RLFF-ESC uses multi-agent simulation to generate future dialogue trajectories, collect future-oriented rewards, train a future-oriented reward model, and improve an emotional support policy model \cite{yang2025rlffesc}. These studies are relevant because supportive dialogue, like therapeutic dialogue, requires attention to how a current therapeutic move may affect later user states rather than only the immediate output quality.
+
+Following reward-model and ranking-based candidate evaluation approaches, multiple candidate actions can be scored and the highest-valued option can be chosen \cite{ouyang2022training,cobbe2021training,jiang2023llmblender}:
 
 \begin{equation}
-r_t^* = \arg\max_{r_t^{(i)} \in \mathcal{R}_t} \hat{R}(H_t, r_t^{(i)})
-\label{eq:generic-reward-selection}
+a_t^* = \arg\max_{a_t^{(i)} \in \mathcal{A}_t} \hat{R}(H_t, a_t^{(i)})
+\label{eq:generic-reward-guided-choice}
 \end{equation}
 
-where $H_t$ is the current context, $\mathcal{R}_t$ is the set of candidate responses, $r_t^{(i)}$ is the $i$-th candidate response, $\hat{R}$ is the estimated reward function, and $r_t^*$ is the selected response.
+where $H_t$ is the current context, $\mathcal{A}_t$ is the set of candidate actions, $a_t^{(i)}$ is the $i$-th candidate action, $\hat{R}$ is the estimated reward function, and $a_t^*$ is the chosen action. This formulation represents the general idea of choosing the candidate action with the highest estimated value.
 
 When future outcomes are considered, the value of a candidate trajectory can be represented using the standard discounted return formulation from reinforcement learning \cite{sutton2018reinforcement}:
 
@@ -417,61 +375,12 @@ G_t^{(i)} = \sum_{k=0}^{d-1} \gamma^k \hat{R}_{t+k}^{(i)}
 \label{eq:generic-cumulative-reward}
 \end{equation}
 
-where $G_t^{(i)}$ is the estimated value of candidate trajectory $i$, $d$ is the lookahead depth, $\gamma$ is the discount factor, and $\hat{R}_{t+k}^{(i)}$ is the predicted reward at future step $k$.
+where $G_t^{(i)}$ is the estimated value of candidate trajectory $i$, $d$ is the lookahead depth, $\gamma$ is the discount factor, and $\hat{R}_{t+k}^{(i)}$ is the predicted reward at future step $k$. In this thesis, these equations are used only as generic formulations for reward-guided choice and future-aware trajectory evaluation. The detailed AIM-RGL formulation is presented later in the methodology chapter.
 
-\begin{table}[htbp]
-    \caption{Search and reward-guided methods relevant to future-aware response selection.}
-    \label{tab:search-reward-methods}
-    \small
-    \begin{tabularx}{\textwidth}{p{0.18\textwidth}p{0.20\textwidth}X X}
-        \toprule
-        \textbf{Study} & \textbf{Area} & \textbf{Method} & \textbf{Reported Contribution} \\
-        \midrule
-        AlphaGo \cite{silver2016mastering} 
-        & Game playing 
-        & Combines deep neural networks with tree search. 
-        & Shows that learned evaluation plus search can support strong sequential decision-making. \\
+\subsection{Application to MI-CBT Strategy Coordination}
 
-        Self-Consistency \cite{wang2022selfconsistency} 
-        & LLM reasoning 
-        & Samples multiple reasoning paths and selects the most consistent answer. 
-        & Improves reasoning by avoiding reliance on a single greedy path. \\
+The reviewed methods show that search-based reasoning, lookahead planning, reward modeling, and candidate ranking can improve decision-making in several domains. In games, search helps evaluate future consequences before choosing a move. In reasoning tasks, lookahead allows models to compare multiple paths instead of committing to the first generated solution. In alignment, dialogue generation, and emotional support systems, reward models and feedback signals help choose or train outputs that better match task goals, human preferences, or longer-horizon interaction quality.
 
-        Tree of Thoughts \cite{yao2023tree} 
-        & LLM reasoning 
-        & Explores and evaluates multiple intermediate reasoning paths. 
-        & Improves performance on tasks requiring planning, search, and backtracking. \\
+In this thesis, these methods are not treated as entirely new technical ideas. Instead, they are used as foundations for addressing the strategy-coordination problem in simulated MI-CBT therapeutic dialogue. Prior LLM-based counseling systems have explored CBT-style response generation, MI-based behavior-change support, client simulation, stage-aware adaptation, and memory-based strategy planning. These systems provide important foundations, but the MI-CBT setting creates a specific timing challenge: the system must decide whether the client needs motivational support, structured cognitive intervention, or a gradual transition between the two.
 
-        Training Verifiers \cite{cobbe2021training} 
-        & Mathematical reasoning 
-        & Generates many solutions and selects the highest-ranked one using a verifier. 
-        & Shows that candidate generation plus learned verification can improve reasoning accuracy. \\
-
-        ReST-MCTS* \cite{zhang2024restmcts} 
-        & LLM self-training 
-        & Uses process reward guidance with Monte Carlo Tree Search. 
-        & Produces higher-quality reasoning traces and improves models through iterative self-training. \\
-
-        InstructGPT \cite{ouyang2022training} 
-        & LLM alignment 
-        & Trains a reward model from human output rankings. 
-        & Improves instruction-following and alignment with human preferences. \\
-
-        LLM-Blender \cite{jiang2023llmblender} 
-        & Candidate response ranking 
-        & Ranks and fuses outputs from multiple LLMs. 
-        & Shows that candidate ranking can improve generation quality over individual models. \\
-
-        Process supervision \cite{lightman2023lets} 
-        & Mathematical reasoning 
-        & Trains reward models on intermediate reasoning steps. 
-        & Shows that step-level feedback can improve reasoning reliability compared with final-answer feedback alone. \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
-\subsection{Research Gap and Positioning of AIM-RGL}
-
-The reviewed methods show that search, lookahead, ranking, and reward modeling can improve decision-making in several domains. In games, search helps evaluate future consequences before selecting a move. In reasoning tasks, lookahead allows models to compare multiple paths instead of committing to the first generated solution. In alignment and response generation, reward models and rankers help select outputs that better match human preferences or task goals.
-
-However, these methods have mostly been applied to domains such as game playing, mathematical reasoning, instruction following, and general response generation. In LLM-based counseling, prior systems often focus on generating an appropriate current response, adapting from memory, or using observed dialogue signals. Less attention has been given to explicitly comparing possible near-future client reactions before selecting a therapeutic response. This gap is important because MI-CBT dialogue depends heavily on timing: a response may appear supportive in the current turn but still increase resistance or weaken engagement in the next turn. Therefore, this thesis positions AIM-RGL as an application of future-aware, reward-guided response selection to simulated MI-CBT therapeutic dialogue, with the detailed framework and implementation described in Chapter~3.
+AIM-RGL is therefore positioned as an application of future-aware, reward-guided lookahead search to simulated MI-CBT counseling dialogue. Rather than relying only on the current turn, the framework uses lookahead to compare candidate therapeutic moves according to their likely near-future effects on the simulated client. This positioning connects prior work on search and reward-guided candidate evaluation with the clinical challenge of coordinating MI and CBT at the right moment. The detailed AIM-RGL framework and implementation are presented in Chapter~3.
