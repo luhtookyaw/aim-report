@@ -1,3 +1,100 @@
 \setlength{\footskip}{8mm}
 
 \chapter{METHODOLOGY}
+
+This chapter presents the methodology used to develop AIM-RGL, an agentic MI-CBT framework with reward-guided lookahead search for therapeutic response generation. The chapter describes how the proposed system generates multiple candidate therapist responses, evaluates their possible near-future effects, and selects responses expected to support better therapeutic dialogue outcomes. The methodology is organized around the main AIM-RGL pipeline: multi-agent therapist response generation, reward-guided lookahead search, reward model training, and policy optimization. Client simulation and scenario construction are described as the supporting environment used to generate controlled therapist-client interactions. The study is limited to simulated counseling dialogue and does not aim to diagnose, treat, replace professional therapists, or measure real clinical outcomes.
+
+\section{Research Design and AIM-RGL Framework Overview}
+
+This study adopts a simulation-based system development methodology to design and evaluate AIM-RGL, an agentic MI-CBT framework with reward-guided lookahead search. The main purpose of the methodology is to construct a controlled dialogue framework in which multiple therapeutic responses can be generated, expanded through short-horizon future simulation, evaluated using therapeutic reward signals, and used to guide final response generation. The study focuses on simulated therapist-client dialogue and does not aim to diagnose, treat, replace professional therapists, or measure real clinical treatment outcomes.
+
+AIM-RGL is designed for therapeutic conversations in which the client may show resistance, ambivalence, or changing readiness for structured intervention. In this setting, a response that appears appropriate in the current turn may not necessarily lead to a better next client state. Therefore, the framework treats MI-CBT response generation as a future-aware decision problem. Instead of generating only one therapist response directly, AIM-RGL first generates multiple candidate responses from specialist therapist agents, estimates possible future client reactions, and evaluates the resulting trajectories using therapeutic reward scores.
+
+The overall framework consists of four main components. First, specialist therapist agents generate candidate responses based on different therapeutic skills, including open-ended questioning, reflection, affirmation, summarization, and CBT intervention. Second, reward-guided lookahead search expands these candidates by considering possible near-future dialogue outcomes. Third, a reward model estimates the therapeutic value of candidate responses or trajectories using dimensions such as alliance, empathy, collaboration, CBT skill, MI quality, and client readiness. Fourth, the learned reward signal is used to support policy optimization so that the response generation model can produce therapeutically stronger responses.
+
+The methodology is organized according to this pipeline. Section 3.2 describes the multi-agent therapist response generation process. Section 3.3 explains the reward-guided lookahead search mechanism. Section 3.4 presents reward model training and policy optimization. Section 3.5 describes the simulation environment and client scenario construction used to support the framework. Finally, Section 3.6 discusses the implementation scope and ethical considerations of the study.
+
+\section{Multi-Agent Therapist Response Generation}
+
+AIM-RGL uses a multi-agent therapist architecture to generate candidate responses before the final therapeutic response is selected. The purpose of this stage is not to decide the best response immediately, but to produce a diverse set of therapeutically meaningful options that can later be evaluated through reward-guided lookahead search. Each therapist agent represents a different therapeutic skill or intervention style. This design makes the response generation process more explicit because the framework can compare different MI-style and CBT-style responses instead of relying on a single model to implicitly decide the strategy.
+
+At each therapist turn, the system receives the current conversation history as input. The conversation history includes previous therapist and client utterances, the current client concern, and any available information about the client’s readiness or resistance. Based on this context, the therapist agents generate multiple candidate responses. Each candidate response is tagged with the agent type that produced it, such as open-ended question, reflection, affirmation, summarization, or CBT intervention. These tagged responses form the candidate response pool for the next stage of the framework.
+
+The MI-specific agents are based on the OARS communication skills commonly used in Motivational Interviewing: open-ended questions, affirmations, reflections, and summaries. The open-ended questioning agent generates questions that invite the client to explore thoughts, feelings, goals, and ambivalence in greater depth. The reflection agent mirrors the client’s meaning, emotion, or ambivalence in order to show understanding and reduce defensiveness. The affirmation agent highlights the client’s strengths, effort, values, or persistence in a specific and genuine way. The summarization agent gathers important themes from the conversation and presents them in an organized way to support transition, clarity, or continued exploration.
+
+In addition to MI-specific agents, AIM-RGL includes CBT-specific response generation. The CBT component is divided into two steps. First, a CBT technique selector identifies a suitable CBT technique and plan step for the client’s current concern. Possible techniques include identifying automatic thoughts, evidence-based questioning, alternative perspective taking, decatastrophizing, problem solving, and behavioral experiments. Second, the CBT response agent converts the selected technique and plan step into a brief and natural therapist response. The generated response is written in conversational language and does not need to explicitly name the CBT technique.
+
+The role of the multi-agent stage is to create a balanced response pool that includes both supportive MI-style responses and structured CBT-style responses. This is important because resistant or ambivalent clients may not always be ready for direct cognitive restructuring or action planning. In some cases, a reflective or open-ended MI response may better preserve alliance and reduce resistance. In other cases, when the client shows readiness, a CBT response may help the client examine thoughts or take a concrete step. By generating these alternatives separately, AIM-RGL can later evaluate which response is more likely to support a better near-future therapeutic state.
+
+Table~\ref{tab:therapist_agents} summarizes the main therapist agents used in AIM-RGL.
+
+\begin{table}[h]
+\centering
+\caption{Therapist agents used for candidate response generation.}
+\label{tab:therapist_agents}
+\begin{tabular}{L{0.25\textwidth}L{0.65\textwidth}}
+\toprule
+\textbf{Agent} & \textbf{Function} \\
+\midrule
+Open-ended Questioning Agent & Generates questions that encourage the client to explore thoughts, feelings, goals, and ambivalence. \\
+\midrule
+Reflection Agent & Reflects the client’s meaning, emotion, or ambivalence to show understanding and reduce defensiveness. \\
+\midrule
+Affirmation Agent & Highlights the client’s strengths, effort, values, or persistence to support confidence and engagement. \\
+\midrule
+Summarization Agent & Organizes key themes, emotions, and concerns from the conversation to support clarity and transition. \\
+\midrule
+CBT Technique Selector & Selects a suitable CBT technique and plan step based on the client’s current concern and readiness. \\
+\midrule
+CBT Response Agent & Generates a natural therapist response using the selected CBT technique and plan step. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The output of this stage is a set of tagged candidate therapist responses. These candidates are not treated as final responses. Instead, they are passed to the reward-guided lookahead search stage, where each response is expanded through simulated future client reactions and evaluated according to its expected therapeutic value.
+
+\section{Reward-Guided Lookahead Search}
+
+After the therapist agents generate candidate responses, AIM-RGL applies reward-guided lookahead search to select the response with the highest expected therapeutic value. The purpose of this stage is to avoid selecting a response only because it appears appropriate in the current turn. Instead, the framework estimates how each candidate response may influence the simulated client’s near-future state, including engagement, resistance, readiness, and therapeutic alliance.
+
+At therapist turn \(t\), the conversation history is denoted as \(H_t\). The multi-agent therapist module generates a set of candidate responses:
+
+\[
+A_t = \{r_t^{(1)}, r_t^{(2)}, \ldots, r_t^{(N)}\}
+\]
+
+where \(r_t^{(i)}\) is the candidate response generated by therapist agent \(i\), and \(N\) is the number of candidate responses. In this thesis, the main candidate responses are generated by the open-ended questioning, reflection, affirmation, summarization, and CBT agents.
+
+For each candidate response, the client simulator generates a possible future client response. This produces a one-step future trajectory for each candidate:
+
+\[
+\tau_t^{(i,1)} = (H_t, r_t^{(i)}, c_{t+1}^{(i)})
+\]
+
+where \(c_{t+1}^{(i)}\) is the simulated client response after candidate response \(r_t^{(i)}\). The resulting trajectory is evaluated by a reward judge or reward model:
+
+\[
+R_t^{(i)} = J(H_t, r_t^{(i)}, c_{t+1}^{(i)})
+\]
+
+where \(J\) represents the reward judge, and \(R_t^{(i)}\) is the reward score assigned to candidate \(i\). The reward score estimates the therapeutic value of the candidate response and its immediate future effect. It is based on therapeutic dimensions such as therapeutic alliance, empathy, collaboration, CBT skill, MI quality, and client readiness.
+
+The selected therapist response is the candidate with the highest estimated reward:
+
+\[
+r_t^* = \arg\max_{r_t^{(i)} \in A_t} R_t^{(i)}
+\]
+
+This one-step formulation allows AIM-RGL to compare how different MI-CBT responses may affect the client immediately after the therapist turn. For example, a CBT response may appear useful in the current turn, but if the simulated client reacts with stronger resistance or lower readiness, its reward score may be lower than an MI-style reflection or open-ended question.
+
+AIM-RGL also extends this process to multi-step lookahead. Instead of evaluating only the next client response, the framework estimates the cumulative therapeutic value of a response trajectory over a lookahead depth \(d\). The cumulative value of trajectory \(i\) is computed as:
+
+\[
+G_t^{(i)} = \sum_{k=1}^{d} \gamma^{k-1}\hat{R}_{t,k}^{(i)}
+\]
+
+where \(G_t^{(i)}\) is the cumulative reward of trajectory \(i\), \(d\) is the lookahead depth, \(\gamma\) is the discount factor, and \(\hat{R}_{t,k}^{(i)}\) is the predicted reward at lookahead step \(k\). When \(\gamma = 1\), all future steps are treated equally. When \(\gamma < 1\), earlier rewards are given greater importance than later rewards.
+
+For deeper lookahead, fully expanding all possible branches becomes computationally expensive because each therapist candidate can lead to multiple future client states and additional therapist responses. To reduce this cost, AIM-RGL uses beam-based pruning. After the one-step reward model \(RM_1\) is trained, it is used to estimate the reward of first-step candidate responses. Only the top-ranked candidates are retained as beam branches and expanded further to construct the two-step lookahead dataset \(D_2\). The same procedure is later applied using \(RM_2\) to support three-step lookahead data generation. In this way, the framework avoids expanding the entire search tree while still preserving the most promising therapeutic trajectories for further evaluation.
+
+The final selected response is therefore not simply the response with the best immediate wording. It is the response expected to produce the most beneficial near-future therapeutic trajectory. In the MI-CBT setting, this is important because the system must decide whether the client needs further motivational support, a structured CBT intervention, or a gradual transition between MI and CBT.
