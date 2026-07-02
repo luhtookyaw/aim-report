@@ -4,13 +4,14 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{arrows.meta, positioning, decorations.pathreplacing, fit}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcounter{algorithm}[chapter]
 \renewcommand{\thealgorithm}{\thechapter.\arabic{algorithm}}
+\setlength{\emergencystretch}{3em}
 
 \bibliographystyle{apacite}
 
