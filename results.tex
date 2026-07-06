@@ -1,3 +1,86 @@
 \setlength{\footskip}{8mm}
 
 \chapter{EXPERIMENT}
+
+This chapter presents the experimental design used to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The purpose of the experiment is to examine whether reward-guided lookahead search can improve therapeutic response quality when compared with baseline response generation methods. The chapter describes the experimental conditions, including the simulated client setup, compared systems, lookahead configurations, reward model backbones, and policy model backbones. It also explains the evaluation protocol and metrics used to assess therapeutic skill quality, MI-CBT fidelity, therapeutic alliance, change talk, sustain talk, and reward model performance. Since the implementation and evaluation are still in progress, the final section of this chapter is reserved for reporting the experimental results after they are obtained.
+
+\section{Experimental Design and Conditions}
+
+\subsection{Experiment Overview}
+
+This experiment is designed to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The main purpose is to examine whether reward-guided lookahead search can improve therapeutic response generation when the simulated client shows resistance, ambivalence, or changing readiness for structured intervention. In this setting, a response is not evaluated only by whether it appears appropriate in the current turn, but also by whether it is expected to support a better near-future therapeutic trajectory.
+
+The experiment compares AIM-RGL with selected baseline therapist systems under the same simulated client scenarios. Each system receives the same client profile, cognitive conceptualization information, difficulty setting, and dialogue context. The resulting therapist-client conversations are evaluated using counseling-specific metrics, including therapeutic skill quality, MI-CBT fidelity, therapeutic alliance, change talk, and sustain talk. The experiment also examines the effects of different lookahead horizons, reward model backbones, and policy model backbones.
+
+The experiment is guided by the following research questions:
+
+\begin{itemize}
+    \item \textbf{RQ1:} Does reward-guided lookahead search improve therapeutic skill quality and MI-CBT fidelity compared with baseline systems?
+    
+    \item \textbf{RQ2:} Does reward-guided lookahead search strengthen therapeutic alliance compared with baseline systems?
+    
+    \item \textbf{RQ3:} Does reward-guided lookahead search promote earlier increases in change talk and reductions in sustain talk compared with baseline systems?
+    
+    \item \textbf{RQ4:} How do different lookahead horizons, including one-step, two-step, and three-step lookahead, affect reward-guided MI-CBT response quality?
+    
+    \item \textbf{RQ5:} How does the choice of policy model backbone affect the quality of MI-CBT therapeutic responses?
+\end{itemize}
+
+Based on these research questions, the experiment tests the following hypotheses:
+
+\begin{itemize}
+    \item \textbf{H1:} Reward-guided lookahead search will produce higher therapeutic skill quality and stronger MI-CBT fidelity than baseline methods.
+    
+    \item \textbf{H2:} Reward-guided lookahead search will lead to stronger therapeutic alliance compared with baseline methods.
+    
+    \item \textbf{H3:} Reward-guided lookahead search will promote earlier increases in change talk and earlier reductions in sustain talk compared with baseline methods.
+    
+    \item \textbf{H4:} Longer lookahead horizons will improve MI-CBT response quality by considering future client reactions and therapeutic trajectory.
+    
+    \item \textbf{H5:} The choice of policy model backbone will affect the quality of MI-CBT therapeutic responses in simulated resistant-client conversations.
+\end{itemize}
+
+This experiment is limited to simulated therapist-client dialogue. It does not involve real patients or human clinical participants, and it does not measure real clinical treatment outcomes.
+
+\subsection{Experimental Conditions}
+
+The experiment includes four main experimental factors: therapist system, lookahead horizon, reward model backbone, and policy model backbone. The therapist system comparison is used to evaluate whether AIM-RGL improves therapeutic response quality compared with selected baseline systems. The lookahead horizon comparison is used to examine whether considering more future client reactions improves response selection. The reward model backbone comparison is used to evaluate reward prediction performance, while the policy model backbone comparison is used to examine whether policy optimization results depend on the underlying response generation model.
+
+The therapist systems compared in this experiment are CBT, CAMEL, FLASH, and AIM-RGL. The CBT baseline represents a structured cognitive-behavioral response generation approach. It focuses on CBT-style skills such as identifying thoughts, examining evidence, and supporting structured reflection or action. CAMEL is included as a baseline counseling agent for comparison. FLASH is included as a memory-guided MI-CBT baseline that uses previous client interactions to guide therapeutic strategy selection. AIM-RGL is the proposed framework, which uses specialist therapist agents, client simulation, reward-guided lookahead search, reward model training, and policy optimization.
+
+For AIM-RGL, the lookahead horizon is varied using one-step, two-step, and three-step lookahead settings. These are not treated as separate system names, but as different configurations of the same reward-guided lookahead mechanism. In one-step lookahead, each candidate therapist response is followed by one simulated client response before scoring. In two-step lookahead, the system expands the trajectory further to estimate a longer short-term therapeutic effect. In three-step lookahead, the system examines whether deeper trajectory evaluation provides additional improvement in response quality.
+
+\begin{table}[htbp]
+\centering
+\caption{Experimental conditions.}
+\begin{tabular}{L{4cm}L{9cm}}
+\hline
+\textbf{Condition Type} & \textbf{Experimental Settings} \\
+\hline
+Therapist system & CBT, CAMEL, FLASH, AIM-RGL \\
+\hline
+Lookahead horizon & One-step lookahead, two-step lookahead, three-step lookahead \\
+\hline
+Reward model backbone & DeBERTa-v3-large, ModernBERT-large, RoBERTa-large \\
+\hline
+Policy model backbone & LLaMA-3.1-8B-Instruct, Qwen-2.5-7B-Instruct-1M \\
+\hline
+\end{tabular}
+\end{table}
+
+The reward model backbone comparison includes DeBERTa-v3-large, ModernBERT-large, and RoBERTa-large. These models are used to examine how different encoder-based architectures affect scalar therapeutic reward prediction. The policy model backbone comparison includes LLaMA-3.1-8B-Instruct and Qwen-2.5-7B-Instruct-1M. These models are used to examine how the choice of response generation backbone affects optimized MI-CBT therapeutic response quality.
+
+\subsection{Dataset and Client Simulation Setup}
+
+The experiment uses simulated client scenarios based on the Patient-\(\Psi\)-CM dataset \cite{wang2024patientpsi}. The dataset contains CBT-based cognitive models and patient cases. Each case includes cognitive conceptualization information such as the client’s situation, automatic thoughts, emotions, behaviors, coping strategies, relevant history, intermediate beliefs, and core beliefs. These elements are used to ground the simulated client’s responses and maintain consistency across multi-turn dialogue.
+
+The client simulator generates first-person client responses based on the current conversation history, the client’s cognitive conceptualization profile, and the client’s current stage of change. The stage of change is represented using three states: precontemplation, contemplation, and preparation. Precontemplation represents a resistant client who may minimize the problem, reject feedback, or show little interest in change. Contemplation represents an ambivalent client who recognizes both reasons for and against change. Preparation represents a client who is more open to structured reflection, planning, or CBT-style intervention.
+
+Client difficulty is represented using easy, normal, and hard settings. Difficulty controls how frequently the client's openness level and stage of change are re-evaluated during the dialogue. Easy clients are expected to become more open more quickly, normal clients change more gradually, and hard clients remain resistant for longer. The openness judge periodically re-evaluates the simulated client's openness level and stage of change based on the recent conversation history. For easy clients, openness is re-evaluated every two turns. For normal clients, it is re-evaluated every four turns. For hard clients, it is re-evaluated every six turns. This interval-based design allows the simulation to represent different levels of resistance persistence and readiness development.
+
+GPT-4o-mini is used for therapist-side response generation and client simulation. In AIM-RGL, the therapist-side generation module includes specialist agents for open-ended questioning, reflection, affirmation, summarization, and CBT intervention. These agents generate candidate responses before the reward-guided lookahead search stage. The reward model is trained to predict scalar therapeutic reward scores for candidate responses or trajectories. GPT-4o is used as a reward judge and evaluator for therapeutic quality dimensions, including therapeutic alliance, MI fidelity, and CBT competence. The same model, dataset, and client simulation setup are applied across compared systems to support controlled comparison.
+
+\section{Experimental Results}
+\subsection{Therapeutic Response Quality Results}
+\subsection{Ablation and Model Comparison Results}
+\subsection{Summary of Findings}
