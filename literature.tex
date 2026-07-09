@@ -6,54 +6,7 @@ This chapter reviews the main theoretical and technical foundations related to t
 
 \section{Clinical Foundations of MI-CBT Therapeutic Dialogue}
 
-Therapeutic dialogue differs from ordinary conversation because the therapist's response should support understanding, collaboration, and meaningful change. A counseling response is not evaluated only by relevance or fluency, but also by whether it strengthens the therapeutic relationship, respects client autonomy, and fits the client's current psychological state. This is especially important when the client shows resistance, ambivalence, or low readiness for change, because poorly timed responses may reduce engagement or increase defensiveness \cite{patterson1985therapist,patterson1994functional,beutler2002resistance}. Figure~\ref{fig:therapeutic-dialogue-loop} illustrates how client state, response timing, therapeutic outcomes, and the next client state are connected.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}[
-        node distance=0.8cm,
-        every node/.style={font=\footnotesize, align=center},
-        mainbox/.style={
-            rectangle,
-            rounded corners,
-            draw=black,
-            minimum width=4.8cm,
-            minimum height=0.8cm,
-            text width=4.8cm,
-            inner sep=4pt
-        },
-        warnbox/.style={
-            rectangle,
-            rounded corners,
-            draw=black,
-            dashed,
-            minimum width=4.1cm,
-            minimum height=0.8cm,
-            text width=4.1cm,
-            inner sep=4pt
-        },
-        arrow/.style={-{Latex[length=3mm]}, thick}
-    ]
-
-    \node[mainbox] (state) {Client state\\Resistance, ambivalence, and readiness};
-    \node[mainbox, below=of state] (timing) {Response timing and style\\MI-style support or CBT-style structure};
-    \node[mainbox, below=of timing] (response) {Therapeutic response};
-    \node[mainbox, below=of response] (outcome) {Interaction outcome\\Alliance, engagement, change talk, and sustain talk};
-    \node[mainbox, below=of outcome] (nextstate) {Next client state};
-
-    \node[warnbox, right=1.8cm of timing] (risk) {Poorly timed response\\Defensiveness, disengagement, or weakened alliance};
-
-    \draw[arrow] (state) -- (timing);
-    \draw[arrow] (timing) -- (response);
-    \draw[arrow] (response) -- (outcome);
-    \draw[arrow] (outcome) -- (nextstate);
-    \draw[arrow] (nextstate.west) .. controls +(-2.2,0) and +(-2.2,0) .. (state.west);
-    \draw[arrow] (timing.east) -- (risk.west);
-
-    \end{tikzpicture}
-    \caption{Conceptual relationship between client state, response timing, therapeutic outcomes, and the next client state in therapeutic dialogue.}
-    \label{fig:therapeutic-dialogue-loop}
-\end{figure}
+Therapeutic dialogue differs from ordinary conversation because the therapist's response should support understanding, collaboration, and meaningful change. A counseling response is not evaluated only by relevance or fluency, but also by whether it strengthens the therapeutic relationship, respects client autonomy, and fits the client's current psychological state. This is especially important when the client shows resistance, ambivalence, or low readiness for change, because poorly timed responses may reduce engagement or increase defensiveness \cite{patterson1985therapist,patterson1994functional,beutler2002resistance}.
 
 \subsection{Therapeutic Alliance and Client-Centered Communication}
 
@@ -75,41 +28,7 @@ Motivational Interviewing is a counseling approach that supports motivation, aut
 
 Cognitive Behavioral Therapy provides a more structured approach for identifying and modifying unhelpful thoughts, beliefs, and behaviors. CBT includes techniques such as identifying automatic thoughts, examining evidence, generating alternative interpretations, and planning behavioral change \cite{beck2020cognitive,chand2023cognitive}. These techniques are useful when the client is ready to reflect and take concrete steps, but they may feel directive if introduced too early. Therefore, CBT is most suitable when the client shows sufficient openness and the therapeutic relationship is stable.
 
-The integration of MI and CBT has been explored in conventional mental health treatment, especially for clients who experience ambivalence or resistance during CBT. Prior work suggests that MI can support treatment engagement and prepare clients for more structured CBT work \cite{arkowitz2004integrating,westra2009adding,westra2016integrating}. Reviews also indicate that MI may be useful as an adjunct to CBT, although the timing and manner of integration remain important \cite{randall2017motivational,marker2018efficacy}. Table~\ref{tab:mi-cbt-comparison} summarizes the main differences between MI and CBT and their relevance to AIM-RGL.
-
-\begin{table}[htbp]
-    \caption{Comparison between MI and CBT.}
-    \label{tab:mi-cbt-comparison}
-    \small
-    \begin{tabularx}{\textwidth}{L{0.15\textwidth}Y Y Y}
-        \toprule
-        \textbf{Aspect} & \textbf{MI} & \textbf{CBT} & \textbf{Relevance to AIM-RGL} \\
-        \midrule
-        Purpose 
-        & Builds motivation, autonomy, and readiness. 
-        & Supports thought and behavior change. 
-        & Helps choose between motivational support and structured intervention. \\
-        \midrule
-
-        Stance 
-        & Collaborative and autonomy-supportive. 
-        & Structured and skill-focused. 
-        & Response style should match resistance and readiness. \\
-        \midrule
-
-        Context 
-        & Ambivalence, resistance, or uncertainty. 
-        & Readiness for reflection, belief testing, or action. 
-        & Supports stage-sensitive response selection. \\
-        \midrule
-
-        Risk 
-        & May slow structured progress if overused. 
-        & May feel directive if introduced too early. 
-        & Motivates future-aware MI-CBT timing. \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
+The integration of MI and CBT has been explored in conventional mental health treatment, especially for clients who experience ambivalence or resistance during CBT. Prior work suggests that MI can support treatment engagement and prepare clients for more structured CBT work \cite{arkowitz2004integrating,westra2009adding,westra2016integrating}. Reviews also indicate that MI may be useful as an adjunct to CBT, although the timing and manner of integration remain important \cite{randall2017motivational,marker2018efficacy}.
 
 Overall, these clinical foundations show that effective MI-CBT dialogue depends on resistance, ambivalence, readiness, and therapeutic alliance. MI and CBT offer complementary response styles, but their usefulness depends heavily on timing. This motivates AIM-RGL's focus on selecting responses not only by current-turn suitability, but also by their likely near-future effect on the simulated client's therapeutic state.
 
@@ -136,42 +55,6 @@ Client simulation is useful for evaluating LLM-based counseling systems before i
 Some recent counseling systems also use stage-of-change concepts from the Transtheoretical Model to represent client readiness during interaction. CAMI uses client state inference based on the Transtheoretical Model to support MI counseling, while CCSMI uses stages such as precontemplation, contemplation, and preparation to define and control simulated client states \cite{yang2025cami,yang2025consistent,prochaska1997transtheoretical,raihan2023stages}. Persona Drift is also relevant because it studies stage-aware adaptation in CBT chatbots and adjusts the dialogue flow when persona or stage drift is detected \cite{yun2025personadrift}. This is relevant to this thesis because resistance and readiness are not fixed labels; they may change across turns depending on how the counselor responds.
 
 Cognitive conceptualization can support client simulation by representing the client's situation, beliefs, emotions, automatic thoughts, coping patterns, and behavioral responses. In CBT, cognitive conceptualization is commonly used to understand how a person's thoughts, beliefs, emotions, and behaviors are connected within a specific problem context \cite{beck2020cognitive}. For simulated therapeutic dialogue, this structure helps the client model respond more consistently across turns instead of producing isolated or random replies. Related work on synthetic and reconstructed counseling dialogue, such as CACTUS, SMILE, CPsyCoun, and MAGNeT, also shows the value of structured multi-turn dialogue construction for developing and evaluating mental health support systems \cite{lee2024cactus,qiu2024smile,zhang2024cpsycoun,mandal2025magnet}. Therefore, cognitive conceptualization and client simulation provide an important foundation for evaluating AIM-RGL in controlled simulated MI-CBT conversations.
-
-Figure~\ref{fig:client-simulation-loop} illustrates the general simulation loop used to evaluate therapeutic dialogue. The therapist-like system generates a response based on the conversation history, the simulated client produces a reaction based on the client profile and current state, and the resulting dialogue is evaluated using therapeutic metrics.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}[
-        node distance=1.2cm,
-        every node/.style={font=\small, align=center},
-        box/.style={
-            rectangle,
-            rounded corners,
-            draw=black,
-            minimum width=5.3cm,
-            minimum height=0.9cm,
-            text width=5.3cm,
-            inner sep=6pt
-        },
-        arrow/.style={-{Latex[length=3mm]}, thick}
-    ]
-
-    \node[box] (profile) {Client profile and cognitive conceptualization};
-    \node[box, below=of profile] (history) {Conversation history and current client state};
-    \node[box, below=of history] (therapist) {Therapist-like system response};
-    \node[box, below=of therapist] (client) {Simulated client response};
-    \node[box, below=of client] (eval) {Therapeutic evaluation};
-
-    \draw[arrow] (profile) -- (history);
-    \draw[arrow] (history) -- (therapist);
-    \draw[arrow] (therapist) -- (client);
-    \draw[arrow] (client) -- (eval);
-    \draw[arrow] (client.west) .. controls +(-2.4,0) and +(-2.4,0) .. (history.west);
-
-    \end{tikzpicture}
-    \caption{General client simulation loop for therapeutic dialogue evaluation.}
-    \label{fig:client-simulation-loop}
-\end{figure}
 
 \subsection{Evaluation Metrics for Therapeutic Dialogue}
 
