@@ -4,6 +4,13 @@
 
 This chapter presents the methodology used to develop AIM-RGL, an agentic MI-CBT framework with reward-guided lookahead search for therapeutic response generation. The chapter describes how the proposed system generates multiple candidate therapist responses, evaluates their possible near-future effects, and selects responses expected to support better therapeutic dialogue outcomes. The methodology is organized around the main AIM-RGL pipeline: multi-agent therapist response generation, reward-guided lookahead search, reward model training, and policy optimization. Client simulation and scenario construction are described as the supporting environment used to generate controlled therapist-client interactions. The study is limited to simulated counseling dialogue and does not aim to diagnose, treat, replace professional therapists, or measure real clinical outcomes.
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/aim_workflow.png}
+    \caption{Overall AIM-RGL workflow, including multi-agent dialogue generation with lookahead, reward model training, and policy optimization from future reward.}
+    \label{fig:aim_workflow}
+\end{figure}
+
 \section{Research Design and AIM-RGL Framework Overview}
 
 This study adopts a simulation-based system development methodology to design and evaluate AIM-RGL, an agentic MI-CBT framework with reward-guided lookahead search. The main purpose of the methodology is to construct a controlled dialogue framework in which multiple therapeutic responses can be generated, expanded through short-horizon future simulation, evaluated using therapeutic reward signals, and used to guide final response generation. The study focuses on simulated therapist-client dialogue and does not aim to diagnose, treat, replace professional therapists, or measure real clinical treatment outcomes.
