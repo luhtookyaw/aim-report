@@ -1,0 +1,577 @@
+model,difficulty,stage,technique,share_percent
+SFT,Easy,Early,Affirmation,13.9
+SFT,Easy,Early,Open Questioning,25.0
+SFT,Easy,Early,Reflective Listening,21.7
+SFT,Easy,Early,Summarization,17.8
+SFT,Easy,Early,Alternative Perspective,5.6
+SFT,Easy,Early,Behavior Experiment,0.0
+SFT,Easy,Early,Changing Rules to Wishes,0.0
+SFT,Easy,Early,Continuum Technique,0.0
+SFT,Easy,Early,Decatastrophizing,11.7
+SFT,Easy,Early,Efficiency Evaluation,0.0
+SFT,Easy,Early,Evidence-Based Questioning,0.0
+SFT,Easy,Early,Pie Chart Technique,0.6
+SFT,Easy,Early,Problem-Solving Skills Training,0.0
+SFT,Easy,Early,Pros and Cons Analysis,2.2
+SFT,Easy,Early,Reality Testing,1.7
+SFT,Easy,Early,Systematic Exposure,0.0
+SFT,Easy,Middle,Affirmation,21.5
+SFT,Easy,Middle,Open Questioning,29.0
+SFT,Easy,Middle,Reflective Listening,14.0
+SFT,Easy,Middle,Summarization,15.5
+SFT,Easy,Middle,Alternative Perspective,4.0
+SFT,Easy,Middle,Behavior Experiment,0.0
+SFT,Easy,Middle,Changing Rules to Wishes,0.5
+SFT,Easy,Middle,Continuum Technique,0.0
+SFT,Easy,Middle,Decatastrophizing,13.5
+SFT,Easy,Middle,Efficiency Evaluation,0.0
+SFT,Easy,Middle,Evidence-Based Questioning,0.0
+SFT,Easy,Middle,Pie Chart Technique,0.0
+SFT,Easy,Middle,Problem-Solving Skills Training,0.0
+SFT,Easy,Middle,Pros and Cons Analysis,1.5
+SFT,Easy,Middle,Reality Testing,0.5
+SFT,Easy,Middle,Systematic Exposure,0.0
+SFT,Easy,Late,Affirmation,19.5
+SFT,Easy,Late,Open Questioning,26.0
+SFT,Easy,Late,Reflective Listening,15.5
+SFT,Easy,Late,Summarization,17.5
+SFT,Easy,Late,Alternative Perspective,5.0
+SFT,Easy,Late,Behavior Experiment,0.0
+SFT,Easy,Late,Changing Rules to Wishes,0.0
+SFT,Easy,Late,Continuum Technique,0.0
+SFT,Easy,Late,Decatastrophizing,13.5
+SFT,Easy,Late,Efficiency Evaluation,0.0
+SFT,Easy,Late,Evidence-Based Questioning,0.5
+SFT,Easy,Late,Pie Chart Technique,0.0
+SFT,Easy,Late,Problem-Solving Skills Training,0.0
+SFT,Easy,Late,Pros and Cons Analysis,1.0
+SFT,Easy,Late,Reality Testing,1.5
+SFT,Easy,Late,Systematic Exposure,0.0
+SFT,Normal,Early,Affirmation,16.7
+SFT,Normal,Early,Open Questioning,18.3
+SFT,Normal,Early,Reflective Listening,22.8
+SFT,Normal,Early,Summarization,18.9
+SFT,Normal,Early,Alternative Perspective,7.2
+SFT,Normal,Early,Behavior Experiment,0.0
+SFT,Normal,Early,Changing Rules to Wishes,1.7
+SFT,Normal,Early,Continuum Technique,0.0
+SFT,Normal,Early,Decatastrophizing,9.4
+SFT,Normal,Early,Efficiency Evaluation,0.0
+SFT,Normal,Early,Evidence-Based Questioning,0.6
+SFT,Normal,Early,Pie Chart Technique,0.6
+SFT,Normal,Early,Problem-Solving Skills Training,0.0
+SFT,Normal,Early,Pros and Cons Analysis,3.9
+SFT,Normal,Early,Reality Testing,0.0
+SFT,Normal,Early,Systematic Exposure,0.0
+SFT,Normal,Middle,Affirmation,20.0
+SFT,Normal,Middle,Open Questioning,26.5
+SFT,Normal,Middle,Reflective Listening,17.5
+SFT,Normal,Middle,Summarization,17.0
+SFT,Normal,Middle,Alternative Perspective,9.0
+SFT,Normal,Middle,Behavior Experiment,0.0
+SFT,Normal,Middle,Changing Rules to Wishes,0.0
+SFT,Normal,Middle,Continuum Technique,0.0
+SFT,Normal,Middle,Decatastrophizing,9.0
+SFT,Normal,Middle,Efficiency Evaluation,0.0
+SFT,Normal,Middle,Evidence-Based Questioning,0.0
+SFT,Normal,Middle,Pie Chart Technique,0.0
+SFT,Normal,Middle,Problem-Solving Skills Training,0.0
+SFT,Normal,Middle,Pros and Cons Analysis,0.5
+SFT,Normal,Middle,Reality Testing,0.5
+SFT,Normal,Middle,Systematic Exposure,0.0
+SFT,Normal,Late,Affirmation,22.0
+SFT,Normal,Late,Open Questioning,30.0
+SFT,Normal,Late,Reflective Listening,13.0
+SFT,Normal,Late,Summarization,20.0
+SFT,Normal,Late,Alternative Perspective,3.0
+SFT,Normal,Late,Behavior Experiment,0.0
+SFT,Normal,Late,Changing Rules to Wishes,0.5
+SFT,Normal,Late,Continuum Technique,0.0
+SFT,Normal,Late,Decatastrophizing,10.5
+SFT,Normal,Late,Efficiency Evaluation,0.0
+SFT,Normal,Late,Evidence-Based Questioning,0.0
+SFT,Normal,Late,Pie Chart Technique,0.0
+SFT,Normal,Late,Problem-Solving Skills Training,0.0
+SFT,Normal,Late,Pros and Cons Analysis,1.0
+SFT,Normal,Late,Reality Testing,0.0
+SFT,Normal,Late,Systematic Exposure,0.0
+SFT,Hard,Early,Affirmation,17.8
+SFT,Hard,Early,Open Questioning,18.3
+SFT,Hard,Early,Reflective Listening,19.4
+SFT,Hard,Early,Summarization,18.3
+SFT,Hard,Early,Alternative Perspective,8.9
+SFT,Hard,Early,Behavior Experiment,0.0
+SFT,Hard,Early,Changing Rules to Wishes,0.0
+SFT,Hard,Early,Continuum Technique,0.0
+SFT,Hard,Early,Decatastrophizing,6.7
+SFT,Hard,Early,Efficiency Evaluation,0.6
+SFT,Hard,Early,Evidence-Based Questioning,2.2
+SFT,Hard,Early,Pie Chart Technique,0.6
+SFT,Hard,Early,Problem-Solving Skills Training,0.0
+SFT,Hard,Early,Pros and Cons Analysis,6.1
+SFT,Hard,Early,Reality Testing,1.1
+SFT,Hard,Early,Systematic Exposure,0.0
+SFT,Hard,Middle,Affirmation,19.0
+SFT,Hard,Middle,Open Questioning,17.5
+SFT,Hard,Middle,Reflective Listening,24.0
+SFT,Hard,Middle,Summarization,18.0
+SFT,Hard,Middle,Alternative Perspective,3.5
+SFT,Hard,Middle,Behavior Experiment,0.0
+SFT,Hard,Middle,Changing Rules to Wishes,0.0
+SFT,Hard,Middle,Continuum Technique,0.0
+SFT,Hard,Middle,Decatastrophizing,16.5
+SFT,Hard,Middle,Efficiency Evaluation,0.0
+SFT,Hard,Middle,Evidence-Based Questioning,0.0
+SFT,Hard,Middle,Pie Chart Technique,0.0
+SFT,Hard,Middle,Problem-Solving Skills Training,0.0
+SFT,Hard,Middle,Pros and Cons Analysis,1.5
+SFT,Hard,Middle,Reality Testing,0.0
+SFT,Hard,Middle,Systematic Exposure,0.0
+SFT,Hard,Late,Affirmation,19.5
+SFT,Hard,Late,Open Questioning,25.0
+SFT,Hard,Late,Reflective Listening,18.0
+SFT,Hard,Late,Summarization,18.0
+SFT,Hard,Late,Alternative Perspective,3.5
+SFT,Hard,Late,Behavior Experiment,0.0
+SFT,Hard,Late,Changing Rules to Wishes,0.0
+SFT,Hard,Late,Continuum Technique,0.0
+SFT,Hard,Late,Decatastrophizing,12.5
+SFT,Hard,Late,Efficiency Evaluation,0.0
+SFT,Hard,Late,Evidence-Based Questioning,1.5
+SFT,Hard,Late,Pie Chart Technique,0.0
+SFT,Hard,Late,Problem-Solving Skills Training,0.0
+SFT,Hard,Late,Pros and Cons Analysis,2.0
+SFT,Hard,Late,Reality Testing,0.0
+SFT,Hard,Late,Systematic Exposure,0.0
+D1,Easy,Early,Affirmation,13.9
+D1,Easy,Early,Open Questioning,15.6
+D1,Easy,Early,Reflective Listening,5.6
+D1,Easy,Early,Summarization,10.6
+D1,Easy,Early,Alternative Perspective,17.2
+D1,Easy,Early,Behavior Experiment,0.0
+D1,Easy,Early,Changing Rules to Wishes,0.6
+D1,Easy,Early,Continuum Technique,0.0
+D1,Easy,Early,Decatastrophizing,22.2
+D1,Easy,Early,Efficiency Evaluation,0.0
+D1,Easy,Early,Evidence-Based Questioning,1.7
+D1,Easy,Early,Pie Chart Technique,0.0
+D1,Easy,Early,Problem-Solving Skills Training,0.0
+D1,Easy,Early,Pros and Cons Analysis,11.7
+D1,Easy,Early,Reality Testing,1.1
+D1,Easy,Early,Systematic Exposure,0.0
+D1,Easy,Middle,Affirmation,15.0
+D1,Easy,Middle,Open Questioning,13.5
+D1,Easy,Middle,Reflective Listening,5.0
+D1,Easy,Middle,Summarization,11.5
+D1,Easy,Middle,Alternative Perspective,18.0
+D1,Easy,Middle,Behavior Experiment,0.0
+D1,Easy,Middle,Changing Rules to Wishes,0.0
+D1,Easy,Middle,Continuum Technique,0.0
+D1,Easy,Middle,Decatastrophizing,26.5
+D1,Easy,Middle,Efficiency Evaluation,0.0
+D1,Easy,Middle,Evidence-Based Questioning,2.0
+D1,Easy,Middle,Pie Chart Technique,0.0
+D1,Easy,Middle,Problem-Solving Skills Training,0.0
+D1,Easy,Middle,Pros and Cons Analysis,7.0
+D1,Easy,Middle,Reality Testing,1.5
+D1,Easy,Middle,Systematic Exposure,0.0
+D1,Easy,Late,Affirmation,10.0
+D1,Easy,Late,Open Questioning,17.5
+D1,Easy,Late,Reflective Listening,5.5
+D1,Easy,Late,Summarization,17.0
+D1,Easy,Late,Alternative Perspective,13.5
+D1,Easy,Late,Behavior Experiment,0.5
+D1,Easy,Late,Changing Rules to Wishes,0.0
+D1,Easy,Late,Continuum Technique,0.0
+D1,Easy,Late,Decatastrophizing,29.5
+D1,Easy,Late,Efficiency Evaluation,0.0
+D1,Easy,Late,Evidence-Based Questioning,3.0
+D1,Easy,Late,Pie Chart Technique,0.0
+D1,Easy,Late,Problem-Solving Skills Training,0.0
+D1,Easy,Late,Pros and Cons Analysis,2.0
+D1,Easy,Late,Reality Testing,1.5
+D1,Easy,Late,Systematic Exposure,0.0
+D1,Normal,Early,Affirmation,11.7
+D1,Normal,Early,Open Questioning,8.9
+D1,Normal,Early,Reflective Listening,9.4
+D1,Normal,Early,Summarization,12.2
+D1,Normal,Early,Alternative Perspective,19.4
+D1,Normal,Early,Behavior Experiment,0.0
+D1,Normal,Early,Changing Rules to Wishes,0.6
+D1,Normal,Early,Continuum Technique,0.0
+D1,Normal,Early,Decatastrophizing,17.2
+D1,Normal,Early,Efficiency Evaluation,0.0
+D1,Normal,Early,Evidence-Based Questioning,2.2
+D1,Normal,Early,Pie Chart Technique,2.8
+D1,Normal,Early,Problem-Solving Skills Training,0.0
+D1,Normal,Early,Pros and Cons Analysis,10.6
+D1,Normal,Early,Reality Testing,5.0
+D1,Normal,Early,Systematic Exposure,0.0
+D1,Normal,Middle,Affirmation,11.5
+D1,Normal,Middle,Open Questioning,14.5
+D1,Normal,Middle,Reflective Listening,8.5
+D1,Normal,Middle,Summarization,11.5
+D1,Normal,Middle,Alternative Perspective,16.5
+D1,Normal,Middle,Behavior Experiment,0.0
+D1,Normal,Middle,Changing Rules to Wishes,0.0
+D1,Normal,Middle,Continuum Technique,0.0
+D1,Normal,Middle,Decatastrophizing,27.0
+D1,Normal,Middle,Efficiency Evaluation,0.0
+D1,Normal,Middle,Evidence-Based Questioning,2.0
+D1,Normal,Middle,Pie Chart Technique,0.0
+D1,Normal,Middle,Problem-Solving Skills Training,0.5
+D1,Normal,Middle,Pros and Cons Analysis,5.5
+D1,Normal,Middle,Reality Testing,2.5
+D1,Normal,Middle,Systematic Exposure,0.0
+D1,Normal,Late,Affirmation,12.5
+D1,Normal,Late,Open Questioning,11.0
+D1,Normal,Late,Reflective Listening,7.5
+D1,Normal,Late,Summarization,9.0
+D1,Normal,Late,Alternative Perspective,14.0
+D1,Normal,Late,Behavior Experiment,0.0
+D1,Normal,Late,Changing Rules to Wishes,0.0
+D1,Normal,Late,Continuum Technique,0.0
+D1,Normal,Late,Decatastrophizing,33.0
+D1,Normal,Late,Efficiency Evaluation,0.5
+D1,Normal,Late,Evidence-Based Questioning,2.0
+D1,Normal,Late,Pie Chart Technique,0.0
+D1,Normal,Late,Problem-Solving Skills Training,0.0
+D1,Normal,Late,Pros and Cons Analysis,5.5
+D1,Normal,Late,Reality Testing,5.0
+D1,Normal,Late,Systematic Exposure,0.0
+D1,Hard,Early,Affirmation,15.6
+D1,Hard,Early,Open Questioning,11.7
+D1,Hard,Early,Reflective Listening,8.9
+D1,Hard,Early,Summarization,12.8
+D1,Hard,Early,Alternative Perspective,16.1
+D1,Hard,Early,Behavior Experiment,0.0
+D1,Hard,Early,Changing Rules to Wishes,1.1
+D1,Hard,Early,Continuum Technique,0.6
+D1,Hard,Early,Decatastrophizing,21.1
+D1,Hard,Early,Efficiency Evaluation,0.0
+D1,Hard,Early,Evidence-Based Questioning,1.7
+D1,Hard,Early,Pie Chart Technique,0.0
+D1,Hard,Early,Problem-Solving Skills Training,0.0
+D1,Hard,Early,Pros and Cons Analysis,9.4
+D1,Hard,Early,Reality Testing,1.1
+D1,Hard,Early,Systematic Exposure,0.0
+D1,Hard,Middle,Affirmation,13.5
+D1,Hard,Middle,Open Questioning,8.5
+D1,Hard,Middle,Reflective Listening,10.0
+D1,Hard,Middle,Summarization,13.5
+D1,Hard,Middle,Alternative Perspective,15.5
+D1,Hard,Middle,Behavior Experiment,0.0
+D1,Hard,Middle,Changing Rules to Wishes,1.0
+D1,Hard,Middle,Continuum Technique,0.0
+D1,Hard,Middle,Decatastrophizing,25.5
+D1,Hard,Middle,Efficiency Evaluation,0.5
+D1,Hard,Middle,Evidence-Based Questioning,2.0
+D1,Hard,Middle,Pie Chart Technique,0.0
+D1,Hard,Middle,Problem-Solving Skills Training,0.0
+D1,Hard,Middle,Pros and Cons Analysis,7.5
+D1,Hard,Middle,Reality Testing,2.5
+D1,Hard,Middle,Systematic Exposure,0.0
+D1,Hard,Late,Affirmation,12.5
+D1,Hard,Late,Open Questioning,13.5
+D1,Hard,Late,Reflective Listening,4.5
+D1,Hard,Late,Summarization,15.0
+D1,Hard,Late,Alternative Perspective,13.5
+D1,Hard,Late,Behavior Experiment,0.0
+D1,Hard,Late,Changing Rules to Wishes,0.0
+D1,Hard,Late,Continuum Technique,0.0
+D1,Hard,Late,Decatastrophizing,31.0
+D1,Hard,Late,Efficiency Evaluation,0.0
+D1,Hard,Late,Evidence-Based Questioning,3.0
+D1,Hard,Late,Pie Chart Technique,0.0
+D1,Hard,Late,Problem-Solving Skills Training,0.0
+D1,Hard,Late,Pros and Cons Analysis,4.0
+D1,Hard,Late,Reality Testing,3.0
+D1,Hard,Late,Systematic Exposure,0.0
+D2,Easy,Early,Affirmation,16.7
+D2,Easy,Early,Open Questioning,22.8
+D2,Easy,Early,Reflective Listening,22.8
+D2,Easy,Early,Summarization,18.3
+D2,Easy,Early,Alternative Perspective,10.0
+D2,Easy,Early,Behavior Experiment,0.0
+D2,Easy,Early,Changing Rules to Wishes,0.6
+D2,Easy,Early,Continuum Technique,0.0
+D2,Easy,Early,Decatastrophizing,7.2
+D2,Easy,Early,Efficiency Evaluation,0.6
+D2,Easy,Early,Evidence-Based Questioning,0.6
+D2,Easy,Early,Pie Chart Technique,0.0
+D2,Easy,Early,Problem-Solving Skills Training,0.0
+D2,Easy,Early,Pros and Cons Analysis,0.0
+D2,Easy,Early,Reality Testing,0.6
+D2,Easy,Early,Systematic Exposure,0.0
+D2,Easy,Middle,Affirmation,18.0
+D2,Easy,Middle,Open Questioning,29.0
+D2,Easy,Middle,Reflective Listening,14.5
+D2,Easy,Middle,Summarization,18.0
+D2,Easy,Middle,Alternative Perspective,7.5
+D2,Easy,Middle,Behavior Experiment,0.0
+D2,Easy,Middle,Changing Rules to Wishes,0.0
+D2,Easy,Middle,Continuum Technique,0.0
+D2,Easy,Middle,Decatastrophizing,11.5
+D2,Easy,Middle,Efficiency Evaluation,0.0
+D2,Easy,Middle,Evidence-Based Questioning,0.0
+D2,Easy,Middle,Pie Chart Technique,0.0
+D2,Easy,Middle,Problem-Solving Skills Training,0.0
+D2,Easy,Middle,Pros and Cons Analysis,1.5
+D2,Easy,Middle,Reality Testing,0.0
+D2,Easy,Middle,Systematic Exposure,0.0
+D2,Easy,Late,Affirmation,18.5
+D2,Easy,Late,Open Questioning,32.5
+D2,Easy,Late,Reflective Listening,13.5
+D2,Easy,Late,Summarization,19.5
+D2,Easy,Late,Alternative Perspective,6.0
+D2,Easy,Late,Behavior Experiment,0.0
+D2,Easy,Late,Changing Rules to Wishes,0.0
+D2,Easy,Late,Continuum Technique,0.0
+D2,Easy,Late,Decatastrophizing,8.5
+D2,Easy,Late,Efficiency Evaluation,0.0
+D2,Easy,Late,Evidence-Based Questioning,0.5
+D2,Easy,Late,Pie Chart Technique,0.0
+D2,Easy,Late,Problem-Solving Skills Training,0.0
+D2,Easy,Late,Pros and Cons Analysis,0.0
+D2,Easy,Late,Reality Testing,1.0
+D2,Easy,Late,Systematic Exposure,0.0
+D2,Normal,Early,Affirmation,19.4
+D2,Normal,Early,Open Questioning,21.1
+D2,Normal,Early,Reflective Listening,25.0
+D2,Normal,Early,Summarization,11.7
+D2,Normal,Early,Alternative Perspective,9.4
+D2,Normal,Early,Behavior Experiment,0.0
+D2,Normal,Early,Changing Rules to Wishes,0.0
+D2,Normal,Early,Continuum Technique,0.0
+D2,Normal,Early,Decatastrophizing,8.3
+D2,Normal,Early,Efficiency Evaluation,0.0
+D2,Normal,Early,Evidence-Based Questioning,0.0
+D2,Normal,Early,Pie Chart Technique,1.1
+D2,Normal,Early,Problem-Solving Skills Training,0.0
+D2,Normal,Early,Pros and Cons Analysis,3.9
+D2,Normal,Early,Reality Testing,0.0
+D2,Normal,Early,Systematic Exposure,0.0
+D2,Normal,Middle,Affirmation,16.0
+D2,Normal,Middle,Open Questioning,19.0
+D2,Normal,Middle,Reflective Listening,17.5
+D2,Normal,Middle,Summarization,18.0
+D2,Normal,Middle,Alternative Perspective,11.5
+D2,Normal,Middle,Behavior Experiment,0.0
+D2,Normal,Middle,Changing Rules to Wishes,0.0
+D2,Normal,Middle,Continuum Technique,0.0
+D2,Normal,Middle,Decatastrophizing,15.0
+D2,Normal,Middle,Efficiency Evaluation,0.0
+D2,Normal,Middle,Evidence-Based Questioning,0.5
+D2,Normal,Middle,Pie Chart Technique,0.0
+D2,Normal,Middle,Problem-Solving Skills Training,0.0
+D2,Normal,Middle,Pros and Cons Analysis,2.5
+D2,Normal,Middle,Reality Testing,0.0
+D2,Normal,Middle,Systematic Exposure,0.0
+D2,Normal,Late,Affirmation,20.5
+D2,Normal,Late,Open Questioning,28.5
+D2,Normal,Late,Reflective Listening,13.0
+D2,Normal,Late,Summarization,19.5
+D2,Normal,Late,Alternative Perspective,5.5
+D2,Normal,Late,Behavior Experiment,0.0
+D2,Normal,Late,Changing Rules to Wishes,0.0
+D2,Normal,Late,Continuum Technique,0.0
+D2,Normal,Late,Decatastrophizing,11.5
+D2,Normal,Late,Efficiency Evaluation,0.0
+D2,Normal,Late,Evidence-Based Questioning,1.0
+D2,Normal,Late,Pie Chart Technique,0.0
+D2,Normal,Late,Problem-Solving Skills Training,0.0
+D2,Normal,Late,Pros and Cons Analysis,0.5
+D2,Normal,Late,Reality Testing,0.0
+D2,Normal,Late,Systematic Exposure,0.0
+D2,Hard,Early,Affirmation,18.9
+D2,Hard,Early,Open Questioning,16.1
+D2,Hard,Early,Reflective Listening,18.9
+D2,Hard,Early,Summarization,13.9
+D2,Hard,Early,Alternative Perspective,6.7
+D2,Hard,Early,Behavior Experiment,0.0
+D2,Hard,Early,Changing Rules to Wishes,0.0
+D2,Hard,Early,Continuum Technique,0.0
+D2,Hard,Early,Decatastrophizing,12.2
+D2,Hard,Early,Efficiency Evaluation,0.0
+D2,Hard,Early,Evidence-Based Questioning,0.6
+D2,Hard,Early,Pie Chart Technique,2.8
+D2,Hard,Early,Problem-Solving Skills Training,0.0
+D2,Hard,Early,Pros and Cons Analysis,7.8
+D2,Hard,Early,Reality Testing,2.2
+D2,Hard,Early,Systematic Exposure,0.0
+D2,Hard,Middle,Affirmation,19.0
+D2,Hard,Middle,Open Questioning,21.5
+D2,Hard,Middle,Reflective Listening,22.5
+D2,Hard,Middle,Summarization,14.5
+D2,Hard,Middle,Alternative Perspective,8.0
+D2,Hard,Middle,Behavior Experiment,0.0
+D2,Hard,Middle,Changing Rules to Wishes,0.5
+D2,Hard,Middle,Continuum Technique,0.0
+D2,Hard,Middle,Decatastrophizing,8.5
+D2,Hard,Middle,Efficiency Evaluation,0.0
+D2,Hard,Middle,Evidence-Based Questioning,1.0
+D2,Hard,Middle,Pie Chart Technique,0.0
+D2,Hard,Middle,Problem-Solving Skills Training,0.0
+D2,Hard,Middle,Pros and Cons Analysis,4.5
+D2,Hard,Middle,Reality Testing,0.0
+D2,Hard,Middle,Systematic Exposure,0.0
+D2,Hard,Late,Affirmation,19.0
+D2,Hard,Late,Open Questioning,31.0
+D2,Hard,Late,Reflective Listening,20.0
+D2,Hard,Late,Summarization,13.5
+D2,Hard,Late,Alternative Perspective,5.0
+D2,Hard,Late,Behavior Experiment,0.0
+D2,Hard,Late,Changing Rules to Wishes,0.5
+D2,Hard,Late,Continuum Technique,0.0
+D2,Hard,Late,Decatastrophizing,6.5
+D2,Hard,Late,Efficiency Evaluation,0.0
+D2,Hard,Late,Evidence-Based Questioning,0.5
+D2,Hard,Late,Pie Chart Technique,0.0
+D2,Hard,Late,Problem-Solving Skills Training,0.0
+D2,Hard,Late,Pros and Cons Analysis,2.5
+D2,Hard,Late,Reality Testing,1.5
+D2,Hard,Late,Systematic Exposure,0.0
+D3,Easy,Early,Affirmation,17.8
+D3,Easy,Early,Open Questioning,20.6
+D3,Easy,Early,Reflective Listening,21.7
+D3,Easy,Early,Summarization,15.0
+D3,Easy,Early,Alternative Perspective,10.6
+D3,Easy,Early,Behavior Experiment,0.0
+D3,Easy,Early,Changing Rules to Wishes,0.6
+D3,Easy,Early,Continuum Technique,0.0
+D3,Easy,Early,Decatastrophizing,10.6
+D3,Easy,Early,Efficiency Evaluation,0.0
+D3,Easy,Early,Evidence-Based Questioning,0.0
+D3,Easy,Early,Pie Chart Technique,0.0
+D3,Easy,Early,Problem-Solving Skills Training,0.0
+D3,Easy,Early,Pros and Cons Analysis,3.3
+D3,Easy,Early,Reality Testing,0.0
+D3,Easy,Early,Systematic Exposure,0.0
+D3,Easy,Middle,Affirmation,15.5
+D3,Easy,Middle,Open Questioning,32.5
+D3,Easy,Middle,Reflective Listening,18.0
+D3,Easy,Middle,Summarization,20.0
+D3,Easy,Middle,Alternative Perspective,4.0
+D3,Easy,Middle,Behavior Experiment,0.0
+D3,Easy,Middle,Changing Rules to Wishes,0.0
+D3,Easy,Middle,Continuum Technique,0.0
+D3,Easy,Middle,Decatastrophizing,9.5
+D3,Easy,Middle,Efficiency Evaluation,0.0
+D3,Easy,Middle,Evidence-Based Questioning,0.0
+D3,Easy,Middle,Pie Chart Technique,0.0
+D3,Easy,Middle,Problem-Solving Skills Training,0.0
+D3,Easy,Middle,Pros and Cons Analysis,0.5
+D3,Easy,Middle,Reality Testing,0.0
+D3,Easy,Middle,Systematic Exposure,0.0
+D3,Easy,Late,Affirmation,17.5
+D3,Easy,Late,Open Questioning,28.0
+D3,Easy,Late,Reflective Listening,13.0
+D3,Easy,Late,Summarization,18.0
+D3,Easy,Late,Alternative Perspective,7.0
+D3,Easy,Late,Behavior Experiment,0.0
+D3,Easy,Late,Changing Rules to Wishes,0.0
+D3,Easy,Late,Continuum Technique,0.0
+D3,Easy,Late,Decatastrophizing,14.5
+D3,Easy,Late,Efficiency Evaluation,0.0
+D3,Easy,Late,Evidence-Based Questioning,0.5
+D3,Easy,Late,Pie Chart Technique,0.0
+D3,Easy,Late,Problem-Solving Skills Training,0.0
+D3,Easy,Late,Pros and Cons Analysis,0.5
+D3,Easy,Late,Reality Testing,1.0
+D3,Easy,Late,Systematic Exposure,0.0
+D3,Normal,Early,Affirmation,16.1
+D3,Normal,Early,Open Questioning,16.7
+D3,Normal,Early,Reflective Listening,27.2
+D3,Normal,Early,Summarization,18.9
+D3,Normal,Early,Alternative Perspective,6.1
+D3,Normal,Early,Behavior Experiment,0.0
+D3,Normal,Early,Changing Rules to Wishes,1.1
+D3,Normal,Early,Continuum Technique,0.0
+D3,Normal,Early,Decatastrophizing,7.8
+D3,Normal,Early,Efficiency Evaluation,0.0
+D3,Normal,Early,Evidence-Based Questioning,0.6
+D3,Normal,Early,Pie Chart Technique,0.0
+D3,Normal,Early,Problem-Solving Skills Training,0.0
+D3,Normal,Early,Pros and Cons Analysis,5.0
+D3,Normal,Early,Reality Testing,0.6
+D3,Normal,Early,Systematic Exposure,0.0
+D3,Normal,Middle,Affirmation,16.0
+D3,Normal,Middle,Open Questioning,30.0
+D3,Normal,Middle,Reflective Listening,16.5
+D3,Normal,Middle,Summarization,18.0
+D3,Normal,Middle,Alternative Perspective,8.0
+D3,Normal,Middle,Behavior Experiment,0.0
+D3,Normal,Middle,Changing Rules to Wishes,0.0
+D3,Normal,Middle,Continuum Technique,0.0
+D3,Normal,Middle,Decatastrophizing,9.5
+D3,Normal,Middle,Efficiency Evaluation,0.0
+D3,Normal,Middle,Evidence-Based Questioning,0.0
+D3,Normal,Middle,Pie Chart Technique,0.0
+D3,Normal,Middle,Problem-Solving Skills Training,0.0
+D3,Normal,Middle,Pros and Cons Analysis,2.0
+D3,Normal,Middle,Reality Testing,0.0
+D3,Normal,Middle,Systematic Exposure,0.0
+D3,Normal,Late,Affirmation,21.5
+D3,Normal,Late,Open Questioning,24.5
+D3,Normal,Late,Reflective Listening,15.5
+D3,Normal,Late,Summarization,17.5
+D3,Normal,Late,Alternative Perspective,4.5
+D3,Normal,Late,Behavior Experiment,0.0
+D3,Normal,Late,Changing Rules to Wishes,0.0
+D3,Normal,Late,Continuum Technique,0.0
+D3,Normal,Late,Decatastrophizing,13.0
+D3,Normal,Late,Efficiency Evaluation,0.0
+D3,Normal,Late,Evidence-Based Questioning,0.5
+D3,Normal,Late,Pie Chart Technique,0.0
+D3,Normal,Late,Problem-Solving Skills Training,0.5
+D3,Normal,Late,Pros and Cons Analysis,1.0
+D3,Normal,Late,Reality Testing,1.5
+D3,Normal,Late,Systematic Exposure,0.0
+D3,Hard,Early,Affirmation,16.7
+D3,Hard,Early,Open Questioning,17.8
+D3,Hard,Early,Reflective Listening,22.8
+D3,Hard,Early,Summarization,17.8
+D3,Hard,Early,Alternative Perspective,7.8
+D3,Hard,Early,Behavior Experiment,0.0
+D3,Hard,Early,Changing Rules to Wishes,0.0
+D3,Hard,Early,Continuum Technique,0.0
+D3,Hard,Early,Decatastrophizing,9.4
+D3,Hard,Early,Efficiency Evaluation,1.1
+D3,Hard,Early,Evidence-Based Questioning,0.6
+D3,Hard,Early,Pie Chart Technique,0.0
+D3,Hard,Early,Problem-Solving Skills Training,0.0
+D3,Hard,Early,Pros and Cons Analysis,5.6
+D3,Hard,Early,Reality Testing,0.6
+D3,Hard,Early,Systematic Exposure,0.0
+D3,Hard,Middle,Affirmation,20.5
+D3,Hard,Middle,Open Questioning,20.0
+D3,Hard,Middle,Reflective Listening,21.0
+D3,Hard,Middle,Summarization,19.5
+D3,Hard,Middle,Alternative Perspective,4.5
+D3,Hard,Middle,Behavior Experiment,0.0
+D3,Hard,Middle,Changing Rules to Wishes,0.0
+D3,Hard,Middle,Continuum Technique,0.0
+D3,Hard,Middle,Decatastrophizing,9.5
+D3,Hard,Middle,Efficiency Evaluation,0.0
+D3,Hard,Middle,Evidence-Based Questioning,1.5
+D3,Hard,Middle,Pie Chart Technique,0.0
+D3,Hard,Middle,Problem-Solving Skills Training,0.0
+D3,Hard,Middle,Pros and Cons Analysis,2.5
+D3,Hard,Middle,Reality Testing,1.0
+D3,Hard,Middle,Systematic Exposure,0.0
+D3,Hard,Late,Affirmation,13.0
+D3,Hard,Late,Open Questioning,21.0
+D3,Hard,Late,Reflective Listening,13.5
+D3,Hard,Late,Summarization,23.5
+D3,Hard,Late,Alternative Perspective,9.0
+D3,Hard,Late,Behavior Experiment,0.0
+D3,Hard,Late,Changing Rules to Wishes,0.0
+D3,Hard,Late,Continuum Technique,0.0
+D3,Hard,Late,Decatastrophizing,16.5
+D3,Hard,Late,Efficiency Evaluation,0.0
+D3,Hard,Late,Evidence-Based Questioning,0.0
+D3,Hard,Late,Pie Chart Technique,0.0
+D3,Hard,Late,Problem-Solving Skills Training,0.0
+D3,Hard,Late,Pros and Cons Analysis,2.5
+D3,Hard,Late,Reality Testing,1.0
+D3,Hard,Late,Systematic Exposure,0.0

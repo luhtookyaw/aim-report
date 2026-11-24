@@ -1,0 +1,31 @@
+\begingroup
+\linespread{1}\selectfont
+\begin{tikzpicture}
+\begin{axis}[width=0.88\textwidth,height=4.3cm,axis lines=left,ybar,bar width=9pt,ymin=-1.35,ymax=0.65,xmin=0.5,xmax=4.5,xtick={1,2,3,4},xticklabels={CTRS,MITI,WAI-O,WAI-O-S},ylabel={Mean difference},title={Easy},title style={font=\small\bfseries},tick label style={font=\footnotesize},label style={font=\small},ymajorgrids,grid style={gray!20},extra y ticks={0},extra y tick labels={},extra y tick style={grid=major,grid style={black}},legend style={font=\footnotesize,draw=none},legend columns=3,legend to name=training-stage-bar-legend]
+\addplot+[fill=orange!85!black,draw=orange!85!black] coordinates {(1,0.041) (2,-0.138) (3,-0.081) (4,-0.129)};
+\addlegendentry{D1 -- SFT}
+\addplot+[fill=teal!80!black,draw=teal!80!black] coordinates {(1,-0.191) (2,0.163) (3,0.238) (4,0.142)};
+\addlegendentry{D2 -- SFT}
+\addplot+[fill=purple!80!black,draw=purple!80!black] coordinates {(1,-0.918) (2,0.000) (3,0.431) (4,0.200)};
+\addlegendentry{D3 -- SFT}
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\begin{tikzpicture}
+\begin{axis}[width=0.88\textwidth,height=4.3cm,axis lines=left,ybar,bar width=9pt,ymin=-1.35,ymax=0.65,xmin=0.5,xmax=4.5,xtick={1,2,3,4},xticklabels={CTRS,MITI,WAI-O,WAI-O-S},ylabel={Mean difference},title={Normal},title style={font=\small\bfseries},tick label style={font=\footnotesize},label style={font=\small},ymajorgrids,grid style={gray!20},extra y ticks={0},extra y tick labels={},extra y tick style={grid=major,grid style={black}},legend style={font=\footnotesize,draw=none},legend columns=3]
+\addplot+[fill=orange!85!black,draw=orange!85!black] coordinates {(1,-0.032) (2,-0.100) (3,-0.189) (4,-0.317)};
+\addplot+[fill=teal!80!black,draw=teal!80!black] coordinates {(1,-0.532) (2,-0.050) (3,0.190) (4,0.058)};
+\addplot+[fill=purple!80!black,draw=purple!80!black] coordinates {(1,-1.150) (2,-0.175) (3,0.385) (4,0.158)};
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\begin{tikzpicture}
+\begin{axis}[width=0.88\textwidth,height=4.3cm,axis lines=left,ybar,bar width=9pt,ymin=-1.35,ymax=0.65,xmin=0.5,xmax=4.5,xtick={1,2,3,4},xticklabels={CTRS,MITI,WAI-O,WAI-O-S},ylabel={Mean difference},title={Hard},title style={font=\small\bfseries},tick label style={font=\footnotesize},label style={font=\small},ymajorgrids,grid style={gray!20},extra y ticks={0},extra y tick labels={},extra y tick style={grid=major,grid style={black}},legend style={font=\footnotesize,draw=none},legend columns=3]
+\addplot+[fill=orange!85!black,draw=orange!85!black] coordinates {(1,-0.027) (2,-0.062) (3,-0.222) (4,-0.217)};
+\addplot+[fill=teal!80!black,draw=teal!80!black] coordinates {(1,-0.795) (2,0.037) (3,0.158) (4,0.096)};
+\addplot+[fill=purple!80!black,draw=purple!80!black] coordinates {(1,-1.018) (2,0.062) (3,0.289) (4,0.212)};
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\pgfplotslegendfromname{training-stage-bar-legend}
+\endgroup

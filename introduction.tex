@@ -37,13 +37,17 @@ The main objective of this thesis is to develop and evaluate AIM-RGL, an agentic
 
     \item To implement reward-guided lookahead search that compares multiple candidate MI-CBT responses and selects the response expected to support a better near-future client trajectory.
 
-    \item To examine how different lookahead horizons, including one-step, two-step, and three-step lookahead, affect the quality of MI-CBT therapeutic response selection.
+    \item To evaluate whether reward-guided lookahead search improves therapeutic competence, MI fidelity, and therapeutic alliance compared with baseline approaches.
 
-    \item To evaluate whether AIM-RGL improves therapeutic skill quality, MI fidelity, and therapeutic alliance compared with selected baseline counseling systems.
+    \item To examine how different lookahead horizons (1-step, 2-step, and 3-step) affect reward-guided MI-CBT response quality.
+
+    \item To analyze how lookahead depth affects MI-CBT technique selection and diversity in reward-guided response generation.
+
+    \item To examine how lookahead depth influences MI-CBT technique selection across early, middle, and late conversation stages.
 \end{itemize}
 
 \section{Organization of the Study}
 
 This thesis is organized into five chapters. Chapter 1 introduces the research background, problem statement, objectives, and overall organization of the study. It explains the motivation for developing an LLM-based MI-CBT counseling framework that can manage client resistance through future-aware response selection. Chapter 2 reviews the literature related to therapeutic alliance, client resistance, readiness for change, Motivational Interviewing, Cognitive Behavioral Therapy, LLM-based counseling systems, client simulation, therapeutic evaluation, reward models, and lookahead search. This chapter establishes the clinical and technical foundations for AIM-RGL.
 
-Chapter 3 presents the proposed methodology. It describes the overall AIM-RGL framework, including the multi-agent therapist response generation module, client simulation setting, reward-guided lookahead search mechanism, reward model training, and policy optimization process. Chapter 4 presents the experimental design used to evaluate AIM-RGL. It includes the research questions, hypotheses, independent variables, dependent variables, datasets, model backbones, baseline systems, lookahead configurations, evaluation metrics, and comparison procedures. Chapter 5 concludes the thesis by summarizing the main contributions, discussing the expected implications and limitations of the study, and outlining possible directions for future work.
+Chapter 3 presents the proposed methodology. It describes the overall AIM-RGL framework, including the multi-agent therapist response generation module, client simulation setting, reward-guided lookahead search mechanism, reward model training, and policy optimization process. Chapter 4 presents the experimental design and results used to evaluate AIM-RGL. It includes the research questions, hypotheses, independent variables, dependent variables, datasets, model backbones, baseline systems, lookahead configurations, evaluation metrics, and comparison procedures. Chapter 5 concludes the thesis by summarizing the main contributions, discussing the expected implications and limitations of the study, and outlining possible directions for future work.

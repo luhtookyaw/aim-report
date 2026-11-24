@@ -2,4 +2,70 @@
 
 \chapter{CONCLUSION}
 
+This thesis investigated whether reward-guided lookahead can improve MI-CBT response generation in simulated therapeutic conversations. AIM-RGL combines specialist therapist response generation, client simulation, lookahead-based reward estimation, reward model training, and policy optimization. The evaluation compared baseline systems, a supervised fine-tuned policy, and GRPO policies optimized using reward models trained on one-step, two-step, and three-step lookahead data. The main contribution is an examination of how these training choices affect therapeutic competence, MI fidelity, alliance, and technique selection. The findings show that higher alliance scores can coexist with weaker CBT competence, making the balance between therapeutic dimensions central to interpreting the framework.
 
+\section{Answers to the Research Questions and Hypotheses}
+
+\subsection{RQ1: Therapeutic Quality Compared with Baseline Approaches}
+
+RQ1 asked whether reward-guided lookahead search improves therapeutic competence, MI fidelity, and therapeutic alliance compared with baseline approaches. H1 predicted improvements in all three dimensions. The results provide partial support for H1 through stronger alliance ratings, but do not support the hypothesis in its full form.
+
+The three-step GRPO variant achieves the highest mean WAI-O and WAI-O-S scores in every difficulty setting. Its direct comparisons with SFT show significant WAI-O improvements in easy, normal, and hard modes, and significant WAI-O-S improvements in easy and hard modes after Holm correction. However, these gains are accompanied by significantly lower CTRS scores in all three settings. None of the GRPO variants significantly improves MITI over SFT. The one-step variant does not differ significantly from SFT on any of the four metrics within any difficulty setting, while the two-step variant produces mixed changes.
+
+The answer to RQ1 is therefore conditional: reward-guided optimization can strengthen the observed therapeutic alliance, but the evaluation does not establish a general improvement in therapeutic response quality. Alliance, CBT competence, and MI fidelity must be assessed separately. In particular, a higher alliance score should not be interpreted as evidence that the system delivers more competent CBT or more faithful MI.
+
+\subsection{RQ2: Effects of Different Lookahead Horizons}
+
+RQ2 examined how one-step, two-step, and three-step lookahead affect response quality. H2 predicted that therapeutic quality would differ across horizons. The paired comparisons support H2, particularly for alliance and competence, although the effect depends on the metric and difficulty setting.
+
+Using 20 matched patient groups within each difficulty setting, two-step lookahead significantly improves both alliance measures over one-step lookahead in all three modes after Holm correction. It also improves MITI in easy mode, while reducing CTRS significantly in normal mode. Three-step lookahead significantly improves both alliance measures over one-step lookahead, but also significantly lowers CTRS in all modes. These results indicate that changes in lookahead depth affect several aspects of dialogue quality in different directions.
+
+The additional step from two-step to three-step lookahead does not yield significant improvements in either alliance measure or MITI within any difficulty setting. It does, however, significantly reduce CTRS in easy and normal modes. Consequently, the highest mean alliance scores at three-step lookahead do not establish that this horizon is preferable overall. Two-step lookahead offers a potential compromise between the alliance gains observed over one-step lookahead and the further competence reductions associated with three-step lookahead. This is a comparison of the evaluated configurations, rather than evidence of a universally optimal depth.
+
+\subsection{RQ3: Technique Selection and Diversity}
+
+RQ3 asked how lookahead depth affects MI-CBT technique selection and diversity. H3 predicted variation in both. The descriptive results are consistent with H3, but the aggregate technique percentages do not provide a statistical test of this hypothesis.
+
+The one-step GRPO variant exhibits a distinct CBT-oriented distribution, allocating approximately 50--60\% of responses to CBT across the difficulty--stage combinations. Decatastrophizing and Alternative Perspective are particularly frequent. By contrast, the two-step and three-step variants allocate most responses to MI techniques. The one-step variant also has the highest effective number of techniques in every difficulty--stage combination, indicating a broader and more even distribution of technique use under the entropy-based measure.
+
+However, diversity does not decrease monotonically with increasing lookahead depth. The relative diversity of the two-step and three-step variants changes across difficulty settings and stages. The deeper variants retain a mixture of Affirmation, Open Questioning, Reflective Listening, and Summarization, rather than concentrating uniformly on a single MI technique. Several allowed CBT techniques remain absent or rare across the evaluated conversations. The answer to RQ3 is thus that depth is associated with changes in both technique balance and diversity, but these changes do not follow a simple rule in which deeper lookahead always produces less diverse responses. Greater diversity also does not, by itself, establish better therapeutic quality.
+
+\subsection{RQ4: Technique Selection across Conversation Stages}
+
+RQ4 examined how lookahead depth influences technique selection during early (turns 1--10), middle (11--20), and late (21--30) conversation stages. H4 predicted that stage-specific technique distributions would vary with depth. The observed patterns are descriptively consistent with H4, while statistical confirmation remains outside the available aggregate analysis.
+
+The one-step variant maintains a relatively high CBT share throughout the conversation, but changes its preferred CBT techniques. Decatastrophizing increases from early to late turns in every difficulty mode, while Pros and Cons Analysis decreases. Thus, a stable total CBT share can conceal a substantial shift in the intervention selected. The two-step variant shows a different progression: Open Questioning increases from early to late turns in all modes, with a particularly large decline in the total CBT share in hard mode.
+
+The three-step variant has different trajectories across difficulty settings. Its CBT share decreases and then recovers in easy and hard modes, while remaining near 20\% in normal mode. Reflective Listening decreases from early to late turns in all modes, whereas Decatastrophizing increases. These findings answer RQ4 by showing that technique selection depends jointly on the training configuration, conversation stage, and client difficulty. They do not demonstrate that the changes are appropriate responses to an individual client's needs, or that they cause the observed alliance and competence scores.
+
+\section{Implications, Limitations, and Future Work}
+
+The results indicate that reward-guided optimization should be assessed across therapeutic competence, MI fidelity, and alliance together. Improvements in one dimension can coincide with deterioration in another. The following limitations identify where further evaluation and methodological development are needed.
+
+\subsection{Simulated Client Evaluation}
+
+The framework is evaluated exclusively using simulated clients. Although cognitive conceptualization and stage-of-change information provide structured client profiles, the simulation may not capture the complexity, unpredictability, and diversity of real therapeutic interactions. The findings therefore do not establish real clinical treatment outcomes. Future work should validate AIM-RGL through studies involving real human participants, using appropriate ethics review, informed consent, and professional oversight, and examine whether the observed trade-offs persist across more varied client concerns and interaction patterns.
+
+\subsection{Lack of Clinical Expert Evaluation}
+
+The evaluation relies on automated, instrument-based ratings rather than independent assessments by clinical experts. Adaptations of established instruments provide structured evaluation criteria, but their use by an LLM does not establish agreement with trained clinicians or clinical validity. Future studies should include blinded ratings by qualified therapists, measure agreement between clinical and automated assessments, and investigate disagreements concerning intervention timing, therapeutic competence, MI fidelity, and alliance. Expert review would also help determine whether apparently supportive responses are therapeutically appropriate for the client's context.
+
+\subsection{Reward Design Limitations}
+
+The current reward design may not adequately balance therapeutic competence, MI fidelity, and therapeutic alliance. The alliance gains and competence reductions observed with deeper-lookahead GRPO suggest that optimizing the learned reward can favor some therapeutic qualities over others. DeBERTa-v3-large is selected for reward prediction performance, but accurate approximation of the reward targets does not ensure balanced downstream therapeutic quality. Future work should develop and compare multi-objective reward functions, including alternative weights, competence-preserving constraints, and explicit treatment of therapeutic timing. These alternatives should be evaluated against each therapeutic dimension separately to determine whether alliance improvements can be retained without sacrificing competence.
+
+\subsection{Technique-Space Exploration}
+
+AIM-RGL supports 16 MI-CBT techniques, but the ability of GRPO to explore and optimize the full technique space remains unverified. Several techniques are absent or rare in the evaluated conversations, and aggregate diversity does not establish that a technique was chosen appropriately. Future work should investigate technique coverage, policy backbone capacity, and hierarchical technique selection, for example by first selecting an MI or CBT strategy and then an individual technique. Evaluation should distinguish useful diversity from indiscriminate technique use and examine whether appropriate but infrequent techniques can be learned without weakening response quality.
+
+\subsection{Longer and Adaptive Lookahead Horizons}
+
+The experiments cover only one-step, two-step, and three-step lookahead, so the findings do not establish what happens at greater depths. Future work should evaluate four-step, five-step, and longer horizons to determine whether additional future context produces useful therapeutic gains, further competence reductions, or diminishing returns. These comparisons should measure therapeutic quality alongside generation cost, latency, and the reliability of simulated future client responses, since deeper trajectories may compound simulation errors and become more expensive to construct.
+
+Adaptive lookahead is another direction: the horizon could vary with client difficulty, readiness, conversation stage, or uncertainty about candidate responses. Comparisons with fixed horizons under matched computational budgets would help determine whether deeper search is useful at particular decision points. The effects of horizon length and beam width should also be examined separately. Greater depth should be evaluated as an experimental choice, rather than assumed to improve performance.
+
+\subsection{Statistical Scope and Technique Analysis}
+
+The paired comparisons use 20 matched patient groups per difficulty setting, limiting the breadth of the evidence. Technique analyses use aggregate percentages and equally weighted stage summaries; they do not estimate patient-level uncertainty or statistically test H3 and H4. Future work should include additional client cases and independent replications, retain patient-level technique counts, and formally test technique-distribution differences across models and stages. Analyses linking individual technique choices to subsequent client responses could further examine the relationship between technique selection and therapeutic scores without treating aggregate associations as causal evidence.
+
+Overall, the thesis shows that increasing lookahead depth changes both therapeutic scores and the distribution of selected techniques. The strongest evidence concerns a trade-off: deeper-lookahead GRPO can improve therapeutic alliance while weakening CBT competence, with no consistent MI-fidelity improvement over SFT. Future development should therefore prioritize balanced therapeutic performance and context-appropriate technique selection, while testing whether longer or adaptive horizons offer benefits beyond the evaluated configurations.

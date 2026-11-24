@@ -1,8 +1,8 @@
 \setlength{\footskip}{8mm}
 
-\chapter{EXPERIMENT}
+\chapter{EXPERIMENTS AND RESULTS}
 
-This chapter presents the experimental design used to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The purpose of the experiment is to examine whether reward-guided lookahead search can improve therapeutic response quality when compared with baseline response generation methods. The chapter describes the experimental conditions, including the simulated client setup, compared systems, lookahead configurations, and reward model backbones. It also explains the evaluation protocol and metrics used to assess therapeutic skill quality, MI fidelity, therapeutic alliance, and reward model performance. Since the implementation and evaluation are still in progress, this chapter reports the available one-step reward model results, while the remaining comparisons will be added after evaluation is completed.
+This chapter presents the experimental design used to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The purpose of the experiment is to examine whether reward-guided lookahead search can improve therapeutic response quality when compared with baseline response generation methods. The chapter describes the experimental conditions, including the simulated client setup, compared systems, lookahead configurations, and reward model backbones. It also explains the evaluation protocol and metrics used to assess therapeutic skill quality, MI fidelity, therapeutic alliance, and reward model performance. The chapter reports therapeutic response quality across systems and lookahead depths, together with the one-step reward model backbone evaluation.
 
 \section{Experimental Design and Conditions}
 
@@ -10,26 +10,30 @@ This chapter presents the experimental design used to evaluate AIM-RGL in simula
 
 This experiment is designed to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The main purpose is to examine whether reward-guided lookahead search can improve therapeutic response generation when the simulated client shows resistance, ambivalence, or changing readiness for structured intervention. In this setting, a response is not evaluated only by whether it appears appropriate in the current turn, but also by whether it is expected to support a better near-future therapeutic trajectory.
 
-The experiment compares AIM-RGL with selected baseline therapist systems under the same simulated client scenarios. Each system receives the same client profile, cognitive conceptualization information, difficulty setting, and dialogue context. The resulting therapist-client conversations are evaluated using counseling-specific metrics, including therapeutic skill quality, MI fidelity, and therapeutic alliance. The experiment also examines the effects of different lookahead horizons and reward model backbones.
+The experiment compares AIM-RGL with selected baseline therapist systems under the same simulated client scenarios. Each system receives the same client profile, cognitive conceptualization information, difficulty setting, and dialogue context. The resulting therapist-client conversations are evaluated using counseling-specific metrics, including therapeutic skill quality, MI fidelity, and therapeutic alliance. The experiment also examines how lookahead depth affects therapeutic response quality, MI-CBT technique selection and diversity, and technique selection across early, middle, and late conversation stages. Reward model backbones are evaluated separately for reward prediction.
 
 The experiment is guided by the following research questions:
 
 \begin{itemize}
-    \item \textbf{RQ1:} Does reward-guided lookahead search improve therapeutic skill quality and MI fidelity compared with baseline systems?
-    
-    \item \textbf{RQ2:} Does reward-guided lookahead search strengthen therapeutic alliance compared with baseline systems?
-    
-    \item \textbf{RQ3:} How do different lookahead horizons, including one-step, two-step, and three-step lookahead, affect reward-guided MI-CBT response quality?
+    \item \textbf{RQ1:} Does reward-guided lookahead search improve therapeutic competence, MI fidelity, and therapeutic alliance compared with baseline approaches?
+
+    \item \textbf{RQ2:} How do different lookahead horizons (1-step, 2-step, and 3-step) affect reward-guided MI-CBT response quality?
+
+    \item \textbf{RQ3:} How does lookahead depth affect MI-CBT technique selection and diversity in reward-guided response generation?
+
+    \item \textbf{RQ4:} How does lookahead depth influence MI-CBT technique selection across conversation stages (Early, Middle, Late)?
 \end{itemize}
 
-Based on these research questions, the experiment tests the following hypotheses:
+The corresponding hypotheses are:
 
 \begin{itemize}
-    \item \textbf{H1:} Reward-guided lookahead search will produce higher therapeutic skill quality and stronger MI fidelity than baseline methods.
-    
-    \item \textbf{H2:} Reward-guided lookahead search will lead to stronger therapeutic alliance compared with baseline methods.
-    
-    \item \textbf{H3:} Longer lookahead horizons will improve MI-CBT response quality by considering future client reactions and therapeutic trajectory.
+    \item \textbf{H1:} Reward-guided lookahead search will improve therapeutic competence, MI fidelity, and therapeutic alliance compared with baseline approaches.
+
+    \item \textbf{H2:} Therapeutic response quality, measured through therapeutic competence, MI fidelity, and therapeutic alliance, will differ across one-step, two-step, and three-step lookahead horizons.
+
+    \item \textbf{H3:} MI-CBT technique selection and diversity will vary with lookahead depth in reward-guided response generation.
+
+    \item \textbf{H4:} The distribution of selected MI-CBT techniques across early, middle, and late conversation stages will vary with lookahead depth.
 \end{itemize}
 
 This experiment is limited to simulated therapist-client dialogue. It does not involve real patients or human clinical participants, and it does not measure real clinical treatment outcomes.
@@ -38,7 +42,9 @@ This experiment is limited to simulated therapist-client dialogue. It does not i
 
 The experiment includes three main experimental factors: therapist system, lookahead horizon, and reward model backbone. The therapist system comparison is used to evaluate whether AIM-RGL improves therapeutic response quality compared with selected baseline systems. The lookahead horizon comparison is used to examine whether considering more future client reactions improves response selection. The reward model backbone comparison is used to evaluate reward prediction performance.
 
-The therapist systems compared in this experiment are Standard, CAMEL, and AIM-RGL. The Standard baseline uses GPT-4o-mini with a fixed therapist prompt, provided in Appendix~\ref{app:standard-prompt}. CAMEL is included as a baseline counseling agent for comparison \cite{lee2024cactus}. AIM-RGL is the proposed framework, which uses specialist therapist agents, client simulation, reward-guided lookahead search, reward model training, and policy optimization.
+The experiment compares Standard, CAMEL, LLaMA Base, AIM-RGL SFT, and AIM-RGL SFT+GRPO variants trained using D1, D2, and D3 reward models. The Standard baseline uses GPT-4o-mini with a fixed therapist prompt, provided in Appendix~\ref{app:standard-prompt}. CAMEL is included as a baseline counseling agent for comparison \cite{lee2024cactus}. AIM-RGL is the proposed framework, which uses specialist therapist agents, client simulation, reward-guided lookahead search, reward model training, and policy optimization.
+
+LLaMA Base provides the policy baseline before task-specific fine-tuning. AIM-RGL SFT denotes the supervised fine-tuned policy, and AIM-RGL SFT+GRPO denotes subsequent reward-guided policy optimization. The D1, D2, and D3 variants use reward models trained with the corresponding lookahead datasets. LLaMA Base, AIM-RGL SFT, and all GRPO variants share the technique-selection and JSON response prompt provided in Appendix~\ref{app:policy-prompt}.
 
 For AIM-RGL, the lookahead horizon is varied using one-step, two-step, and three-step lookahead settings. These are not treated as separate system names, but as different configurations of the same reward-guided lookahead mechanism. In one-step lookahead, each candidate therapist response is followed by one simulated client response before scoring. In two-step lookahead, the system expands the trajectory further to estimate a longer short-term therapeutic effect. In three-step lookahead, the system examines whether deeper trajectory evaluation provides additional improvement in response quality.
 
@@ -49,7 +55,7 @@ For AIM-RGL, the lookahead horizon is varied using one-step, two-step, and three
 \hline
 \textbf{Condition Type} & \textbf{Experimental Settings} \\
 \hline
-Therapist system & Standard, CAMEL, AIM-RGL \\
+Therapist system & Standard, CAMEL, LLaMA Base, AIM-RGL SFT, AIM-RGL SFT+GRPO (D1, D2, D3) \\
 \hline
 Lookahead horizon & One-step lookahead, two-step lookahead, three-step lookahead \\
 \hline
@@ -68,7 +74,7 @@ The client simulator generates first-person client responses based on the curren
 
 Client difficulty is represented using easy, normal, and hard settings. Difficulty controls how frequently the client's openness level and stage of change are re-evaluated during the dialogue. Easy clients are expected to become more open more quickly, normal clients change more gradually, and hard clients remain resistant for longer. The openness judge periodically re-evaluates the simulated client's openness level and stage of change based on the recent conversation history. For easy clients, openness is re-evaluated every two turns. For normal clients, it is re-evaluated every four turns. For hard clients, it is re-evaluated every six turns. This interval-based design allows the simulation to represent different levels of resistance persistence and readiness development.
 
-GPT-4o-mini is used for therapist-side response generation and client simulation. In AIM-RGL, the therapist-side generation module includes specialist agents for open-ended questioning, reflection, affirmation, summarization, and CBT intervention. These agents generate candidate responses before the reward-guided lookahead search stage. The reward model is trained to predict scalar therapeutic reward scores for candidate responses or trajectories. GPT-4o is used as a reward judge and evaluator for therapeutic quality dimensions, including therapeutic alliance, MI fidelity, and CBT competence. The same model, dataset, and client simulation setup are applied across compared systems to support controlled comparison.
+GPT-4o-mini is used for candidate therapist response generation and client simulation during data construction. In AIM-RGL, the therapist-side generation module includes specialist agents for open-ended questioning, reflection, affirmation, summarization, and CBT intervention. These agents generate candidate responses before the reward-guided lookahead search stage. The reward model is trained to predict scalar therapeutic reward scores for candidate responses or trajectories. GPT-4o is used as a reward judge and evaluator for therapeutic quality dimensions, including therapeutic alliance, MI fidelity, and CBT competence. The compared systems use the same client scenario and simulation setup.
 
 \subsection{Reward Model and Policy Training Configuration}
 
@@ -112,34 +118,62 @@ The reward model is trained as a regression model. Its objective is to predict a
 
 After the reward model is trained, it is used to support policy optimization through GRPO. In this stage, the policy model generates a group of candidate therapist responses for the same conversation context. The trained reward model scores each candidate response, and the group-level reward distribution is used to compute relative advantages. The policy model is then optimized to increase the likelihood of higher-reward therapeutic responses while remaining close to the reference model through a KL penalty.
 
-In the GRPO stage, low-rank adaptation is used to reduce the cost of policy optimization. The planned LoRA configuration uses a rank of 8 and a LoRA alpha of 32. A fixed copy of the initial policy backbone is used as the reference model for calculating the KL divergence penalty. The number of generated responses per context is treated as the GRPO group size. The exact learning rate, batch size, number of epochs, and number of GRPO training client cases will be finalized during implementation based on available computational resources.
+In the GRPO stage, low-rank adaptation is used to reduce the cost of policy optimization. The LoRA configuration uses a rank of 8 and a LoRA alpha of 32. A fixed copy of the initial policy backbone is used as the reference model for calculating the KL divergence penalty. The number of generated responses per context is treated as the GRPO group size.
 
 The reward model and policy optimization stages are separated to make the experimental comparison clearer. The reward model training stage evaluates whether the system can learn to approximate therapeutic reward scores from lookahead data. The GRPO stage then evaluates whether this learned reward signal can improve the therapeutic response generation policy.
 
+\subsection{Evaluation Metrics}
+\label{sec:evaluation-metric-scoring}
+
+The definitions and theoretical basis of CTRS, MITI, WAI-O, and WAI-O-S are reviewed in Section~\ref{sec:therapeutic-dialogue-metrics}. This experiment applies LLM-based scoring to simulated conversations using the following procedures. Higher values indicate stronger performance within each metric.
+
+\begin{itemize}
+    \item \textbf{CTRS:} Rate 11 items from 0 to 6 and report their arithmetic mean.
+
+    \item \textbf{MITI:} Rate the four core global dimensions from 1 to 5 and report their mean. The additional direction rating requested by the evaluation prompt is excluded from this aggregate. This is an adapted summary score rather than a standard MITI 4 composite.
+
+    \item \textbf{WAI-O:} Rate 36 items from 1 to 7, orient negatively worded items so that higher scores indicate stronger alliance, and average item scores across observer evaluations.
+
+    \item \textbf{WAI-O-S:} Apply an adapted 1--5 rubric to 12 items and report the mean of their normalized scores. Reverse-coded items are reoriented before averaging. The 1--5 scale is specific to this implementation.
+\end{itemize}
+
+Scores are compared between systems within each metric. Their raw magnitudes are not directly comparable across metrics because the ranges and item sets differ. These automated adaptations have not been independently validated through clinical expert ratings, so the scores describe performance under the implemented rubrics rather than established clinical effectiveness.
+
+\subsection{Statistical Comparison Procedure}
+\label{sec:paired-permutation-tests}
+
+Two statistical procedures are used for different comparison families. Tables~\ref{tab:main-results-easy}--\ref{tab:main-results-hard} use two-sided paired t-tests for comparisons against the D3 reference model, while Figures~\ref{fig:training-stage-heatmap} and~\ref{fig:lookahead-comparisons} use two-sided exact paired permutation tests. Their test statistics and multiple-comparison families are described separately below.
+
+\textbf{Paired t-tests for the main result tables.}
+Each of the six other models is compared with AIM-RGL SFT+GRPO(D3) on matched client observations within the same difficulty setting. The paired t-test evaluates whether the population mean within-pair score difference is zero. For differences \(d_i=y_{i,D3}-y_{i,A}\), its statistic is
+\begin{equation}
+t=\frac{\bar d}{s_d/\sqrt{n}},
+\end{equation}
+where \(s_d\) is the sample standard deviation of the paired differences and \(n\) is the number of matched pairs. The two-sided p-value is obtained from a t distribution with \(n-1\) degrees of freedom \cite{scipyPairedTTest}.
+
+Pairing is appropriate because the models respond to matched client scenarios, making their scores dependent within each pair. Analyzing within-pair differences accounts for variation between client cases and directly tests mean score differences. A two-sided test is used because D3 may score either higher or lower than another model. The validity of the t reference distribution depends on independent pairs and approximately normally distributed within-pair differences, particularly with small samples; severe outliers can also affect the result. This normality assumption concerns the paired differences, rather than requiring equal variances between the two models, and is not established merely because the ratings have been averaged.
+
+Holm correction is applied jointly across \(6 \times 4 \times 3=72\) comparisons: six models against D3, four metrics, and three difficulty settings. Thus, the 72 tests form one family across all three tables. The correction controls the family-wise error rate at 0.05 and addresses the increased chance of false positives from repeated testing \cite{statsmodelsMultipleTests}. Asterisks identify Holm-adjusted significant differences from D3, with the score means indicating their direction.
+
+\textbf{Exact paired permutation tests for the comparison figures.}
+The comparisons in Figures~\ref{fig:training-stage-heatmap} and~\ref{fig:lookahead-comparisons} use two-sided exact paired permutation tests, implemented as sign-flip tests of the mean within-group score difference. Each model is evaluated on matched patient groups, so the unit of analysis is the patient group rather than an individual utterance or an independently sampled conversation. Pairing controls for differences between client cases and preserves the dependence between model scores for the same group.
+
+For a comparison of models \(A\) and \(B\), let \(d_i=y_{i,B}-y_{i,A}\) be the score difference for patient group \(i\). The observed statistic is the mean difference, \(\bar d\). Its null distribution is constructed by independently reversing the sign of each paired difference:
+\begin{equation}
+T_{\mathbf{s}}=\frac{1}{n}\sum_{i=1}^{n}s_i d_i,
+\qquad s_i\in\{-1,+1\}.
+\end{equation}
+With \(n=20\), all \(2^{20}=1{,}048{,}576\) sign assignments are enumerated, giving an exact permutation distribution rather than a Monte Carlo approximation. Two-sided p-values assess departures in either direction and are computed using twice the smaller permutation-tail probability, capped at one \cite{scipyPermutationTest}.
+
+This procedure is used because the sample contains only 20 matched groups and the scores are bounded ratings whose paired differences are not assumed to be normally distributed. Unlike a paired t-test, the sign-flip test does not rely on a normal-theory reference distribution for the mean difference. Exact enumeration is feasible at this sample size. However, the test is not assumption-free: it requires independent patient groups and exchangeability of the two model labels within each pair under the null, equivalently a null distribution invariant to independent sign reversals. Normality is unnecessary, but the sign-symmetry assumption remains important \cite{scipyPermutationTest}.
+
+For the permutation-test figures, Holm correction controls the family-wise error rate at 0.05 within each of two separate families: the 36 GRPO--SFT tests and the 36 comparisons between lookahead depths. These families are separate from the 72 paired t-tests reported in the main result tables. Each family contains three model contrasts, four metrics, and three difficulty settings. The figures report adjusted p-values. A significant result indicates a difference in paired scores; its direction is determined by the sign of the mean difference.
+
 \section{Experimental Results}
 
-This section presents the current experimental results and describes how the final results will be reported after the full AIM-RGL implementation and evaluation are completed. At the current stage, the available results cover reward model backbones trained on the one-step lookahead dataset, \(D_1\). The final version of this section will include the complete comparison between Standard, CAMEL, and AIM-RGL, together with lookahead horizon and reward model backbone comparisons.
+This section reports the reward model backbone evaluation, followed by therapeutic response quality across baseline and trained policy variants. CTRS assesses therapeutic competence, MITI assesses MI fidelity, and WAI-O and WAI-O-S assess therapeutic alliance, using the definitions and scoring conventions described in the evaluation metrics subsection.
 
-\subsection{Ablation and Model Comparison Results}
-
-The reward model backbone results for \(D_1\) are reported below. The remaining ablation and system comparison results will be added after the full AIM-RGL experiment is completed. This part of the experiment will examine whether reward-guided lookahead search improves therapeutic response quality compared with the baseline systems. It will also analyze how different lookahead horizons affect response quality.
-
-The lookahead comparison will evaluate one-step, two-step, and three-step lookahead settings. The purpose of this comparison is to determine whether deeper lookahead improves therapeutic response selection by considering more future client reactions, or whether the benefit becomes limited after a certain depth. The final results will be reported using the same therapeutic evaluation metrics, including CTRS, WAI, MITI, and alliance.
-
-\begin{table}[h]
-\centering
-\caption{Planned lookahead horizon comparison.}
-\label{tab:lookahead-comparison-placeholder}
-\begin{tabular}{lccc}
-\hline
-Lookahead Horizon & CTRS & WAI & MITI \\
-\hline
-One-step lookahead & -- & -- & -- \\
-Two-step lookahead & -- & -- & -- \\
-Three-step lookahead & -- & -- & -- \\
-\hline
-\end{tabular}
-\end{table}
+\subsection{Reward Model Backbone Performance}
 
 The reward model backbone comparison evaluates DeBERTa-v3-large, ModernBERT-large, and RoBERTa-large trained on the one-step lookahead dataset, \(D_1\). Table~\ref{tab:reward-backbone-d1} reports their parameter counts, loss, mean absolute error (MAE), root mean squared error (RMSE), Pearson correlation, and Spearman rank correlation. Lower loss, MAE, and RMSE indicate better predictive performance, while higher Pearson and Spearman correlations indicate stronger agreement with the reward targets. Loss is reported as provided in the evaluation results; it is not equated here with mean squared error on the scale used for RMSE.
 
@@ -162,8 +196,210 @@ RoBERTa-large & \textbf{355M} & 0.0027 & 0.4236 & 0.5287 & 0.7687 & 0.7082 \\
 
 DeBERTa-v3-large achieves the lowest loss, MAE, and RMSE and the highest Pearson and Spearman correlations among the three evaluated backbones. Its Pearson correlation of 0.8087 indicates the strongest linear association with the reward targets, while its Spearman correlation of 0.7768 indicates the strongest rank agreement. RoBERTa-large ranks second on all reported predictive metrics and has the smallest parameter count, at 355 million. ModernBERT-large records the highest prediction errors and the lowest correlations in this comparison. Based on these results, DeBERTa-v3-large is selected as the reward model backbone for AIM-RGL. Its lower prediction errors and stronger correlations with the reward targets motivate this choice, although it also has the largest parameter count. They do not establish performance at deeper lookahead depths or improvements in downstream therapeutic dialogue.
 
+\subsection{Therapeutic Response Quality and Lookahead Depth}
+
+Tables~\ref{tab:main-results-easy}--\ref{tab:main-results-hard} present the comparisons for easy, normal, and hard simulated client settings, respectively. Each table includes Standard, CAMEL, LLaMA Base, AIM-RGL SFT, and the three AIM-RGL SFT+GRPO variants. D1, D2, and D3 denote reward models trained with one-step, two-step, and three-step lookahead datasets, respectively.
+
+\begin{table}[H]
+\centering
+\caption{Therapeutic response quality in the easy client setting.}
+\label{tab:main-results-easy}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lcccc}
+\toprule
+System & CTRS & MITI & WAI-O & WAI-O-S \\
+\midrule
+Standard & $\mathbf{4.08}_{\pm 0.51}$ & $4.33_{\pm 0.20}$ & $6.38_{\pm 0.19}^{***}$ & $3.82_{\pm 0.18}^{***}$ \\
+CAMEL & $3.35_{\pm 0.57}$ & $4.19_{\pm 0.23}$ & $6.16_{\pm 0.26}^{***}$ & $3.63_{\pm 0.26}^{***}$ \\
+LLaMA Base & $3.32_{\pm 0.50}$ & $3.88_{\pm 0.35}^{**}$ & $6.21_{\pm 0.21}^{***}$ & $3.55_{\pm 0.32}^{***}$ \\
+AIM-RGL$_{\mathrm{SFT}}$ & $3.72_{\pm 0.57}$ & $4.25_{\pm 0.18}$ & $6.41_{\pm 0.27}^{***}$ & $3.86_{\pm 0.15}^{*}$ \\
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_1)}$ & $3.67_{\pm 0.52}$ & $4.11_{\pm 0.25}$ & $6.33_{\pm 0.20}^{***}$ & $3.73_{\pm 0.22}^{***}$ \\
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_2)}$ & $3.53_{\pm 0.61}$ & $\mathbf{4.41}_{\pm 0.23}$ & $6.65_{\pm 0.26}$ & $4.00_{\pm 0.11}$ \\
+\rowcolor{green!15}
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_3)}$ & $2.80_{\pm 0.52}$ & $4.25_{\pm 0.18}$ & $\mathbf{6.84}_{\pm 0.16}$ & $\mathbf{4.06}_{\pm 0.12}$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{\textwidth}
+\footnotesize
+\linespread{1.1}\selectfont
+Values are mean $\pm$ standard deviation. Bold means indicate the highest score per metric. The green row, AIM-RGL SFT+GRPO(D3), is the reference model. Asterisks on other rows indicate two-sided paired t-test differences from D3, with Holm correction applied jointly across 72 comparisons (six models, four metrics, three difficulty settings). The score means indicate the direction of each difference.
+\end{minipage}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Therapeutic response quality in the normal client setting.}
+\label{tab:main-results-normal}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lcccc}
+\toprule
+System & CTRS & MITI & WAI-O & WAI-O-S \\
+\midrule
+Standard & $3.41_{\pm 0.59}$ & $4.12_{\pm 0.26}$ & $6.33_{\pm 0.24}^{***}$ & $3.64_{\pm 0.27}^{*}$ \\
+CAMEL & $3.17_{\pm 0.51}$ & $4.03_{\pm 0.14}$ & $5.93_{\pm 0.39}^{***}$ & $3.41_{\pm 0.31}^{***}$ \\
+LLaMA Base & $3.15_{\pm 0.60}$ & $3.48_{\pm 0.49}$ & $5.95_{\pm 0.43}^{***}$ & $3.21_{\pm 0.36}^{***}$ \\
+AIM-RGL$_{\mathrm{SFT}}$ & $\mathbf{3.43}_{\pm 0.51}$ & $\mathbf{4.15}_{\pm 0.19}$ & $6.34_{\pm 0.17}^{***}$ & $3.81_{\pm 0.19}$ \\
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_1)}$ & $3.40_{\pm 0.45}$ & $4.05_{\pm 0.15}$ & $6.15_{\pm 0.29}^{***}$ & $3.50_{\pm 0.36}^{**}$ \\
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_2)}$ & $2.90_{\pm 0.45}$ & $4.10_{\pm 0.33}$ & $6.53_{\pm 0.26}$ & $3.87_{\pm 0.13}$ \\
+\rowcolor{green!15}
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_3)}$ & $2.28_{\pm 0.61}$ & $3.98_{\pm 0.43}$ & $\mathbf{6.73}_{\pm 0.26}$ & $\mathbf{3.97}_{\pm 0.19}$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{\textwidth}
+\footnotesize
+\linespread{1.1}\selectfont
+Values are mean $\pm$ standard deviation. Bold means indicate the highest score per metric. The green row, AIM-RGL SFT+GRPO(D3), is the reference model. Asterisks on other rows indicate two-sided paired t-test differences from D3, with Holm correction applied jointly across 72 comparisons (six models, four metrics, three difficulty settings). The score means indicate the direction of each difference.
+\end{minipage}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Therapeutic response quality in the hard client setting.}
+\label{tab:main-results-hard}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lcccc}
+\toprule
+System & CTRS & MITI & WAI-O & WAI-O-S \\
+\midrule
+Standard & $3.28_{\pm 0.59}$ & $3.98_{\pm 0.27}$ & $6.14_{\pm 0.32}^{**}$ & $3.44_{\pm 0.35}^{***}$ \\
+CAMEL & $2.74_{\pm 0.34}$ & $3.81_{\pm 0.36}$ & $5.74_{\pm 0.38}^{***}$ & $3.17_{\pm 0.24}^{***}$ \\
+LLaMA Base & $2.86_{\pm 0.47}$ & $3.04_{\pm 0.53}^{***}$ & $5.76_{\pm 0.42}^{***}$ & $3.15_{\pm 0.34}^{***}$ \\
+AIM-RGL$_{\mathrm{SFT}}$ & $\mathbf{3.34}_{\pm 0.47}$ & $4.03_{\pm 0.08}$ & $6.28_{\pm 0.25}^{*}$ & $3.70_{\pm 0.24}^{*}$ \\
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_1)}$ & $3.31_{\pm 0.53}$ & $3.96_{\pm 0.28}$ & $6.05_{\pm 0.37}^{**}$ & $3.49_{\pm 0.31}^{***}$ \\
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_2)}$ & $2.54_{\pm 0.69}$ & $4.06_{\pm 0.18}$ & $6.43_{\pm 0.27}$ & $3.80_{\pm 0.21}$ \\
+\rowcolor{green!15}
+AIM-RGL$_{\mathrm{SFT+GRPO}(D_3)}$ & $2.32_{\pm 0.60}$ & $\mathbf{4.09}_{\pm 0.12}$ & $\mathbf{6.57}_{\pm 0.29}$ & $\mathbf{3.92}_{\pm 0.16}$ \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{\textwidth}
+\footnotesize
+\linespread{1.1}\selectfont
+Values are mean $\pm$ standard deviation. Bold means indicate the highest score per metric. The green row, AIM-RGL SFT+GRPO(D3), is the reference model. Asterisks on other rows indicate two-sided paired t-test differences from D3, with Holm correction applied jointly across 72 comparisons (six models, four metrics, three difficulty settings). The score means indicate the direction of each difference.
+\end{minipage}
+\end{table}
+
+The results show that no single system achieves the highest score on all therapeutic dimensions. Standard has the highest easy-mode CTRS score (4.08), while AIM-RGL SFT has the highest normal- and hard-mode CTRS scores (3.43 and 3.34). MI fidelity also varies by setting: D2 has the highest easy-mode MITI score (4.41), SFT has the highest normal-mode score (4.15), and D3 has the highest hard-mode score (4.09).
+
+Therapeutic alliance shows a clearer pattern. D3 has the highest WAI-O and WAI-O-S means in all three difficulty settings: 6.84 and 4.06 in easy mode, 6.73 and 3.97 in normal mode, and 6.57 and 3.92 in hard mode. D2 also exceeds SFT and D1 on both alliance measures in every setting. However, D1 does not consistently improve on the SFT policy, showing that GRPO alone does not guarantee stronger therapeutic scores.
+
+Increasing lookahead depth is associated with lower therapeutic competence among the GRPO variants. CTRS decreases from D1 to D3 in all difficulty settings: from 3.67 to 2.80 in easy mode, from 3.40 to 2.28 in normal mode, and from 3.31 to 2.32 in hard mode. Thus, the alliance gains coincide with a reduction in CBT competence, while MI fidelity changes less consistently. These findings provide partial support for H1 and support the expectation in H2 that response quality differs across lookahead depths. They indicate a trade-off rather than uniform improvement across therapeutic dimensions. The significance annotations compare AIM-RGL SFT+GRPO(D3) against each other model within the same difficulty setting and metric using two-sided paired t-tests, with Holm correction across all 72 table comparisons. An asterisk on another model's score marks a significant difference from D3; the relative means determine whether D3 scores higher or lower. These annotations do not test differences between pairs of non-D3 models.
+
+\subsection{Paired Comparisons between SFT and GRPO}
+
+To isolate the changes following reward-guided policy optimization, each GRPO variant is compared directly with the SFT policy using 20 matched patient groups within each difficulty setting. Differences are calculated as the GRPO score minus the SFT score, so positive values indicate higher scores after GRPO and negative values indicate lower scores. Figure~\ref{fig:training-stage-heatmap} reports the paired mean differences and adjusted p-values from the two-sided exact paired permutation (sign-flip) procedure described in Section~\ref{sec:paired-permutation-tests}. Holm correction is applied across the 36 training-stage tests: three GRPO--SFT comparisons, four metrics, and three difficulty settings. This is a separate test family from the lookahead-depth comparisons that follow.
+
+\begin{figure}[H]
+\centering
+\input{figures/training_stage_heatmap}
+\caption{Paired GRPO--SFT comparisons across difficulty settings ($n=20$ patient groups). Cells show mean differences and Holm-adjusted p-values from two-sided exact paired permutation (sign-flip) tests. Blue indicates a higher score after GRPO and red a lower score, using a shared color scale; metric units differ. Significance: $^{*}p<0.05$, $^{**}p<0.01$, $^{***}p<0.001$; ns indicates no significant difference. Displayed p-values are rounded, and significance markers retain the corresponding test classifications.}
+\label{fig:training-stage-heatmap}
+\end{figure}
+
+Figure~\ref{fig:training-stage-differences} provides a complementary view of the direction and magnitude of these changes. The bars compare each GRPO variant with the same SFT reference; they do not represent comparisons between GRPO variants or standardized effect sizes.
+
+\begin{figure}[H]
+\centering
+\input{figures/training_stage_differences}
+\caption{Paired mean score differences between each GRPO variant and SFT, grouped by metric and difficulty. The zero line denotes no mean change from SFT. Statistical significance and adjusted p-values are reported in Figure~\ref{fig:training-stage-heatmap}; the metric scales differ.}
+\label{fig:training-stage-differences}
+\end{figure}
+
+The one-step GRPO variant does not differ significantly from SFT on any of the four metrics in any difficulty setting after Holm correction. Its alliance means are lower in all settings, but these differences are not significant. In particular, the normal-mode WAI-O-S difference of $-0.317$ has an adjusted $p=0.064$. These results provide no evidence of a consistent improvement from one-step GRPO over SFT; lack of significance does not establish equivalence.
+
+The two-step variant produces mixed changes. It significantly reduces CTRS in normal mode ($-0.532$, adjusted $p=0.033$) and hard mode ($-0.795$, adjusted $p=0.001$), while significantly increasing WAI-O only in normal mode ($+0.190$, adjusted $p=0.033$). Its WAI-O-S changes are not significant in any setting; the easy-mode increase of $+0.142$ has an adjusted $p=0.052$. None of its MITI differences from SFT is significant.
+
+The three-step variant has significantly lower CTRS than SFT in all settings: $-0.918$ in easy, $-1.150$ in normal, and $-1.018$ in hard mode. It significantly improves WAI-O in all settings, with differences of $+0.431$, $+0.385$, and $+0.289$, respectively. WAI-O-S improves significantly in easy mode ($+0.200$, adjusted $p=0.020$) and hard mode ($+0.212$, adjusted $p=0.030$), but its normal-mode increase is not significant ($+0.158$, adjusted $p=0.277$). MITI does not differ significantly from SFT for any GRPO variant in any difficulty setting.
+
+These comparisons refine the interpretation of RQ1: GRPO does not uniformly improve on the supervised policy. D3 yields the clearest WAI-O gains, accompanied by lower CBT competence, while MI fidelity shows no significant improvement over SFT. The comparison against SFT also differs from the comparison against D1: alliance gains over a one-step GRPO policy do not necessarily imply significant gains over the SFT starting point.
+
+\subsection{Paired Comparisons between Lookahead Depths}
+
+Figure~\ref{fig:lookahead-comparisons} reports two-sided exact paired permutation (sign-flip) comparisons between the D1, D2, and D3 GRPO variants using 20 matched patient groups within each difficulty setting, following Section~\ref{sec:paired-permutation-tests}. Each cell gives the mean score difference for the deeper horizon minus the shallower horizon and its Holm-adjusted p-value. Holm correction is applied across all 36 difficulty-specific tests (three horizon comparisons, four metrics, and three difficulty settings). These tests compare the GRPO horizons directly, whereas the preceding tables use D3 as the reference for comparisons against all other models.
+
+\begin{figure}[H]
+\centering
+\input{figures/lookahead_comparisons}
+\caption{Paired lookahead comparisons by difficulty ($n=20$ patient groups). Blue indicates a higher score at the deeper horizon and red a lower score. Color intensity uses a shared scale across panels; metric units differ. Values are mean differences with Holm-adjusted p-values from two-sided exact paired permutation (sign-flip) tests. Significance: $^{*}p<0.05$, $^{**}p<0.01$, $^{***}p<0.001$; ns indicates no significant difference.}
+\label{fig:lookahead-comparisons}
+\end{figure}
+
+D2 improves both alliance measures over D1 in every difficulty setting after Holm correction. It also improves MITI in easy mode (mean difference $+0.300$, adjusted $p=0.032$), while the normal- and hard-mode MITI differences are not significant. The CTRS reduction from D1 to D2 is significant only in normal mode ($-0.500$, adjusted $p=0.021$).
+
+Compared with D1, D3 has significantly higher WAI-O and WAI-O-S scores and significantly lower CTRS scores in all three difficulty settings. None of the D3--D1 MITI differences is significant. Compared with D2, D3 has no significant additional improvement in either alliance measure or MITI within any difficulty setting, while CTRS decreases significantly in easy and normal modes. Thus, the paired comparisons show diminishing alliance gains beyond two-step lookahead alongside further reductions in therapeutic competence in those settings. They support differences across horizons under H2, but do not establish that three-step lookahead is uniformly preferable.
+
+\subsection{Technique Selection and Diversity}
+
+To address RQ3 and RQ4, the technique shares are examined for SFT and the D1, D2, and D3 GRPO variants under each difficulty setting. Early denotes turns 1--10, middle turns 11--20, and late turns 21--30. The complete individual technique distributions are provided in Appendix~\ref{app:technique-heatmaps}. All 16 individual techniques are retained in the analysis; CBT totals combine the 12 CBT techniques, while the four MI techniques remain separate in the composition charts.
+
+Figure~\ref{fig:technique-mix} compares the overall composition using the arithmetic mean of the three stage-specific percentages. This is an equally weighted stage summary, rather than a pooled turn-level estimate, because the underlying response counts are not available. Small departures from 100\% reflect rounding of the reported percentages.
+
+\begin{figure}[H]
+\centering
+\input{figures/technique_mix}
+\caption{Technique composition by model and difficulty, averaged equally across early, middle, and late stages. D1, D2, and D3 denote SFT+GRPO with the corresponding lookahead reward model. Each bar separates the four MI techniques and the combined CBT share.}
+\label{fig:technique-mix}
+\end{figure}
+
+D1 allocates substantially more responses to CBT than SFT, D2, or D3. Its CBT shares range from 50.0\% to 60.0\% across the nine difficulty--stage combinations. Decatastrophizing is particularly frequent, reaching 29.5\%, 33.0\%, and 31.0\% in the late stage for easy, normal, and hard modes, respectively. Alternative Perspective also remains common in D1 (13.5--19.4\%). Detailed D1 percentages for each technique and stage are provided in Appendix~\ref{app:technique-heatmaps}, Figure~\ref{fig:technique-heatmap-d1}. In contrast, SFT, D2, and D3 devote most responses to MI, with CBT shares ranging from 14.0\% to 32.3\%. The transition from D1 to deeper reward models therefore changes the balance between MI and CBT rather than simply increasing the frequency of the same dominant technique.
+
+D3 retains a mixture of MI strategies. Its Affirmation share ranges from 13.0\% to 21.5\%, while Open Questioning, Reflective Listening, and Summarization retain substantial shares. For example, D3 in hard-mode late turns uses Summarization at 23.5\%, Open Questioning at 21.0\%, and Decatastrophizing at 16.5\%. Several allowed techniques remain rare: Systematic Exposure is 0.0\% across all evaluated models, difficulty settings, and stages, while Behavior Experiment and Continuum Technique appear only in isolated D1 cells. Thus, selecting from a 16-technique vocabulary does not ensure broad use of every technique. The complete D3 distribution is shown in Appendix~\ref{app:technique-heatmaps}, Figure~\ref{fig:technique-heatmap-d3}.
+
+\subsection{Technique Selection across Conversation Stages}
+
+Figure~\ref{fig:technique-cbt-stages} shows how the combined CBT share changes across conversation stages within each difficulty setting. This separates temporal changes from the overall composition differences in Figure~\ref{fig:technique-mix}. For the detailed percentages of individual techniques at each stage, see Appendix~\ref{app:technique-heatmaps}, Figures~\ref{fig:technique-heatmap-sft}--\ref{fig:technique-heatmap-d3}.
+
+\begin{figure}[H]
+\centering
+\input{figures/technique_cbt_stages}
+\caption{Combined CBT technique share across early (turns 1--10), middle (11--20), and late (21--30) stages. All panels use the same percentage scale. Lines connect stage summaries and do not imply continuous turn-level measurements.}
+\label{fig:technique-cbt-stages}
+\end{figure}
+
+D1 maintains a high CBT share throughout the conversation, although its individual CBT choices change with stage. Across easy, normal, and hard modes, its Decatastrophizing share increases from 22.2\% to 29.5\%, 17.2\% to 33.0\%, and 21.1\% to 31.0\%, respectively, from early to late turns. Meanwhile, its Pros and Cons Analysis share decreases from 11.7\% to 2.0\%, 10.6\% to 5.5\%, and 9.4\% to 4.0\%. A relatively stable CBT total can therefore conceal substantial changes in the selected CBT technique.
+
+D2 shifts toward Open Questioning from early to late turns in every difficulty mode: 22.8\% to 32.5\% in easy, 21.1\% to 28.5\% in normal, and 16.1\% to 31.0\% in hard. Its hard-mode CBT share falls from 32.3\% to 16.5\%, a decrease of 15.8 percentage points. SFT also shows declining CBT shares in normal and hard modes, while its easy-mode share remains near 20\%.
+
+D3 follows a different pattern. Its easy-mode CBT share falls from 25.1\% to 14.0\% before recovering to 23.5\%; normal-mode CBT remains near 20\%; and hard-mode CBT falls from 25.1\% to 19.0\% before rising to 29.0\%. D3 Reflective Listening decreases from early to late turns in all modes, whereas Decatastrophizing increases. These patterns show that the relationship between training variant and technique choice depends on conversation stage and client difficulty, rather than following a single progression from MI to CBT.
+
+\subsection{Quantifying Technique Diversity}
+
+Technique diversity is summarized using the effective number of techniques:
+\begin{equation}
+N_{\mathrm{eff}} = \exp\left(-\sum_{k=1}^{16} p_k \ln p_k\right),
+\label{eq:technique-diversity}
+\end{equation}
+where \(p_k\) is the share of technique \(k\) within a model, difficulty, and stage, normalized so the technique shares sum to one. Zero-share terms contribute zero. A value of one indicates complete concentration on one technique; a value of 16 indicates equal use of all 16 techniques. This measure accounts for both coverage and evenness, rather than merely counting nonzero techniques. The individual technique percentages used in this calculation are reported in Appendix~\ref{app:technique-heatmaps}.
+
+\begin{figure}[H]
+\centering
+\input{figures/technique_diversity}
+\caption{Effective number of techniques across conversation stages, calculated from all 16 individual technique shares. Values are approximate because they are calculated from percentages rounded to one decimal place. Higher values indicate a more evenly distributed technique mix, not necessarily better therapeutic responses.}
+\label{fig:technique-diversity}
+\end{figure}
+
+D1 has the highest effective diversity in all nine difficulty--stage combinations, ranging from approximately 6.68 to 8.75 effective techniques. Its diversity decreases from early to late turns in all modes, consistent with the growing concentration on Decatastrophizing. SFT ranges from 5.45 to 7.46, D2 from 5.57 to 7.76, and D3 from 5.28 to 6.97. D2 and D3 are less diverse than D1, but diversity does not decrease monotonically with increasing lookahead depth: for example, D3 exceeds D2 in late-stage easy and normal modes, while the ordering reverses in early-stage hard mode.
+
+These descriptive results address RQ3 and RQ4 and are consistent with the variation anticipated by H3 and H4. They do not constitute statistical tests of those hypotheses. Aggregate technique percentages alone do not establish statistical significance, causal effects, or a model's ability to adapt appropriately to individual clients. Likewise, the greater CBT share in D1 and stronger alliance scores in D2/D3 are compatible with the earlier response-quality trade-off, but aggregate technique frequencies do not establish that technique choice caused the score differences.
+
 \subsection{Summary of Findings}
 
-The available results compare reward model backbones trained on the one-step lookahead dataset, \(D_1\). Therapeutic response quality comparisons between Standard, CAMEL, and AIM-RGL will be reported after their evaluation is completed.
+DeBERTa-v3-large is selected as the reward model backbone because it achieves the lowest prediction errors and highest correlations among the evaluated backbones on \(D_1\). Using this reward model backbone, the dialogue evaluation shows that reward-guided policy optimization involves a trade-off between therapeutic alliance and therapeutic competence. The three-step GRPO variant achieves the highest mean WAI-O and WAI-O-S scores across all difficulty settings, while CBT competence generally declines as lookahead depth increases. MI fidelity varies across difficulty settings and training variants. Thus, the findings provide partial support for improved therapeutic response quality under RQ1, rather than a consistent improvement across all evaluated dimensions.
 
-The proposed response selection mechanism aims to balance structured CBT competence with MI-consistent readiness handling. The final AIM-RGL evaluation will examine whether reward-guided lookahead search can improve this balance by comparing candidate MI-CBT responses according to their expected near-future therapeutic effects. For reward models trained on \(D_1\), DeBERTa-v3-large performs best across all reported predictive metrics, while RoBERTa-large provides the smallest backbone. The final summary will be updated after the remaining AIM-RGL and lookahead horizon evaluations are completed.
+Direct comparisons with SFT show no significant differences for D1, mixed results for D2, and significant WAI-O gains accompanied by lower CTRS for D3 across all difficulty settings. None of the GRPO variants significantly improves MITI over SFT after Holm correction.
+
+The paired comparisons clarify the effect of lookahead depth under RQ2. Two-step lookahead significantly improves both alliance measures over one-step lookahead in every difficulty setting and improves MI fidelity in easy mode. Three-step lookahead provides no statistically significant additional improvement over two-step lookahead in either alliance measure or MI fidelity within any difficulty setting, while reducing CBT competence significantly in easy and normal modes. These findings suggest that two-step lookahead offers a potential compromise between alliance gains and competence, although it does not eliminate the trade-off.
+
+Technique-selection results address RQ3 by showing a distinct pattern for the one-step GRPO variant: it allocates approximately 50--60\% of responses to CBT and has the highest effective technique diversity across all difficulty--stage combinations. The two-step and three-step variants are predominantly MI-oriented. However, diversity does not decrease monotonically with depth, indicating that deeper lookahead changes the technique mix without producing a uniform narrowing of technique use.
+
+For RQ4, technique choices vary across early, middle, and late conversation stages and across client difficulty settings. The one-step variant increasingly selects Decatastrophizing while reducing Pros and Cons Analysis, whereas the two-step variant shifts toward Open Questioning from early to late turns in all difficulty modes. The three-step variant exhibits different CBT-share trajectories across difficulty settings. These patterns indicate that aggregate technique shares can conceal changes over the course of a conversation. The technique analyses are descriptive and do not establish statistical significance or show that technique selection causes the observed therapeutic scores.
+
+Overall, the evaluation indicates that greater lookahead depth should not be treated as uniformly better. Its benefits depend on the therapeutic dimension being prioritized, the client difficulty, and the stage of the conversation.

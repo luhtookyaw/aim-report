@@ -1,0 +1,35 @@
+\begingroup
+\linespread{1}\selectfont
+\begin{tikzpicture}
+\begin{axis}[width=0.87\textwidth,height=4.1cm,scale only axis=false,axis lines=left,grid=major,grid style={gray!20},tick label style={font=\footnotesize},label style={font=\small},title style={font=\small\bfseries},legend style={font=\footnotesize,draw=none},clip=false,title={Easy},ylabel={Effective techniques},ymin=0,ymax=12,xtick={1,2,3},xticklabels={Early,Middle,Late},xmin=0.85,xmax=3.15,legend columns=4,legend to name=technique-model-legend-diversity]
+\addplot+[thick,color=blue!75!black,mark=*] coordinates {(1,6.3872) (2,5.8636) (3,6.1636)};
+\addlegendentry{SFT}
+\addplot+[thick,color=orange!90!black,mark=square*] coordinates {(1,7.3812) (2,6.9684) (3,6.6820)};
+\addlegendentry{D1}
+\addplot+[thick,color=teal!80!black,mark=triangle*] coordinates {(1,6.2007) (2,5.8258) (3,5.5703)};
+\addlegendentry{D2}
+\addplot+[thick,color=purple!80!black,mark=diamond*] coordinates {(1,6.4632) (2,5.2786) (3,6.0528)};
+\addlegendentry{D3}
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\begin{tikzpicture}
+\begin{axis}[width=0.87\textwidth,height=4.1cm,scale only axis=false,axis lines=left,grid=major,grid style={gray!20},tick label style={font=\footnotesize},label style={font=\small},title style={font=\small\bfseries},legend style={font=\footnotesize,draw=none},clip=false,title={Normal},ylabel={Effective techniques},ymin=0,ymax=12,xtick={1,2,3},xticklabels={Early,Middle,Late},xmin=0.85,xmax=3.15]
+\addplot+[thick,color=blue!75!black,mark=*] coordinates {(1,6.8866) (2,5.8502) (3,5.4510)};
+\addplot+[thick,color=orange!90!black,mark=square*] coordinates {(1,8.7462) (2,7.3469) (3,7.1626)};
+\addplot+[thick,color=teal!80!black,mark=triangle*] coordinates {(1,6.3589) (2,6.5172) (3,5.7398)};
+\addplot+[thick,color=purple!80!black,mark=diamond*] coordinates {(1,6.6288) (2,5.8374) (3,6.2706)};
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\begin{tikzpicture}
+\begin{axis}[width=0.87\textwidth,height=4.1cm,scale only axis=false,axis lines=left,grid=major,grid style={gray!20},tick label style={font=\footnotesize},label style={font=\small},title style={font=\small\bfseries},legend style={font=\footnotesize,draw=none},clip=false,title={Hard},ylabel={Effective techniques},ymin=0,ymax=12,xtick={1,2,3},xticklabels={Early,Middle,Late},xmin=0.85,xmax=3.15]
+\addplot+[thick,color=blue!75!black,mark=*] coordinates {(1,7.4552) (2,5.7509) (3,6.0568)};
+\addplot+[thick,color=orange!90!black,mark=square*] coordinates {(1,7.8618) (2,7.8081) (3,6.8684)};
+\addplot+[thick,color=teal!80!black,mark=triangle*] coordinates {(1,7.7567) (2,6.5885) (3,6.0890)};
+\addplot+[thick,color=purple!80!black,mark=diamond*] coordinates {(1,6.9740) (2,6.4090) (3,6.3975)};
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\pgfplotslegendfromname{technique-model-legend-diversity}
+\endgroup

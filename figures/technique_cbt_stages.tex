@@ -1,0 +1,35 @@
+\begingroup
+\linespread{1}\selectfont
+\begin{tikzpicture}
+\begin{axis}[width=0.87\textwidth,height=4.1cm,scale only axis=false,axis lines=left,grid=major,grid style={gray!20},tick label style={font=\footnotesize},label style={font=\small},title style={font=\small\bfseries},legend style={font=\footnotesize,draw=none},clip=false,title={Easy},ylabel={CBT share (\%)},ymin=0,ymax=65,xtick={1,2,3},xticklabels={Early,Middle,Late},xmin=0.85,xmax=3.15,legend columns=4,legend to name=technique-model-legend-cbt_stages]
+\addplot+[thick,color=blue!75!black,mark=*] coordinates {(1,21.8000) (2,20.0000) (3,21.5000)};
+\addlegendentry{SFT}
+\addplot+[thick,color=orange!90!black,mark=square*] coordinates {(1,54.5000) (2,55.0000) (3,50.0000)};
+\addlegendentry{D1}
+\addplot+[thick,color=teal!80!black,mark=triangle*] coordinates {(1,19.6000) (2,20.5000) (3,16.0000)};
+\addlegendentry{D2}
+\addplot+[thick,color=purple!80!black,mark=diamond*] coordinates {(1,25.1000) (2,14.0000) (3,23.5000)};
+\addlegendentry{D3}
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\begin{tikzpicture}
+\begin{axis}[width=0.87\textwidth,height=4.1cm,scale only axis=false,axis lines=left,grid=major,grid style={gray!20},tick label style={font=\footnotesize},label style={font=\small},title style={font=\small\bfseries},legend style={font=\footnotesize,draw=none},clip=false,title={Normal},ylabel={CBT share (\%)},ymin=0,ymax=65,xtick={1,2,3},xticklabels={Early,Middle,Late},xmin=0.85,xmax=3.15]
+\addplot+[thick,color=blue!75!black,mark=*] coordinates {(1,23.4000) (2,19.0000) (3,15.0000)};
+\addplot+[thick,color=orange!90!black,mark=square*] coordinates {(1,57.8000) (2,54.0000) (3,60.0000)};
+\addplot+[thick,color=teal!80!black,mark=triangle*] coordinates {(1,22.7000) (2,29.5000) (3,18.5000)};
+\addplot+[thick,color=purple!80!black,mark=diamond*] coordinates {(1,21.2000) (2,19.5000) (3,21.0000)};
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\begin{tikzpicture}
+\begin{axis}[width=0.87\textwidth,height=4.1cm,scale only axis=false,axis lines=left,grid=major,grid style={gray!20},tick label style={font=\footnotesize},label style={font=\small},title style={font=\small\bfseries},legend style={font=\footnotesize,draw=none},clip=false,title={Hard},ylabel={CBT share (\%)},ymin=0,ymax=65,xtick={1,2,3},xticklabels={Early,Middle,Late},xmin=0.85,xmax=3.15]
+\addplot+[thick,color=blue!75!black,mark=*] coordinates {(1,26.2000) (2,21.5000) (3,19.5000)};
+\addplot+[thick,color=orange!90!black,mark=square*] coordinates {(1,51.1000) (2,54.5000) (3,54.5000)};
+\addplot+[thick,color=teal!80!black,mark=triangle*] coordinates {(1,32.3000) (2,22.5000) (3,16.5000)};
+\addplot+[thick,color=purple!80!black,mark=diamond*] coordinates {(1,25.1000) (2,19.0000) (3,29.0000)};
+\end{axis}
+\end{tikzpicture}
+\par\smallskip
+\pgfplotslegendfromname{technique-model-legend-cbt_stages}
+\endgroup
