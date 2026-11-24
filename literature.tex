@@ -18,7 +18,7 @@ Client-centered communication is important in AI-assisted counseling because an 
 
 Client resistance refers to reluctance, opposition, or disengagement during the therapeutic process. It may appear openly through arguing or rejecting suggestions, or more subtly through short answers, avoidance, topic changes, or passive agreement \cite{patterson1985therapist,patterson1994functional}. Resistance has also been discussed as a process that may be influenced by therapist behavior, rather than only as a fixed client trait \cite{beutler2002resistance}. In MI, resistance is often understood as a signal that the therapeutic approach may not fit the client's current readiness or concerns \cite{miller2013motivational}.
 
-Ambivalence occurs when clients hold both reasons for and reasons against change. Motivational Interviewing addresses this tension by helping clients explore ambivalence and strengthen their own reasons for change \cite{miller2013motivational,bischof2021motivational}. Therapist responses can also influence whether clients produce more change talk or sustain talk during MI sessions \cite{moyers2006therapist}. In this thesis, ambivalence is important because it creates moments where the system must decide whether the client needs further motivational support or is ready for structured CBT intervention.
+Ambivalence occurs when clients hold both reasons for and reasons against change. Motivational Interviewing addresses this tension by helping clients explore ambivalence and strengthen their own reasons for change \cite{miller2013motivational,bischof2021motivational}. In this thesis, ambivalence is important because it creates moments where the system must decide whether the client needs further motivational support or is ready for structured CBT intervention.
 
 Readiness for change explains why the same therapeutic response may help one client but hinder another. The Transtheoretical Model describes change as a staged process that includes precontemplation, contemplation, preparation, action, and maintenance \cite{prochaska1997transtheoretical,raihan2023stages}. A client in precontemplation may not yet view the issue as a problem, while a client in preparation may be more open to concrete strategies or behavioral steps. Therefore, therapeutic response selection should be sensitive to the client's current readiness rather than applying the same intervention style across all moments.
 
@@ -58,7 +58,7 @@ Cognitive conceptualization can support client simulation by representing the cl
 
 \subsection{Evaluation Metrics for Therapeutic Dialogue}
 
-Therapeutic dialogue evaluation should consider counseling-specific qualities rather than only general language quality. In this thesis, evaluation focuses on five main dimensions: CBT competence, MI consistency, therapeutic alliance, change talk, and sustain talk. These dimensions are important because AIM-RGL is not only expected to generate fluent responses, but also to support appropriate therapeutic timing, collaboration, readiness, and movement toward change. The Cognitive Therapy Rating Scale (CTRS) provides a basis for evaluating CBT-related therapist competence, including structure, guided discovery, and cognitive intervention quality \cite{young1980cognitive,beckinstitute2021ctrs}. The Motivational Interviewing Treatment Integrity code (MITI) is used to assess MI fidelity, including empathy, autonomy support, and MI-consistent communication \cite{moyers2016miti,moyers2015miti421}. The Working Alliance Inventory (WAI) provides a basis for evaluating therapeutic alliance through trust, collaboration, agreement on goals, and agreement on therapeutic tasks \cite{horvath1989wai,hatcher2006wai}.
+Therapeutic dialogue evaluation should consider counseling-specific qualities rather than only general language quality. In this thesis, evaluation focuses on three main dimensions: CBT competence, MI consistency, and therapeutic alliance. These dimensions are important because AIM-RGL is not only expected to generate fluent responses, but also to support appropriate therapeutic timing, collaboration, and sensitivity to client readiness. The Cognitive Therapy Rating Scale (CTRS) provides a basis for evaluating CBT-related therapist competence, including structure, guided discovery, and cognitive intervention quality \cite{young1980cognitive,beckinstitute2021ctrs}. The Motivational Interviewing Treatment Integrity code (MITI) is used to assess MI fidelity, including empathy, autonomy support, and MI-consistent communication \cite{moyers2016miti,moyers2015miti421}. The Working Alliance Inventory (WAI) provides a basis for evaluating therapeutic alliance through trust, collaboration, agreement on goals, and agreement on therapeutic tasks \cite{horvath1989wai,hatcher2006wai}.
 
 Because therapeutic alliance is central to this thesis, it is represented through three components: goal agreement, approach or task agreement, and affective bond. Goal agreement refers to whether the client and counselor share an understanding of what therapy is trying to accomplish. Approach or task agreement refers to whether both sides appear aligned on the steps or activities used during the therapeutic process. Affective bond refers to the emotional connection between the client and counselor, including trust, confidence, appreciation, and mutual respect \cite{bordin1979alliance,horvath1989wai,hatcher2006wai}. Table~\ref{tab:wai-alliance-items} summarizes the alliance-related questionnaire items used to evaluate these dimensions.
 
@@ -137,25 +137,7 @@ Because therapeutic alliance is central to this thesis, it is represented throug
     \end{tabularx}
 \end{table}
 
-In addition to rating-based measures, this thesis also considers client language indicators from Motivational Interviewing. Change talk refers to client language that favors change, while sustain talk refers to client language that favors maintaining the current state \cite{miller2013motivational,miller2009toward}. These indicators are useful because they reflect whether the simulated client is moving toward readiness, motivation, and action, or remaining in resistance, ambivalence, or lower readiness. Therefore, change talk and sustain talk provide a simple way to observe the direction of the simulated client's response after a therapeutic intervention.
-
-The proportions of change talk and sustain talk can be represented as follows:
-
-\begin{equation}
-\text{Change Talk Ratio} =
-\frac{\text{Number of change talk utterances}}
-{\text{Total number of client utterances}}
-\label{eq:change-talk-ratio}
-\end{equation}
-
-\begin{equation}
-\text{Sustain Talk Ratio} =
-\frac{\text{Number of sustain talk utterances}}
-{\text{Total number of client utterances}}
-\label{eq:sustain-talk-ratio}
-\end{equation}
-
-These ratios do not measure real clinical outcomes, but they are useful indicators for simulated therapeutic dialogue. A higher proportion of change talk may suggest greater readiness or movement toward change, while a higher proportion of sustain talk may suggest continued resistance, ambivalence, or attachment to the current state. Together, CTRS, MITI, WAI, change talk, and sustain talk allow this thesis to evaluate whether AIM-RGL improves therapeutic response quality in terms of CBT skill, MI consistency, alliance, readiness, and simulated client movement across the dialogue.
+Together, CTRS, MITI, and WAI allow this thesis to evaluate whether AIM-RGL improves therapeutic response quality in terms of CBT competence, MI consistency, and therapeutic alliance in simulated dialogue. These measures do not establish real clinical treatment outcomes.
 
 \section{Reward-Guided Lookahead Search for MI-CBT Dialogue}
 

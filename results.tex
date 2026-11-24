@@ -2,7 +2,7 @@
 
 \chapter{EXPERIMENT}
 
-This chapter presents the experimental design used to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The purpose of the experiment is to examine whether reward-guided lookahead search can improve therapeutic response quality when compared with baseline response generation methods. The chapter describes the experimental conditions, including the simulated client setup, compared systems, lookahead configurations, reward model backbones, and policy model backbones. It also explains the evaluation protocol and metrics used to assess therapeutic skill quality, MI-CBT fidelity, therapeutic alliance, change talk, sustain talk, and reward model performance. Since the implementation and evaluation are still in progress, the final section of this chapter is reserved for reporting the experimental results after they are obtained.
+This chapter presents the experimental design used to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The purpose of the experiment is to examine whether reward-guided lookahead search can improve therapeutic response quality when compared with baseline response generation methods. The chapter describes the experimental conditions, including the simulated client setup, compared systems, lookahead configurations, reward model backbones, and policy model backbones. It also explains the evaluation protocol and metrics used to assess therapeutic skill quality, MI fidelity, therapeutic alliance, and reward model performance. Since the implementation and evaluation are still in progress, the final section of this chapter is reserved for reporting the experimental results after they are obtained.
 
 \section{Experimental Design and Conditions}
 
@@ -10,34 +10,30 @@ This chapter presents the experimental design used to evaluate AIM-RGL in simula
 
 This experiment is designed to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The main purpose is to examine whether reward-guided lookahead search can improve therapeutic response generation when the simulated client shows resistance, ambivalence, or changing readiness for structured intervention. In this setting, a response is not evaluated only by whether it appears appropriate in the current turn, but also by whether it is expected to support a better near-future therapeutic trajectory.
 
-The experiment compares AIM-RGL with selected baseline therapist systems under the same simulated client scenarios. Each system receives the same client profile, cognitive conceptualization information, difficulty setting, and dialogue context. The resulting therapist-client conversations are evaluated using counseling-specific metrics, including therapeutic skill quality, MI-CBT fidelity, therapeutic alliance, change talk, and sustain talk. The experiment also examines the effects of different lookahead horizons, reward model backbones, and policy model backbones.
+The experiment compares AIM-RGL with selected baseline therapist systems under the same simulated client scenarios. Each system receives the same client profile, cognitive conceptualization information, difficulty setting, and dialogue context. The resulting therapist-client conversations are evaluated using counseling-specific metrics, including therapeutic skill quality, MI fidelity, and therapeutic alliance. The experiment also examines the effects of different lookahead horizons, reward model backbones, and policy model backbones.
 
 The experiment is guided by the following research questions:
 
 \begin{itemize}
-    \item \textbf{RQ1:} Does reward-guided lookahead search improve therapeutic skill quality and MI-CBT fidelity compared with baseline systems?
+    \item \textbf{RQ1:} Does reward-guided lookahead search improve therapeutic skill quality and MI fidelity compared with baseline systems?
     
     \item \textbf{RQ2:} Does reward-guided lookahead search strengthen therapeutic alliance compared with baseline systems?
     
-    \item \textbf{RQ3:} Does reward-guided lookahead search promote earlier increases in change talk and reductions in sustain talk compared with baseline systems?
+    \item \textbf{RQ3:} How do different lookahead horizons, including one-step, two-step, and three-step lookahead, affect reward-guided MI-CBT response quality?
     
-    \item \textbf{RQ4:} How do different lookahead horizons, including one-step, two-step, and three-step lookahead, affect reward-guided MI-CBT response quality?
-    
-    \item \textbf{RQ5:} How does the choice of policy model backbone affect the quality of MI-CBT therapeutic responses?
+    \item \textbf{RQ4:} How does the choice of policy model backbone affect the quality of MI-CBT therapeutic responses?
 \end{itemize}
 
 Based on these research questions, the experiment tests the following hypotheses:
 
 \begin{itemize}
-    \item \textbf{H1:} Reward-guided lookahead search will produce higher therapeutic skill quality and stronger MI-CBT fidelity than baseline methods.
+    \item \textbf{H1:} Reward-guided lookahead search will produce higher therapeutic skill quality and stronger MI fidelity than baseline methods.
     
     \item \textbf{H2:} Reward-guided lookahead search will lead to stronger therapeutic alliance compared with baseline methods.
     
-    \item \textbf{H3:} Reward-guided lookahead search will promote earlier increases in change talk and earlier reductions in sustain talk compared with baseline methods.
+    \item \textbf{H3:} Longer lookahead horizons will improve MI-CBT response quality by considering future client reactions and therapeutic trajectory.
     
-    \item \textbf{H4:} Longer lookahead horizons will improve MI-CBT response quality by considering future client reactions and therapeutic trajectory.
-    
-    \item \textbf{H5:} The choice of policy model backbone will affect the quality of MI-CBT therapeutic responses in simulated resistant-client conversations.
+    \item \textbf{H4:} The choice of policy model backbone will affect the quality of MI-CBT therapeutic responses in simulated resistant-client conversations.
 \end{itemize}
 
 This experiment is limited to simulated therapist-client dialogue. It does not involve real patients or human clinical participants, and it does not measure real clinical treatment outcomes.
@@ -158,19 +154,19 @@ The preliminary results indicate that CBT performs better than FLASH on CTRS, WA
 
 The ablation and model comparison results will be added after the full AIM-RGL experiment is completed. This part of the experiment will examine whether reward-guided lookahead search improves therapeutic response quality compared with the baseline systems. It will also analyze how different lookahead horizons affect response quality.
 
-The lookahead comparison will evaluate one-step, two-step, and three-step lookahead settings. The purpose of this comparison is to determine whether deeper lookahead improves therapeutic response selection by considering more future client reactions, or whether the benefit becomes limited after a certain depth. The final results will be reported using the same therapeutic evaluation metrics, including CTRS, WAI, MITI, alliance, change talk, and sustain talk.
+The lookahead comparison will evaluate one-step, two-step, and three-step lookahead settings. The purpose of this comparison is to determine whether deeper lookahead improves therapeutic response selection by considering more future client reactions, or whether the benefit becomes limited after a certain depth. The final results will be reported using the same therapeutic evaluation metrics, including CTRS, WAI, MITI, and alliance.
 
 \begin{table}[h]
 \centering
 \caption{Planned lookahead horizon comparison.}
 \label{tab:lookahead-comparison-placeholder}
-\begin{tabular}{lccccc}
+\begin{tabular}{lccc}
 \hline
-Lookahead Horizon & CTRS & WAI & MITI & Change Talk & Sustain Talk \\
+Lookahead Horizon & CTRS & WAI & MITI \\
 \hline
-One-step lookahead & -- & -- & -- & -- & -- \\
-Two-step lookahead & -- & -- & -- & -- & -- \\
-Three-step lookahead & -- & -- & -- & -- & -- \\
+One-step lookahead & -- & -- & -- \\
+Two-step lookahead & -- & -- & -- \\
+Three-step lookahead & -- & -- & -- \\
 \hline
 \end{tabular}
 \end{table}
@@ -198,12 +194,12 @@ The policy model backbone comparison will evaluate LLaMA-3.1-8B-Instruct and Qwe
 \centering
 \caption{Planned policy model backbone comparison.}
 \label{tab:policy-backbone-placeholder}
-\begin{tabular}{lccccc}
+\begin{tabular}{lccc}
 \hline
-Policy Backbone & CTRS & WAI & MITI & Change Talk & Sustain Talk \\
+Policy Backbone & CTRS & WAI & MITI \\
 \hline
-LLaMA-3.1-8B-Instruct & -- & -- & -- & -- & -- \\
-Qwen-2.5-7B-Instruct-1M & -- & -- & -- & -- & -- \\
+LLaMA-3.1-8B-Instruct & -- & -- & -- \\
+Qwen-2.5-7B-Instruct-1M & -- & -- & -- \\
 \hline
 \end{tabular}
 \end{table}
