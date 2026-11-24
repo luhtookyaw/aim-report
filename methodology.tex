@@ -393,6 +393,8 @@ where \(\hat{R}_t^{(i)}\) is the predicted therapeutic reward for candidate resp
 
 where \(M\) is the number of training samples, \(\hat{R}_m\) is the reward predicted by the reward model, and \(R_m\) is the reward target assigned by the reward judge.
 
+Client groups are assigned to disjoint training, validation, and test splits, with the same assignments maintained across all lookahead depths. All sessions, contexts, and derived examples belonging to a client remain in the same split to prevent data leakage. The dataset sizes and group assignments are reported in Chapter 4.
+
 Reward model training is performed iteratively across different lookahead depths. In the one-step stage, the system constructs the dataset \(D_1\) by generating candidate therapist responses, simulating one future client response for each candidate, and assigning reward scores to the resulting one-step trajectories. The first reward model \(RM_1\) is trained using this one-step lookahead dataset:
 
 \[

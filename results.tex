@@ -2,7 +2,7 @@
 
 \chapter{EXPERIMENT}
 
-This chapter presents the experimental design used to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The purpose of the experiment is to examine whether reward-guided lookahead search can improve therapeutic response quality when compared with baseline response generation methods. The chapter describes the experimental conditions, including the simulated client setup, compared systems, lookahead configurations, reward model backbones, and policy model backbones. It also explains the evaluation protocol and metrics used to assess therapeutic skill quality, MI fidelity, therapeutic alliance, and reward model performance. Since the implementation and evaluation are still in progress, the final section of this chapter is reserved for reporting the experimental results after they are obtained.
+This chapter presents the experimental design used to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The purpose of the experiment is to examine whether reward-guided lookahead search can improve therapeutic response quality when compared with baseline response generation methods. The chapter describes the experimental conditions, including the simulated client setup, compared systems, lookahead configurations, and reward model backbones. It also explains the evaluation protocol and metrics used to assess therapeutic skill quality, MI fidelity, therapeutic alliance, and reward model performance. Since the implementation and evaluation are still in progress, this chapter reports the available one-step reward model results, while the remaining comparisons will be added after evaluation is completed.
 
 \section{Experimental Design and Conditions}
 
@@ -10,7 +10,7 @@ This chapter presents the experimental design used to evaluate AIM-RGL in simula
 
 This experiment is designed to evaluate AIM-RGL in simulated MI-CBT counseling dialogue. The main purpose is to examine whether reward-guided lookahead search can improve therapeutic response generation when the simulated client shows resistance, ambivalence, or changing readiness for structured intervention. In this setting, a response is not evaluated only by whether it appears appropriate in the current turn, but also by whether it is expected to support a better near-future therapeutic trajectory.
 
-The experiment compares AIM-RGL with selected baseline therapist systems under the same simulated client scenarios. Each system receives the same client profile, cognitive conceptualization information, difficulty setting, and dialogue context. The resulting therapist-client conversations are evaluated using counseling-specific metrics, including therapeutic skill quality, MI fidelity, and therapeutic alliance. The experiment also examines the effects of different lookahead horizons, reward model backbones, and policy model backbones.
+The experiment compares AIM-RGL with selected baseline therapist systems under the same simulated client scenarios. Each system receives the same client profile, cognitive conceptualization information, difficulty setting, and dialogue context. The resulting therapist-client conversations are evaluated using counseling-specific metrics, including therapeutic skill quality, MI fidelity, and therapeutic alliance. The experiment also examines the effects of different lookahead horizons and reward model backbones.
 
 The experiment is guided by the following research questions:
 
@@ -20,8 +20,6 @@ The experiment is guided by the following research questions:
     \item \textbf{RQ2:} Does reward-guided lookahead search strengthen therapeutic alliance compared with baseline systems?
     
     \item \textbf{RQ3:} How do different lookahead horizons, including one-step, two-step, and three-step lookahead, affect reward-guided MI-CBT response quality?
-    
-    \item \textbf{RQ4:} How does the choice of policy model backbone affect the quality of MI-CBT therapeutic responses?
 \end{itemize}
 
 Based on these research questions, the experiment tests the following hypotheses:
@@ -32,17 +30,15 @@ Based on these research questions, the experiment tests the following hypotheses
     \item \textbf{H2:} Reward-guided lookahead search will lead to stronger therapeutic alliance compared with baseline methods.
     
     \item \textbf{H3:} Longer lookahead horizons will improve MI-CBT response quality by considering future client reactions and therapeutic trajectory.
-    
-    \item \textbf{H4:} The choice of policy model backbone will affect the quality of MI-CBT therapeutic responses in simulated resistant-client conversations.
 \end{itemize}
 
 This experiment is limited to simulated therapist-client dialogue. It does not involve real patients or human clinical participants, and it does not measure real clinical treatment outcomes.
 
 \subsection{Experimental Conditions}
 
-The experiment includes four main experimental factors: therapist system, lookahead horizon, reward model backbone, and policy model backbone. The therapist system comparison is used to evaluate whether AIM-RGL improves therapeutic response quality compared with selected baseline systems. The lookahead horizon comparison is used to examine whether considering more future client reactions improves response selection. The reward model backbone comparison is used to evaluate reward prediction performance, while the policy model backbone comparison is used to examine whether policy optimization results depend on the underlying response generation model.
+The experiment includes three main experimental factors: therapist system, lookahead horizon, and reward model backbone. The therapist system comparison is used to evaluate whether AIM-RGL improves therapeutic response quality compared with selected baseline systems. The lookahead horizon comparison is used to examine whether considering more future client reactions improves response selection. The reward model backbone comparison is used to evaluate reward prediction performance.
 
-The therapist systems compared in this experiment are CBT, CAMEL, FLASH, and AIM-RGL. The CBT baseline represents a structured cognitive-behavioral response generation approach. It focuses on CBT-style skills such as identifying thoughts, examining evidence, and supporting structured reflection or action. CAMEL is included as a baseline counseling agent for comparison \cite{lee2024cactus}. FLASH is included as a memory-guided MI-CBT baseline that uses previous client interactions to guide therapeutic strategy selection \cite{anonymous2026flash}. AIM-RGL is the proposed framework, which uses specialist therapist agents, client simulation, reward-guided lookahead search, reward model training, and policy optimization.
+The therapist systems compared in this experiment are Standard, CAMEL, and AIM-RGL. The Standard baseline uses GPT-4o-mini with a fixed therapist prompt, provided in Appendix~\ref{app:standard-prompt}. CAMEL is included as a baseline counseling agent for comparison \cite{lee2024cactus}. AIM-RGL is the proposed framework, which uses specialist therapist agents, client simulation, reward-guided lookahead search, reward model training, and policy optimization.
 
 For AIM-RGL, the lookahead horizon is varied using one-step, two-step, and three-step lookahead settings. These are not treated as separate system names, but as different configurations of the same reward-guided lookahead mechanism. In one-step lookahead, each candidate therapist response is followed by one simulated client response before scoring. In two-step lookahead, the system expands the trajectory further to estimate a longer short-term therapeutic effect. In three-step lookahead, the system examines whether deeper trajectory evaluation provides additional improvement in response quality.
 
@@ -53,18 +49,16 @@ For AIM-RGL, the lookahead horizon is varied using one-step, two-step, and three
 \hline
 \textbf{Condition Type} & \textbf{Experimental Settings} \\
 \hline
-Therapist system & CBT, CAMEL, FLASH, AIM-RGL \\
+Therapist system & Standard, CAMEL, AIM-RGL \\
 \hline
 Lookahead horizon & One-step lookahead, two-step lookahead, three-step lookahead \\
 \hline
 Reward model backbone & DeBERTa-v3-large, ModernBERT-large, RoBERTa-large \\
 \hline
-Policy model backbone & LLaMA-3.1-8B-Instruct, Qwen-2.5-7B-Instruct-1M \\
-\hline
 \end{tabular}
 \end{table}
 
-The reward model backbone comparison includes DeBERTa-v3-large, ModernBERT-large, and RoBERTa-large. These models are used to examine how different encoder-based architectures affect scalar therapeutic reward prediction. The policy model backbone comparison includes LLaMA-3.1-8B-Instruct and Qwen-2.5-7B-Instruct-1M. These models are used to examine how the choice of response generation backbone affects optimized MI-CBT therapeutic response quality.
+The reward model backbone comparison includes DeBERTa-v3-large, ModernBERT-large, and RoBERTa-large. These models are evaluated for scalar therapeutic reward prediction. Based on the one-step dataset results reported in Table~\ref{tab:reward-backbone-d1}, DeBERTa-v3-large is selected as the reward model backbone for AIM-RGL because it achieves the best performance across all reported predictive metrics.
 
 \subsection{Dataset and Client Simulation Setup}
 
@@ -80,79 +74,55 @@ GPT-4o-mini is used for therapist-side response generation and client simulation
 
 This subsection describes the training configuration used for the reward model and the policy optimization stage. The reward model is trained before policy optimization because it provides the scalar therapeutic reward signal used to score candidate therapist responses during reward-guided lookahead search and GRPO. The methodological details of reward model training and GRPO are already described in Chapter 3; therefore, this subsection focuses only on the experimental configuration, dataset size, model backbones, and training setup.
 
-For reward model training, 10 simulated client cases are selected from the Patient-\(\Psi\)-CM dataset. Each client case is evaluated under three difficulty modes: easy, normal, and hard. For each client and difficulty mode, 29 scored therapist turns are used. In the one-step lookahead setting, five candidate therapist responses are generated for each scored turn, corresponding to the main therapist agents. Therefore, the one-step reward dataset contains \(10 \times 3 \times 29 \times 5 = 4{,}350\) samples.
+The reward datasets are constructed from 22 simulated clients across 65 sessions and 1,885 conversation contexts. The one-step lookahead dataset, \(D_1\), contains five scored candidate responses per context, giving \(1{,}885 \times 5 = 9{,}425\) examples. The two-step and three-step datasets, \(D_2\) and \(D_3\), are generated through beam-guided trajectory expansion and each contain four scored trajectories per context, giving \(1{,}885 \times 4 = 7{,}540\) examples per dataset. Together, the three datasets contain 24,505 examples. Table~\ref{tab:reward-dataset-summary} summarizes their composition.
 
-For deeper lookahead, the reward dataset is generated using beam-guided trajectory expansion. In the two-step lookahead setting, four judged trajectories are stored for each scored turn, producing \(10 \times 3 \times 29 \times 4 = 3{,}480\) samples. The three-step lookahead setting follows the same sample structure and also produces \(10 \times 3 \times 29 \times 4 = 3{,}480\) samples. In total, the planned reward model training dataset contains 11,310 samples across one-step, two-step, and three-step lookahead data.
+\begin{table}[htbp]
+\centering
+\caption{Reward dataset composition by lookahead depth.}
+\label{tab:reward-dataset-summary}
+\begin{tabular}{lrrrr}
+\hline
+Dataset & Examples & Clients & Sessions & Contexts \\
+\hline
+\(D_1\) (one-step) & 9,425 & 22 & 65 & 1,885 \\
+\(D_2\) (two-step) & 7,540 & 22 & 65 & 1,885 \\
+\(D_3\) (three-step) & 7,540 & 22 & 65 & 1,885 \\
+\hline
+\end{tabular}
+\end{table}
 
-The reward model is trained as a regression model. Its objective is to predict a scalar therapeutic reward score for each candidate response or lookahead trajectory. The reward targets are generated by the reward judge based on therapeutic dimensions such as therapeutic alliance, understanding and empathy, collaboration and structure, CBT skill and strategy, and MI quality and readiness. The dataset is divided into training, validation, and test sets using a 70\%, 15\%, and 15\% split. Mean squared error loss is used for reward model training because the reward target is represented as a continuous scalar score.
+The datasets are partitioned by client group rather than by randomly splitting individual examples. The training split contains 13 clients from groups 1, 10, 11, 12, 13, 14, 5, 6, and 7; the validation split contains five clients from groups 2 and 9; and the test split contains four clients from groups 3, 4, and 8. The same group assignments are used across all three lookahead datasets, keeping each client's sessions, contexts, and derived examples within a single split to prevent data leakage. Table~\ref{tab:reward-dataset-splits} lists these assignments.
+
+\begin{table}[htbp]
+\centering
+\caption{Client-group splits for reward model training and evaluation.}
+\label{tab:reward-dataset-splits}
+\begin{tabular}{llr}
+\hline
+Split & Client groups & Clients \\
+\hline
+Training & 1, 10, 11, 12, 13, 14, 5, 6, 7 & 13 \\
+Validation & 2, 9 & 5 \\
+Test & 3, 4, 8 & 4 \\
+\hline
+\end{tabular}
+\end{table}
+
+The reward model is trained as a regression model. Its objective is to predict a scalar therapeutic reward score for each candidate response or lookahead trajectory. The reward targets are generated by the reward judge based on therapeutic dimensions such as therapeutic alliance, understanding and empathy, collaboration and structure, CBT skill and strategy, and MI quality and readiness. The reward model is fitted on the training groups, with the validation groups used for model selection and the held-out test groups used for final evaluation. Mean squared error loss is used for reward model training because the reward target is represented as a continuous scalar score.
 
 After the reward model is trained, it is used to support policy optimization through GRPO. In this stage, the policy model generates a group of candidate therapist responses for the same conversation context. The trained reward model scores each candidate response, and the group-level reward distribution is used to compute relative advantages. The policy model is then optimized to increase the likelihood of higher-reward therapeutic responses while remaining close to the reference model through a KL penalty.
 
-The GRPO stage compares two policy model backbones: LLaMA-3.1-8B-Instruct and Qwen-2.5-7B-Instruct-1M. Low-rank adaptation is used to reduce the cost of policy optimization. The planned LoRA configuration uses a rank of 8 and a LoRA alpha of 32. A fixed copy of the initial policy backbone is used as the reference model for calculating the KL divergence penalty. The number of generated responses per context is treated as the GRPO group size. The exact learning rate, batch size, number of epochs, and number of GRPO training client cases will be finalized during implementation based on available computational resources.
+In the GRPO stage, low-rank adaptation is used to reduce the cost of policy optimization. The planned LoRA configuration uses a rank of 8 and a LoRA alpha of 32. A fixed copy of the initial policy backbone is used as the reference model for calculating the KL divergence penalty. The number of generated responses per context is treated as the GRPO group size. The exact learning rate, batch size, number of epochs, and number of GRPO training client cases will be finalized during implementation based on available computational resources.
 
-The reward model and policy optimization stages are separated to make the experimental comparison clearer. The reward model training stage evaluates whether the system can learn to approximate therapeutic reward scores from lookahead data. The GRPO stage then evaluates whether this learned reward signal can improve the therapeutic response generation policy across different policy model backbones.
+The reward model and policy optimization stages are separated to make the experimental comparison clearer. The reward model training stage evaluates whether the system can learn to approximate therapeutic reward scores from lookahead data. The GRPO stage then evaluates whether this learned reward signal can improve the therapeutic response generation policy.
 
 \section{Experimental Results}
 
-This section presents the current experimental results and describes how the final results will be reported after the full AIM-RGL implementation and evaluation are completed. At the current stage, the available results are preliminary baseline results comparing CBT and FLASH under easy, normal, and hard simulated client settings. The final version of this section will include the complete comparison between CBT, CAMEL, FLASH, and AIM-RGL, together with lookahead horizon, reward model backbone, and policy model backbone comparisons.
-
-\subsection{Therapeutic Response Quality Results}
-
-The preliminary evaluation compares CBT and FLASH using therapist skill dimensions and broader therapeutic quality metrics. The therapist skill dimensions include approach, discovery, focus, strategy, understanding, and interpersonal collaboration. Table~\ref{tab:prelim-therapist-skills} summarizes the preliminary therapist skill results across easy, medium, and hard simulated client levels.
-
-\begin{table}[h]
-\centering
-\caption{Preliminary therapist skill results for CBT and FLASH.}
-\label{tab:prelim-therapist-skills}
-\footnotesize
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{llcccccc}
-\hline
-Level & System & Approach & Discovery & Focus & Strategy & Understanding & Collaboration \\
-\hline
-Easy & CBT & 4.00 & 4.00 & 3.60 & 4.00 & 4.80 & 4.00 \\
-Easy & FLASH & 4.00 & 3.80 & 3.60 & 4.00 & 4.60 & 3.60 \\
-\hline
-Medium & CBT & 4.00 & 4.00 & 3.20 & 4.00 & 4.40 & 4.00 \\
-Medium & FLASH & 4.00 & 3.40 & 3.40 & 4.00 & 4.80 & 3.40 \\
-\hline
-Hard & CBT & 4.00 & 3.80 & 3.40 & 4.00 & 4.20 & 3.20 \\
-Hard & FLASH & 4.00 & 3.40 & 3.00 & 3.80 & 5.00 & 3.30 \\
-\hline
-\end{tabular}
-\end{table}
-
-The preliminary results show that CBT obtains stronger scores than FLASH on several therapist skill dimensions, especially discovery and collaboration. CBT also remains relatively stable across difficulty levels. FLASH shows stronger understanding scores in medium and hard settings, but its discovery, focus, and collaboration scores are lower in several conditions. This suggests that FLASH may generate responses that appear understanding, but may provide less structured therapeutic progression in more difficult simulated client conditions.
-
-Table~\ref{tab:prelim-quality-alliance} summarizes the preliminary therapeutic quality and alliance results. The evaluation includes CTRS, WAI, MITI, and alliance scores across easy, normal, and hard simulated client settings.
-
-\begin{table}[h]
-\centering
-\caption{Preliminary therapeutic skills and alliance results.}
-\label{tab:prelim-quality-alliance}
-\small
-\setlength{\tabcolsep}{8pt}
-\begin{tabular}{llcccc}
-\hline
-Level & System & CTRS & WAI & MITI & Alliance \\
-\hline
-Easy & CBT & 3.73 & 3.67 & 4.22 & 3.84 \\
-Easy & FLASH & 3.47 & 3.43 & 4.24 & 3.64 \\
-\hline
-Normal & CBT & 3.65 & 3.55 & 4.04 & 3.79 \\
-Normal & FLASH & 2.77 & 3.23 & 3.92 & 3.27 \\
-\hline
-Hard & CBT & 3.61 & 3.71 & 3.88 & 3.77 \\
-Hard & FLASH & 2.82 & 3.06 & 3.80 & 3.24 \\
-\hline
-\end{tabular}
-\end{table}
-
-The preliminary results indicate that CBT performs better than FLASH on CTRS, WAI, and alliance across all difficulty levels. FLASH obtains a slightly higher MITI score in the easy condition, but CBT performs better on MITI in the normal and hard conditions. This suggests that CBT provides stronger structured therapeutic competence and alliance in the current preliminary evaluation, while FLASH may preserve some MI-related qualities in easier settings. However, these findings should be interpreted only as preliminary baseline results because the full AIM-RGL comparison has not yet been completed.
+This section presents the current experimental results and describes how the final results will be reported after the full AIM-RGL implementation and evaluation are completed. At the current stage, the available results cover reward model backbones trained on the one-step lookahead dataset, \(D_1\). The final version of this section will include the complete comparison between Standard, CAMEL, and AIM-RGL, together with lookahead horizon and reward model backbone comparisons.
 
 \subsection{Ablation and Model Comparison Results}
 
-The ablation and model comparison results will be added after the full AIM-RGL experiment is completed. This part of the experiment will examine whether reward-guided lookahead search improves therapeutic response quality compared with the baseline systems. It will also analyze how different lookahead horizons affect response quality.
+The reward model backbone results for \(D_1\) are reported below. The remaining ablation and system comparison results will be added after the full AIM-RGL experiment is completed. This part of the experiment will examine whether reward-guided lookahead search improves therapeutic response quality compared with the baseline systems. It will also analyze how different lookahead horizons affect response quality.
 
 The lookahead comparison will evaluate one-step, two-step, and three-step lookahead settings. The purpose of this comparison is to determine whether deeper lookahead improves therapeutic response selection by considering more future client reactions, or whether the benefit becomes limited after a certain depth. The final results will be reported using the same therapeutic evaluation metrics, including CTRS, WAI, MITI, and alliance.
 
@@ -171,41 +141,29 @@ Three-step lookahead & -- & -- & -- \\
 \end{tabular}
 \end{table}
 
-The reward model backbone comparison will evaluate DeBERTa-v3-large, ModernBERT-large, and RoBERTa-large. Since the reward model predicts a scalar therapeutic reward score, the comparison will use regression and ranking-based metrics such as mean squared error, mean absolute error, Pearson correlation, and Spearman rank correlation.
+The reward model backbone comparison evaluates DeBERTa-v3-large, ModernBERT-large, and RoBERTa-large trained on the one-step lookahead dataset, \(D_1\). Table~\ref{tab:reward-backbone-d1} reports their parameter counts, loss, mean absolute error (MAE), root mean squared error (RMSE), Pearson correlation, and Spearman rank correlation. Lower loss, MAE, and RMSE indicate better predictive performance, while higher Pearson and Spearman correlations indicate stronger agreement with the reward targets. Loss is reported as provided in the evaluation results; it is not equated here with mean squared error on the scale used for RMSE.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
-\caption{Planned reward model backbone comparison.}
-\label{tab:reward-backbone-placeholder}
-\begin{tabular}{lcccc}
+\caption{Reward model backbone performance after training on the one-step lookahead dataset (\(D_1\)). Bold values indicate the best predictive results and the smallest parameter count.}
+\label{tab:reward-backbone-d1}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrr}
 \hline
-Reward Model Backbone & MSE & MAE & Pearson $r$ & Spearman $\rho$ \\
+Backbone & Parameters & Loss $\downarrow$ & MAE $\downarrow$ & RMSE $\downarrow$ & Pearson $\uparrow$ & Spearman $\uparrow$ \\
 \hline
-DeBERTa-v3-large & -- & -- & -- & -- \\
-ModernBERT-large & -- & -- & -- & -- \\
-RoBERTa-large & -- & -- & -- & -- \\
+DeBERTa-v3-large & 435M & \textbf{0.0024} & \textbf{0.3769} & \textbf{0.4909} & \textbf{0.8087} & \textbf{0.7768} \\
+ModernBERT-large & 395M & 0.0066 & 0.6031 & 0.8103 & 0.5854 & 0.5827 \\
+RoBERTa-large & \textbf{355M} & 0.0027 & 0.4236 & 0.5287 & 0.7687 & 0.7082 \\
 \hline
 \end{tabular}
 \end{table}
 
-The policy model backbone comparison will evaluate LLaMA-3.1-8B-Instruct and Qwen-2.5-7B-Instruct-1M after policy optimization using the trained reward model. This comparison will show whether the quality of MI-CBT response generation depends on the underlying policy model backbone.
-
-\begin{table}[h]
-\centering
-\caption{Planned policy model backbone comparison.}
-\label{tab:policy-backbone-placeholder}
-\begin{tabular}{lccc}
-\hline
-Policy Backbone & CTRS & WAI & MITI \\
-\hline
-LLaMA-3.1-8B-Instruct & -- & -- & -- \\
-Qwen-2.5-7B-Instruct-1M & -- & -- & -- \\
-\hline
-\end{tabular}
-\end{table}
+DeBERTa-v3-large achieves the lowest loss, MAE, and RMSE and the highest Pearson and Spearman correlations among the three evaluated backbones. Its Pearson correlation of 0.8087 indicates the strongest linear association with the reward targets, while its Spearman correlation of 0.7768 indicates the strongest rank agreement. RoBERTa-large ranks second on all reported predictive metrics and has the smallest parameter count, at 355 million. ModernBERT-large records the highest prediction errors and the lowest correlations in this comparison. Based on these results, DeBERTa-v3-large is selected as the reward model backbone for AIM-RGL. Its lower prediction errors and stronger correlations with the reward targets motivate this choice, although it also has the largest parameter count. They do not establish performance at deeper lookahead depths or improvements in downstream therapeutic dialogue.
 
 \subsection{Summary of Findings}
 
-The current preliminary results provide an initial baseline comparison between CBT and FLASH. CBT shows stronger overall performance in structured therapist skill quality, CTRS, WAI, and alliance across easy, normal, and hard simulated client settings. FLASH shows competitive MI-related performance in the easy setting, but its scores decrease more clearly in normal and hard simulated client conditions.
+The available results compare reward model backbones trained on the one-step lookahead dataset, \(D_1\). Therapeutic response quality comparisons between Standard, CAMEL, and AIM-RGL will be reported after their evaluation is completed.
 
-These preliminary findings support the need for a response selection mechanism that can balance structured CBT competence with MI-consistent readiness handling. The final AIM-RGL evaluation will examine whether reward-guided lookahead search can improve this balance by comparing candidate MI-CBT responses according to their expected near-future therapeutic effects. The final summary will be updated after AIM-RGL, lookahead horizon, reward model backbone, and policy backbone results are completed.
+The proposed response selection mechanism aims to balance structured CBT competence with MI-consistent readiness handling. The final AIM-RGL evaluation will examine whether reward-guided lookahead search can improve this balance by comparing candidate MI-CBT responses according to their expected near-future therapeutic effects. For reward models trained on \(D_1\), DeBERTa-v3-large performs best across all reported predictive metrics, while RoBERTa-large provides the smallest backbone. The final summary will be updated after the remaining AIM-RGL and lookahead horizon evaluations are completed.
