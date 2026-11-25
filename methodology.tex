@@ -403,7 +403,44 @@ RM_1 = Train(M_0, D_1)
 
 where \(M_0\) is the pretrained base model used as the initial reward model backbone.
 
-After \(RM_1\) is trained, it is used to support two-step lookahead data generation. Instead of expanding all candidate branches, \(RM_1\) scores the first-step candidate responses and retains only the top-ranked candidates as beam branches. These retained branches are then expanded further to generate two-step trajectories. The resulting dataset is denoted as \(D_2\). The second reward model \(RM_2\) is then fine-tuned using both one-step and two-step lookahead data:
+\textbf{Two-step lookahead data generation.}
+After \(RM_1\) is trained, it guides construction of \(D_2\) using a beam width of two. For a conversation history \(H_t\), the five therapist agents first generate five candidate responses, \(r_{t,1}^{(1)},\ldots,r_{t,1}^{(5)}\). The reward model scores all five candidates:
+\begin{equation}
+\hat{R}_{t,1}^{(i)}=RM_1(H_t,r_{t,1}^{(i)}).
+\end{equation}
+Only the two candidates with the highest predicted rewards are retained as branches \(A\) and \(B\); the other three are removed before further expansion.
+
+One client response is simulated for each retained branch, producing two branch-specific histories:
+\begin{equation}
+H_{t,1}^{b}=[H_t,r_{t,1}^{b},c_{t,1}^{b}],
+\qquad b\in\{A,B\}.
+\end{equation}
+The five therapist agents then generate five second-step responses from each branch. This gives \(2\times5=10\) two-step candidate trajectories. Each second-step response is scored by \(RM_1\) using its corresponding branch history:
+\begin{equation}
+\hat{R}_{t,2}^{(b,j)}=RM_1(H_{t,1}^{b},r_{t,2}^{(b,j)}),
+\qquad j\in\{1,\ldots,5\}.
+\end{equation}
+The cumulative predicted score for ranking these trajectories is
+\begin{equation}
+G_t^{(b,j)}=\hat{R}_{t,1}^{b}+\gamma\hat{R}_{t,2}^{(b,j)}.
+\label{eq:two-step-selection-score}
+\end{equation}
+
+Four trajectories are selected from the ten candidates: the two with the highest cumulative scores, one with the lowest cumulative score, and one sampled randomly from the remaining candidates. The random selection excludes both top-ranked trajectories and the lowest-ranked trajectory so that the four selections are distinct. Retaining a low-scoring trajectory and a random trajectory alongside the best candidates provides a broader range of reward targets for training than retaining only the highest-scoring trajectories.
+
+A second client response is generated for each of these four selected trajectories, completing
+\begin{equation}
+\tau_t^{(b,j)}=[H_t,r_{t,1}^{b},c_{t,1}^{b},r_{t,2}^{(b,j)},c_{t,2}^{(b,j)}].
+\end{equation}
+GPT-4o evaluates all four completed trajectories to obtain their terminal two-step reward targets. Per conversation context, this procedure uses five first-step and ten second-step reward model evaluations, two first-step client simulations, four final client simulations, and four terminal judge evaluations.
+
+The cumulative predicted score in Equation~\ref{eq:two-step-selection-score} is used to rank and select trajectories; it is not the supervised target for \(RM_2\). Each stored training example instead pairs the original history and first therapist response with the GPT-4o terminal reward after two steps:
+\begin{equation}
+x_t^{(b,j)}=(H_t,r_{t,1}^{b}),
+\qquad y_t^{(b,j)}=J_{\mathrm{GPT\text{-}4o}}(\tau_t^{(b,j)}).
+\label{eq:two-step-training-example}
+\end{equation}
+Thus, the model learns to predict the eventual two-step therapeutic reward from the current history and initial candidate response, without requiring the future client and therapist turns as input at prediction time. The four judged examples per context form the two-step dataset \(D_2\). The second reward model \(RM_2\) is then fine-tuned using both one-step and two-step lookahead data:
 
 \[
 D_2 = Generate(RM_1, d=2)
@@ -423,7 +460,9 @@ D_3 = Generate(RM_2, d=3)
 RM_3 = FineTune(RM_2, D_1 \cup D_2 \cup D_3)
 \]
 
-This iterative training process allows the reward model to gradually learn from deeper future trajectories while reducing the computational cost of exhaustive search. The beam-based procedure keeps the most promising branches for expansion, making multi-step lookahead more practical.
+This iterative training process allows the reward model to gradually learn from deeper future trajectories while reducing the computational cost of exhaustive search. Beam pruning restricts the initial expansion to promising branches, while the final training selection includes high-scoring, low-scoring, and randomly selected trajectories. This reduces expansion cost while retaining a range of training targets.
+
+Before GRPO, the response policy undergoes supervised fine-tuning to establish its initial response-generation behavior. The MI-CBT data balancing procedure and SFT training configuration are described in Section~\ref{sec:sft-training-configuration}. The resulting SFT checkpoint is used as the starting policy for reward-guided optimization.
 
 After reward model training, the learned reward signal is used to optimize the therapist response policy. For each conversation history \(H_t\), the policy model samples a group of candidate therapist responses:
 
@@ -431,11 +470,25 @@ After reward model training, the learned reward signal is used to optimize the t
 r_t^{(1)}, r_t^{(2)}, \ldots, r_t^{(G)} \sim \pi_{\phi}(\cdot \mid H_t)
 \]
 
-where \(\pi_{\phi}\) is the policy model and \(G\) is the number of sampled responses in the group. Each sampled response is scored by the trained reward model:
+where \(\pi_{\phi}\) is the policy model and \(G\) is the number of sampled responses in the group. Each policy output must be a JSON object containing exactly two string fields, \texttt{technique} and \texttt{response}, as specified in Appendix~\ref{app:policy-prompt}. GRPO combines the learned therapeutic reward with a format compliance reward so that optimization also encourages usable, structured outputs.
 
-\[
-R_i = RM(H_t, r_t^{(i)})
-\]
+\textbf{Format compliance reward.}
+An output passes validation only if it is valid JSON with exactly the two required fields; the technique name belongs to the supported list of 16 MI-CBT techniques; the response is non-empty and no longer than 80 words; and there is no extra text outside the JSON object or unresolved example placeholders. Let \(C(y)\) indicate whether policy output \(y\) passes all these checks. The format reward is
+\begin{equation}
+r_{\mathrm{format}}(y)=
+\begin{cases}
++0.2, & \text{if } C(y)=1,\\
+-0.2, & \text{otherwise}.
+\end{cases}
+\label{eq:format-compliance-reward}
+\end{equation}
+
+The total reward is the sum of the trained reward model score and the format term:
+\begin{equation}
+r_{\mathrm{total}}(y)=r_{\mathrm{reward\ model}}(y)+r_{\mathrm{format}}(y).
+\label{eq:total-policy-reward}
+\end{equation}
+The format term rewards structural compliance rather than therapeutic quality, which remains the role of the reward model. The values in Equation~\ref{eq:format-compliance-reward} already incorporate the format reward magnitude of 0.2; no additional factor of 0.2 is applied. For candidate \(i\), \(R_i\) denotes this combined reward.
 
 The rewards are then normalized within the group to compute a relative advantage for each candidate response:
 
@@ -447,7 +500,7 @@ where \(\mu_R\) and \(\sigma_R\) are the mean and standard deviation of the rewa
 
 \subsection{GRPO}
 
-After the reward model is trained, it is used to guide policy optimization. For each conversation history, the policy model samples a group of candidate therapist responses. The trained reward model scores each response, and the scores are normalized within the group to compute relative advantages. These advantages are then used to update the policy model while a KL penalty constrains the updated policy from drifting too far from the reference model. Figure~\ref{fig:grpo_policy_optimization} illustrates this GRPO-based policy optimization process.
+GRPO initializes the policy from the SFT checkpoint and keeps the trained reward model frozen. Conversation histories are extracted from the reward dataset without the original candidate therapist responses, allowing the policy to generate new candidates for each training context. For each conversation history, the policy model samples a group of candidate therapist responses. The trained reward model scores each response, the format compliance reward is added, and the resulting total rewards are normalized within the group to compute relative advantages. These advantages are then used to update the policy model while a KL penalty constrains the updated policy from drifting too far from the reference model. Figure~\ref{fig:grpo_policy_optimization} illustrates this GRPO-based policy optimization process.
 
 \begin{figure}[htbp]
 \centering
@@ -515,8 +568,8 @@ $r_t^{(1)}, r_t^{(2)}, \ldots, r_t^{(G)}$
 };
 
 \node[rewardbox] (reward) at (5.4,0) {
-Reward Model\\
-$R_i = RM(H_t,r_t^{(i)})$
+Reward Model + Format\\
+$R_i = r_{\mathrm{RM}}^{(i)}+r_{\mathrm{format}}^{(i)}$
 };
 
 \node[advbox] (advantage) at (5.4,-2.45) {
@@ -556,7 +609,7 @@ $\pi_{\text{ref}}$
 
 \end{tikzpicture}
 }
-\caption{GRPO-based policy optimization using rewards predicted by the trained reward model.}
+\caption{GRPO-based policy optimization using the combined reward model score and format compliance reward.}
 \label{fig:grpo_policy_optimization}
 \end{figure}
 
